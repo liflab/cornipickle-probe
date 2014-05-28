@@ -12,6 +12,10 @@ Voir `requirements.txt` pour les versions des dépendance.
     workon probe
     pip install -r requirements.txt
 
+Si vous rencontrez des problèmes à l'installation des dépendances veuillez exécuter
+
+    sudo apt-get install python2.7-dev
+
 Voilà, on est prêt à travailler avec django!
 
 ### Installer nodejs et npm
