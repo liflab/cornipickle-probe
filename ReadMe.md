@@ -28,7 +28,7 @@ On installe ça pour grunt et bower; compilation automatique du scss et gestion 
 
 #### sous Ubuntu
 
-    apt=get install nodejs
+    sudo apt-get install nodejs
 
 #### Installer les dépendances node
 
