@@ -38,6 +38,7 @@ class Probe(models.Model):
 
     user = models.ForeignKey(
         User,
+        unique=False,
         verbose_name=u"user",
         help_text=u"User"
     )
