@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="{{ lang }}" prefix="og: http://ogp.me/ns#">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="{{ lang }}" prefix="og: http://ogp.me/ns#">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8) ]><!-->
+<html lang="{{ lang }}" prefix="og:http://ogp.me/ns#">
+<!--<![endif]-->
+
+<!--[if lt IE 8]>
+<p class="browsehappy alert warning">{{ _("You are using an <strong>outdated</strong> browser. Please, <a target='_blank' href='http://browsehappy.com/'>update your browser</a> so you can enjoy the web as it is ment to be.") }}</p>
+<![endif]-->
+
+<head>
+
+    <title>{% block title %}{{ site_name }}{% if page_name %} | {{ page_name }}{% endif %}{% endblock title %}</title>
+    {% block meta %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8"/>
+        <meta name="description" content="{{ site_description }}"/>
+        <meta name="keywords" content="{{ keywords }}"/>
+        <meta name="robots" content="index, follow, noarchive"/>
+        {# <meta name="googlebot" content="noarchive"/> #}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Probe web application">
+        <meta name="author" content="LIF">
+    {% endblock %}
+
+    <link rel="shortcut icon" href="{{ "favicon.png"|static }}">
+
+    {% block og_facebook %}
+        {% if og %}
+            <meta property="og:title" content="{{ og.title }}"/>
+            <meta property="og:image" content="{{ og.image }}"/>
+            <meta property="og:site_name" content="{{ og.site_name }}"/>
+            <meta property="og:description" content="{{ og.description }}"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block head_stylesheet %}
+        {# bootstrap oh noes! :P #}
+        <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="{{ "css/theme.css"|static }}"/>
+    {% endblock %}
+
+    {% block head_scripts %}
+        {# jQuery #}
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.1.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='{{ "/js/jquery-2.1.1.min.js"|static }} ' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        {# Google maps #}
+        <script type='text/javascript'
+                src='https://maps.googleapis.com/maps/api/js?v=3.exp&#038;sensor=false&#038;ver=3.9'></script>
+        <script>
+            if (typeof google == 'undefined') {
+                document.write(unescape("%3Cscript src='{{ '/js/maps.googleapis-3.9.min.js'|static }}' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script type="application/javascript" src="{{ "js/modernizr.js"|static }}"></script>
+    {% endblock %}
+</head>
+
+<body class="{% if is_home %}home {% endif %}{% if is_blog %} blog{% endif %}{% if user.logged_in %} logged-in{% endif %}">
+
+{% block header %}
+    {% if user.logged_in %}
+
+    {% else %}
+    <header id="site-header" class="site-header">
+        <a href="{{ url('home') }}" id="site-logo" class="site-logo">{{ site_name }}</a>
+    </header>
+    {% endif %}
+{% endblock %}
+
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+{% include 'footer.jinja2' %}
+
+{% block footer_scripts %}
+    {#    <script type="application/javascript" src="{{ "js/app.js"|static }}></script>#}
+{% endblock %}
+
+</body>
+</html>

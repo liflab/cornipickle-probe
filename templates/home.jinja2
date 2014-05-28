@@ -1,0 +1,36 @@
+{% extends 'base.jinja2' %}
+
+{% block header %}
+    <div class="row">
+        <div class="col-md-2">
+            <img class="logo img-responsive" src="{{ 'img/probe-logo.png'|static }}"
+                 alt="logo">
+        </div>
+        <div class="col-md-10">
+            <div class="content">
+                <h1><span class="font-semi-bold">Probe</span></h1>
+
+                <p class="lead">
+                    {{ gettext('Welcome to ') }}<span
+                            class="font-normal">{{ project }}</span>{{ _(", a web service for tracking client side bugs on a website.") }}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% include 'registration/login-form.jinja2' %}
+    </div>
+
+    <div class="row">
+        <div class="links">
+            <ul>
+                <li class="current-version"><i
+                        class="glyphicon glyphicon-info-sign icon-muted"></i>{{ _('Currently in beta') }}
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

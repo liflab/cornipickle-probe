@@ -1,0 +1,9 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+    <ul>
+        {% for probe in probes %}
+            <li>{{ probe.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,12 @@
+# project files
+temp
+build
+node_modules
+.sass-cache
+
+# We work in local_static; run ./manage.py collectstatic to generate this folder
+static
+
+*.pyc
+*.~
+

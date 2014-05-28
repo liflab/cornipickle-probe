@@ -1,0 +1,25 @@
+{
+  "name": "SSBC",
+  "version": "0.0.1",
+  "description": "Sports Santé et Bonne Compagnie",
+  "dependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-sass": "~0.7.2"
+  },
+  "devDependencies": {
+    "grunt-contrib-sass": "~0.7.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.3.2",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-jshint": "~0.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ssbc"
+  ],
+  "author": "Gabriel Le Breton et Frédéric Bolduc",
+  "license": "None yet"
+}
