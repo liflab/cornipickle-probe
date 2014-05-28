@@ -8,8 +8,8 @@ Il est préférable d'utiliser `virtualenv` avec l'aide de [virtualenvwrapper](h
 
 Voir `requirements.txt` pour les versions des dépendance.
 
-    mkvirtualenv sportsante
-    workon sportsante
+    mkvirtualenv probe
+    workon probe
     pip install -r requirements.txt
 
 Voilà, on est prêt à travailler avec django!
