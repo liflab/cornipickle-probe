@@ -12,6 +12,10 @@ Voir `requirements.txt` pour les versions des dépendance.
     workon probe
     pip install -r requirements.txt
 
+Si vous rencontrez des problèmes à l'installation des dépendances veuillez exécuter
+
+    sudo apt-get install python2.7-dev
+
 Voilà, on est prêt à travailler avec django!
 
 ### Installer nodejs et npm
@@ -24,7 +28,7 @@ On installe ça pour grunt et bower; compilation automatique du scss et gestion 
 
 #### sous Ubuntu
 
-    apt=get install nodejs
+    sudo apt-get install nodejs
 
 #### Installer les dépendances node
 
