@@ -2,8 +2,9 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.sites.models import get_current_site
-from django.http import request
+
+from django.contrib.sites.models import Site
+from probe_app.settings import DEBUG
 
 
 class Sensor(models.Model):
@@ -49,12 +50,17 @@ class Probe(models.Model):
     class Meta:
         pass
 
-    def probe_url(self):
-        return get_current_site(request) + 'probe/' + self.id
+    def probe_url(self, name='Prod'):
+        current_site = Site.objects.get(name=name)
+        return "http://" + current_site.domain + '/probe/' + self.id.__str__() + '.js'
 
     # makes the url clickable in the admin table
     def clickable_probe_url(self):
-        return '<a href="%s" target="_blank">%s</a>' % (self.probe_url(), self.probe_url())
+        if DEBUG:
+            probe_url = self.probe_url('dev')
+        else:
+            probe_url = self.probe_url()
+        return '<a href="%s" target="_blank">%s</a>' % (probe_url, probe_url)
 
     def sensor_names(self):
         return ', '.join([sensor.name for sensor in self.sensors.all()])
@@ -62,4 +68,4 @@ class Probe(models.Model):
     sensor_names.short_description = "Sensors"
 
     clickable_probe_url.allow_tags = True
-    clickable_probe_url.short_description = 'Website'
+    clickable_probe_url.short_description = 'url'

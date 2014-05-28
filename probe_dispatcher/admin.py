@@ -11,7 +11,7 @@ class ProbeAdmin(admin.ModelAdmin):
     """
 
     # ordering = ()
-    list_display = ('name', 'domain', 'user', 'sensor_names')
+    list_display = ('name', 'domain', 'user', 'sensor_names', 'clickable_probe_url')
     search_fields = ('name', 'description', 'domain', 'id')
 
 

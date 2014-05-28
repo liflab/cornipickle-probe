@@ -31,7 +31,11 @@ MANAGERS = ADMINS
 
 LANGUAGE_CODE = 'en'
 
-SITE_ID = 1
+# defines the site id (in database's sites)
+if DEBUG:
+    SITE_ID = 1
+else:
+    SITE_ID = 2
 
 USE_I18N = True
 USE_L10N = True
