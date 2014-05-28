@@ -22,7 +22,7 @@ urlpatterns += patterns('django.contrib.auth.views',
 urlpatterns += i18n_patterns('',
                              # url(r'^search/$', search, {}, name='search'),
                              url(r'^$', TemplateView.as_view(template_name="home.jinja2"), name="home"),
-                             url(r'^dashboard', include('probe_dispatcher.urls')),
+                             url(r'^dashboard/', include('probe_dispatcher.urls')),
 
 )
 
