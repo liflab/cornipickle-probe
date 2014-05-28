@@ -2,8 +2,8 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-
 from django.contrib.sites.models import Site
+
 from probe_app.settings import DEBUG
 
 
@@ -61,6 +61,13 @@ class Probe(models.Model):
         else:
             probe_url = self.probe_url()
         return '<a href="%s" target="_blank">%s</a>' % (probe_url, probe_url)
+
+    def get_script_tag(self):
+        if DEBUG:
+            probe_url = self.probe_url('dev')
+        else:
+            probe_url = self.probe_url()
+        return '<script type="application/javascript" src="%s"></script>' % (probe_url)
 
     def sensor_names(self):
         return ', '.join([sensor.name for sensor in self.sensors.all()])

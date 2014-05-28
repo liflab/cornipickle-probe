@@ -1,9 +1,27 @@
 {% extends 'base.jinja2' %}
 
 {% block content %}
-    <ul>
+    <h1>{{ _('Probes') }}</h1>
+    {% if probes %}
         {% for probe in probes %}
-            <li>{{ probe.name }}</li>
+            <div class="panel" style="padding: 10px; background: rgba(0, 0, 0, 0.3)">
+                <h2>{{ probe.name }}</h2>
+
+                <p>{{ probe.description }}</p>
+
+                <p>{{ _('Domain: ') }}<span class="label label-info">{{ probe.domain }}</span></p>
+                {{ _('Enabled sensors: ') }}
+                <ul>
+                    {% for sensor in sensors %}
+                        <li>{{ sensor.name }}</li>
+                    {% endfor %}
+                </ul>
+                <p>{{ _('Rendered javascript:') }}{{ probe.clickable_probe_url()|safe }}</p>
+                <code>{{ probe.get_script_tag() }}</code>
+            </div>
         {% endfor %}
-    </ul>
+    {% else %}
+        <p>{{ _('You have no probes yet, create one now!') }}</p>
+    {% endif %}
+    <a href="#" class="btn btn-info">{{ _('Create a new probe') }}</a>
 {% endblock %}

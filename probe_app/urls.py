@@ -10,8 +10,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-                       url(r'^', include('probe_dispatcher.urls')),
-                       url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
                        url(r'^admin/', include(admin.site.urls)),
                        url(_(r'^register/$'), 'register', {'template_name': 'register.jinja2'}, name='register'),
 )
@@ -24,6 +22,7 @@ urlpatterns += patterns('django.contrib.auth.views',
 urlpatterns += i18n_patterns('',
                              # url(r'^search/$', search, {}, name='search'),
                              url(r'^$', TemplateView.as_view(template_name="home.jinja2"), name="home"),
+                             url(r'^dashboard', include('probe_dispatcher.urls')),
 
 )
 

@@ -11,3 +11,7 @@ def probe_list(request):
         return render_to_response("probe_dispatcher/probes.jinja2", RequestContext(request, {'probes': Probe.objects.all()}))
     else:
         return False
+
+
+def dashboard(request):
+    return render_to_response("probe_dispatcher/dashboard.jinja2", RequestContext(request, {}))

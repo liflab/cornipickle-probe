@@ -9,18 +9,14 @@
     "license": "MIT",
     "private": true,
     "ignore": [
-        "**/.*",
         "node_modules",
         "bower_components",
-        "components",
-        "test",
-        "tests"
+        "components"
     ],
     "dependencies": {
-        "jQuery-Timepicker-Addon": "~1.4.4",
         "requirejs": "~2.1.11",
         "jquery": "~2.1.0",
         "jquery-ui": "~1.10.4",
-        "jquery-timepicker": "*"
+        "jQuery-Timepicker-Addon": "~1.4.4",
     }
 }

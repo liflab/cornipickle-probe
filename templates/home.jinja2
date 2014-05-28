@@ -1,27 +1,33 @@
 {% extends 'base.jinja2' %}
 
 {% block header %}
-    <div class="row">
-        <div class="col-md-2">
-            <img class="logo img-responsive" src="{{ 'img/probe-logo.png'|static }}"
-                 alt="logo">
-        </div>
-        <div class="col-md-10">
-            <div class="content">
-                <h1><span class="font-semi-bold">Probe</span></h1>
+    <header class="site-header container">
+        <div class="row">
+            <div class="col-md-2">
+                <img class="logo img-responsive" src="{{ 'img/probe-logo.png'|static }}"
+                     alt="logo">
+            </div>
+            <div class="col-md-10">
+                <div class="content">
+                    <h1><span class="font-semi-bold">Probe</span></h1>
 
-                <p class="lead">
+                    <p class="lead">
                     {{ gettext('Welcome to ') }}<span
                             class="font-normal">{{ project }}</span>{{ _(", a web service for tracking client side bugs on a website.") }}
-                </p>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
 {% endblock %}
 
 {% block content %}
     <div class="row">
-        {% include 'registration/login-form.jinja2' %}
+        {% if user.logged_in %}
+            {% include 'registration/login-form.jinja2' %}
+        {% else %}
+            <a href="{{ url('dashboard') }}">{{ _('Dashboard') }}</a>
+        {% endif %}
     </div>
 
     <div class="row">
