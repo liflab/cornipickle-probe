@@ -112,6 +112,9 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'django_jinja',
+    'django_jinja.contrib._humanize',
+    'django_jinja.contrib._easy_thumbnails',
+    'django_jinja.contrib._pipeline',
     'djangocms_admin_style',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,6 +129,7 @@ INSTALLED_APPS = (
     'orderedmodel',
     'debug_toolbar',
     'debug_panel',
+    'custom_filters',
 )
 
 # debug_panel optional cache config

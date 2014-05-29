@@ -17,7 +17,11 @@
                     {% endfor %}
                 </ul>
                 <p>{{ _('Rendered javascript:') }}{{ probe.clickable_probe_url()|safe }}</p>
-                <code>{{ probe.get_script_tag() }}</code>
+                <pre class="highlight">
+                    <code class="html">
+                        {{ probe.get_script_tag() }}
+                    </code>
+                </pre>
             </div>
         {% endfor %}
     {% else %}

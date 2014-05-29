@@ -6,7 +6,7 @@ from django.template import RequestContext
 from models import Probe
 
 
-def probe_list(request):
+def probes(request):
     if request.user.is_authenticated():
         return render_to_response("probe_dispatcher/probes.jinja2", RequestContext(request, {'probes': Probe.objects.all()}))
     else:

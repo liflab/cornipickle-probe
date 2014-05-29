@@ -17,6 +17,6 @@
         "requirejs": "~2.1.11",
         "jquery": "~2.1.0",
         "jquery-ui": "~1.10.4",
-        "jQuery-Timepicker-Addon": "~1.4.4",
+        "jQuery-Timepicker-Addon": "~1.4.4"
     }
 }

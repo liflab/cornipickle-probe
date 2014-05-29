@@ -43,3 +43,9 @@
     </form>
 
 </div>
+
+{# todo: remove me#}
+<form role="form" action="{{ url('register') }}">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    {{ form.as_p() }}
+</form>
