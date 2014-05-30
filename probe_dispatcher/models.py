@@ -6,6 +6,8 @@ from django.contrib.sites.models import Site
 
 from probe_app.settings import DEBUG
 
+import hashlib
+
 
 class Sensor(models.Model):
     name = models.CharField(
@@ -15,8 +17,8 @@ class Sensor(models.Model):
     def __unicode__(self):
         return self.name
 
-
 class Probe(models.Model):
+
     name = models.CharField(
         verbose_name=u"name",
         help_text=u"Name of the probe",
@@ -30,6 +32,10 @@ class Probe(models.Model):
 
     domain = models.CharField(
         max_length=200
+    )
+
+    hash = models.CharField(
+        max_length=40 #todo: Auto-Generate this field, with the user ID, the probeID and a Seed. User hashlib.sha1().
     )
 
     # todo: make this a list or a foreign key, something like that
@@ -52,7 +58,7 @@ class Probe(models.Model):
 
     def probe_url(self, name='Prod'):
         current_site = Site.objects.get(name=name)
-        return "http://" + current_site.domain + '/probe/' + self.id.__str__() + '.js'
+        return "http://" + current_site.domain + '/p/' + self.id.__str__() + '_' + self.hash.__str__() + '.js'
 
     # makes the url clickable in the admin table
     def clickable_probe_url(self):

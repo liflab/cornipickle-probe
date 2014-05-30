@@ -3,7 +3,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from models import Probe
+from models import Probe, Sensor
 
 
 def probes(request):
@@ -13,6 +13,9 @@ def probes(request):
         }))
     else:
         return False
+
+def probe_file(request, id, hash):
+    return render_to_response("probe_dispatcher/probe.jinja2", RequestContext(request, {'id' : id, 'hash' : hash}), content_type='application/javascript')
 
 
 def dashboard(request):

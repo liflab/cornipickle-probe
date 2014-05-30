@@ -17,6 +17,7 @@ urlpatterns = patterns('',
                        url(_(r'^register/$'), views.register, {'template_name': 'register.jinja2'}, name='register'),
                        url(_(r'^login/$'), views.login, name='login'),
                        url(_(r'^logout/$'), views.logout, {'next_page': '/'}, name='logout'),
+                       url(r'^p/(?P<id>\d+)_(?P<hash>[0-9a-fA-F]{40}).js$', 'probe_dispatcher.views.probe_file', name="probe"),
 )
 
 # urlpatterns += patterns('django.contrib.auth.views',
