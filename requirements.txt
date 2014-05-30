@@ -6,6 +6,11 @@ South==0.8.4
 django-debug-panel==0.8.0
 django-debug-toolbar==1.2.1
 django-jinja==1.0.1
+django-localeurl==2.0.1
+django-social-auth==0.7.28
 djangocms-admin-style==0.2.2
+httplib2==0.9
+oauth2==1.5.211
+python-openid==2.2.5
 sqlparse==0.1.11
 wsgiref==0.1.2

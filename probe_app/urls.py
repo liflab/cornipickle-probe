@@ -10,7 +10,10 @@ from probe_app import views
 admin.autodiscover()
 
 urlpatterns = patterns('',
+                       url(r'^$', views.home, name="home"),
                        url(r'^admin/', include(admin.site.urls)),
+                       url(r'^$', views.home, name="home"),
+                       url(r'^dashboard/', include('probe_dispatcher.urls')),
                        url(_(r'^register/$'), views.register, {'template_name': 'register.jinja2'}, name='register'),
                        url(_(r'^login/$'), views.login, name='login'),
                        url(_(r'^logout/$'), views.logout, {'next_page': '/'}, name='logout'),
@@ -20,10 +23,6 @@ urlpatterns = patterns('',
 # )
 
 urlpatterns += i18n_patterns('',
-                             # url(r'^search/$', search, {}, name='search'),
-                             url(r'^$', views.home, name="home"),
-                             url(r'^dashboard/', include('probe_dispatcher.urls')),
-
 )
 
 if settings.DEBUG:

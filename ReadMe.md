@@ -54,6 +54,6 @@ enjoy
 
 ## Traduction du site
 
-    django-admin.py makemessages -l fr --ignore node_modules
+    django-admin.py makemessages -a -e py,jinja,jinja2,html -l fr --ignore node_modules
 
-Les fichiers `po` pour la traduction se trouvent dans `./conf/local/`. Après, c'est classique; on passe par PO Edit.
+Les fichiers `po` pour la traduction se trouvent dans `./conf/local/`. Après, c'est classique; on passe par [Poedit](http://poedit.net/).

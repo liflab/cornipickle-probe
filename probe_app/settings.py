@@ -1,10 +1,10 @@
-from gettext import gettext
+# coding=utf-8
+from gettext import gettext as _
 import os
 
 DEBUG = True
 ADMINS = (
     ('GabLeRoux', 'lebreton.gabriel@gmail.com'),
-    ('Qonic', 'bolducfrederic@gmail.com'),
 )
 
 DATABASES = {
@@ -29,8 +29,6 @@ TEMPLATE_DEBUG = DEBUG
 
 MANAGERS = ADMINS
 
-LANGUAGE_CODE = 'en'
-
 # defines the site id (in database's sites)
 if DEBUG:
     SITE_ID = 1
@@ -42,10 +40,17 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = (
-    ## Customize this
-    ('fr', gettext('fr')),
-    ('en', gettext('en')),
+    ('en', _(u'English')),
+    ('fr', _(u'Français')),
 )
+
+LANGUAGE_CODE = 'fr'
+
+LOCALE_PATHS = (
+    os.path.join(PROJECT_PATH, '../conf/locale'),
+)
+
+# LOCALEURL_USE_ACCEPT_LANGUAGE = True
 
 STATIC_ROOT = os.path.join(PROJECT_PATH, '../static')
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
@@ -89,6 +94,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'debug_panel.middleware.DebugPanelMiddleware',
+    'localeurl.middleware.LocaleURLMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -130,6 +136,8 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'debug_panel',
     'custom_filters',
+    'localeurl',
+    'social_auth',
 )
 
 # debug_panel optional cache config
@@ -172,8 +180,3 @@ LOGGING = {
         },
     }
 }
-
-try:
-    from local_settings import *
-except ImportError:
-    pass

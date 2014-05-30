@@ -1,0 +1,174 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Probe\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-30 14:24-0400\n"
+"PO-Revision-Date: 2014-05-30 14:18-0500\n"
+"Last-Translator: Gabriel Le Breton <lebreton.gabriel@gmail.com>\n"
+"Language-Team: LIF <lebreton.gabriel@gmail.com>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _;gettext\n"
+"X-Poedit-Basepath: ../../../../\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: probe_app/urls.py:17
+msgid "^register/$"
+msgstr "^enregistrer/$"
+
+#: probe_app/urls.py:18
+msgid "^login/$"
+msgstr "^connexion/$"
+
+#: probe_app/urls.py:19
+msgid "^logout/$"
+msgstr "^deconnexion/$"
+
+#: probe_app/views.py:28
+msgid "Invalid user or password"
+msgstr "Utilisateur ou mot de passe invalide"
+
+#: templates/base.jinja2:13
+msgid ""
+"You are using an <strong>outdated</strong> browser. Please, <a "
+"target='_blank' href='http://browsehappy.com/'>update your browser</a> so "
+"you can enjoy the web as it is ment to be."
+msgstr ""
+"Vous utilisez un navigateur <strong>désuet</strong>. S'il vous plaît, <a "
+"target='_blank' href='http://browsehappy.com/?locale=fr'>mettez à jour votre "
+"navigateur</a> afin de profiter du web comme il se doit."
+
+#: templates/home.html:15
+msgid "Welcome to "
+msgstr "Bienvenue sur "
+
+#: templates/probe_dispatcher/dashboard_sidebar.jinja2:2
+msgid "Tools"
+msgstr "Outils"
+
+#: templates/probe_dispatcher/dashboard_sidebar.jinja2:5
+#: templates/probe_dispatcher/probes.jinja2:4
+msgid "Probes"
+msgstr "Sattelites"
+
+#: templates/probe_dispatcher/dashboard_sidebar.jinja2:6
+msgid "sensors"
+msgstr "capteurs"
+
+#: templates/probe_dispatcher/dashboard_sidebar.jinja2:8
+msgid "Administration"
+msgstr "Administration"
+
+#: templates/probe_dispatcher/dashboard_sidebar.jinja2:10
+msgid "Layout"
+msgstr "Disposition"
+
+#: templates/probe_dispatcher/probes.jinja2:12
+msgid "Domain: "
+msgstr "Domaine:"
+
+#: templates/probe_dispatcher/probes.jinja2:13
+msgid "Enabled sensors: "
+msgstr "Capteurs activés:"
+
+#: templates/probe_dispatcher/probes.jinja2:19
+msgid "Rendered javascript:"
+msgstr "Javascript généré:"
+
+#: templates/probe_dispatcher/probes.jinja2:28
+msgid "You have no probes yet, create one now!"
+msgstr "Vous n'avez pas encore de satellite, créez-en un maintenant!"
+
+#: templates/probe_dispatcher/probes.jinja2:30
+msgid "Create a new probe"
+msgstr "Créer un nouveau Sattelite"
+
+#: templates/registration/login-form.jinja2:3
+msgid "Please Log In, or "
+msgstr "S'il vous plaît, connectez-vous, ou "
+
+#: templates/registration/login-form.jinja2:3
+msgid "Sign Up"
+msgstr "S'enregistrer"
+
+#: templates/registration/login-form.jinja2:14
+#: templates/registration/register-form.jinja2:14
+msgid "or"
+msgstr "ou"
+
+#: templates/registration/login-form.jinja2:21
+msgid "Username or email"
+msgstr "Utilisateur ou courriel"
+
+#: templates/registration/login-form.jinja2:25
+#: templates/registration/register-form.jinja2:27
+msgid "Password"
+msgstr "Mot de passe"
+
+#: templates/registration/login-form.jinja2:32
+msgid "Remember me "
+msgstr "Se souvenir de moi"
+
+#: templates/registration/login-form.jinja2:35
+msgid "Log In"
+msgstr "Connexion"
+
+#: templates/registration/login-form.jinja2:42
+msgid "Forgot password?"
+msgstr "Oublié votre mot de passe?"
+
+#: templates/registration/register-form.jinja2:3
+#: templates/registration/register-form.jinja2:41
+msgid "Register"
+msgstr "Enregistrer"
+
+#: templates/registration/register-form.jinja2:3
+msgid "Log in"
+msgstr "Se connecter"
+
+#: templates/registration/register-form.jinja2:19
+msgid "Email"
+msgstr "Courriel"
+
+#: templates/registration/register-form.jinja2:23
+msgid "Username"
+msgstr "Utilisateur"
+
+#: templates/registration/register-form.jinja2:31
+msgid "Repeat password"
+msgstr "Mot de passe à nouveau"
+
+#: templates/registration/register-form.jinja2:38
+msgid "Accept "
+msgstr "Accepter"
+
+#: templates/registration/register-form.jinja2:38
+msgid "terms and conditions"
+msgstr "Termes et conditions"
+
+#~ msgid "fr"
+#~ msgstr "fr"
+
+#~ msgid "en"
+#~ msgstr "en"
+
+#~ msgid ", a web service for tracking client side bugs on a website."
+#~ msgstr ", un service web pour traquer des bugs sur un site web."
+
+#~ msgid "Hello"
+#~ msgstr "Bonjour"
+
+#~ msgid "Dashboard"
+#~ msgstr "Panneau de contrôle"
+
+#~ msgid "Currently in beta"
+#~ msgstr "Présentement en beta"

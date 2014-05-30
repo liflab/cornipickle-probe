@@ -8,7 +8,9 @@ from models import Probe
 
 def probes(request):
     if request.user.is_authenticated():
-        return render_to_response("probe_dispatcher/probes.jinja2", RequestContext(request, {'probes': Probe.objects.all()}))
+        return render_to_response("probe_dispatcher/probes.jinja2", RequestContext(request, {
+            'probes': Probe.objects.all()
+        }))
     else:
         return False
 
