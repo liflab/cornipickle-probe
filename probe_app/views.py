@@ -5,14 +5,17 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
 
 from probe_dispatcher import views
 
 
 def home(request):
-    return render_to_response("home.jinja2", RequestContext(request, {'app': 'Probe'}))
+    if request.user.is_active:
+        return redirect(views.dashboard)
+    else:
+        return render_to_response("home.jinja2", RequestContext(request, {'app': 'Probe'}))
 
 
 @csrf_protect
@@ -22,7 +25,7 @@ def login(request):
         if user is not None:
             if user.is_active:
                 return redirect(reverse(views.dashboard), context_instance=RequestContext(request, {
-                'message': 'Welcome to your new account'}))
+                    'message': 'Welcome to your new account'}))
         else:
             return render_to_response("login.jinja2",
                                       RequestContext(request, {'message': _('Invalid user or password')}))

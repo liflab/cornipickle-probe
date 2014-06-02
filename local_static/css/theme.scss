@@ -60,7 +60,9 @@ header.container {
   .content .lead .font-normal {
     color: #ffffff;
   }
+}
 
+footer {
   .links {
     float: right;
     right: 0;
@@ -121,7 +123,38 @@ header.container {
     width: 100%;
     text-align: center;
   }
+}
 
+.panel {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+  }
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.panel-default > .panel-heading {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-color: rgba(0, 0, 0, 0.8);
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.428571429;
+  vertical-align: top;
+  border-top: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.8);
 }
 
 @import "login-register";

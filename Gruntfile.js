@@ -46,12 +46,7 @@ module.exports = function(grunt){
                     style: 'expanded'
                 },
                 files: {
-                    '<%= themePath %>css/style.css': '<%= themePath %>css/style.scss',
-                    '<%= themePath %>css/print.css': '<%= themePath %>css/print.scss',
-                    '<%= themePath %>css/rapport.css': '<%= themePath %>css/rapport.scss',
-                    '<%= themePath %>css/rapport_pdf_fixes.css': '<%= themePath %>css/rapport_pdf_fixes.scss',
-                    '<%= themePath %>css/rapport_print.css': '<%= themePath %>css/rapport_print.scss',
-                    '<%= themePath %>css/splash.css': '<%= themePath %>css/splash.scss'
+                    '<%= themePath %>css/theme.css': '<%= themePath %>css/theme.scss'
                 }
             }
         },

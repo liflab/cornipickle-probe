@@ -50,6 +50,24 @@ LOCALE_PATHS = (
     os.path.join(PROJECT_PATH, '../conf/locale'),
 )
 
+LOCALE_INDEPENDENT_PATHS = (
+    r'^/api/',
+    r'^/p/',
+)
+
+REST_FRAMEWORK = {
+    # Use hyperlinked styles by default.
+    # Only used if the `serializer_class` attribute is not set on a view.
+    'DEFAULT_MODEL_SERIALIZER_CLASS':
+        'rest_framework.serializers.HyperlinkedModelSerializer',
+
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
 # LOCALEURL_USE_ACCEPT_LANGUAGE = True
 
 STATIC_ROOT = os.path.join(PROJECT_PATH, '../static')
@@ -138,6 +156,7 @@ INSTALLED_APPS = (
     'custom_filters',
     'localeurl',
     'social_auth',
+    'rest_framework',
 )
 
 # debug_panel optional cache config

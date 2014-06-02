@@ -16,7 +16,7 @@
 <head>
 
     <title>{% block title %}{{ site_name }}{% if page_name %} | {{ page_name }}{% endif %}{% endblock title %}</title>
-    {% block meta %}
+    {% block head_meta %}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8"/>
@@ -32,7 +32,7 @@
 
     <link rel="shortcut icon" href="{{ "favicon.png"|static }}">
 
-    {% block og_facebook %}
+    {% block head_facebook %}
         {% if og %}
             <meta property="og:title" content="{{ og.title }}"/>
             <meta property="og:image" content="{{ og.image }}"/>
@@ -41,7 +41,7 @@
         {% endif %}
     {% endblock %}
 
-    {% block head_stylesheet %}
+    {% block head_stylesheets %}
         {# bootstrap oh noes! :P #}
         <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 
@@ -72,14 +72,11 @@
 
 <body class="{% if is_home %}home {% endif %}{% if is_blog %} blog{% endif %}{% if user.logged_in %} logged-in{% endif %}">
 
-{% block header %}
-    {% if user.logged_in %}
 
-    {% else %}
+{% block header %}
     <header class="site-header container">
         <a href="{{ url('home') }}" id="site-logo" class="site-logo">{{ site_name }}</a>
     </header>
-    {% endif %}
 {% endblock %}
 
 
@@ -87,7 +84,11 @@
     {% block content %}{% endblock %}
 </div>
 
-{% include 'footer.jinja2' %}
+
+{% block footer %}
+    {% include 'footer.jinja2' %}
+{% endblock %}
+
 
 {% block footer_scripts %}
     {#    <script type="application/javascript" src="{{ "js/app.js"|static }}></script>#}

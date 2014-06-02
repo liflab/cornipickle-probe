@@ -22,20 +22,6 @@
 
 {% block content %}
     <div class="row">
-        {% if user.is_active %}
-            {{ _('Hello') }} {{ user }},
-            <a href="{{ url('dashboard') }}">{{ _('Dashboard') }}</a>
-        {% else %}
-            {% include 'registration/login-form.jinja2' %}
-        {% endif %}
-    </div>
-
-    <div class="row">
-        <div class="links">
-            <ul>
-                <li class="current-version"><i class="glyphicon glyphicon-info-sign icon-muted"></i>{{ _('Currently in beta') }}
-                </li>
-            </ul>
-        </div>
+        {% include 'registration/login-form.jinja2' %}
     </div>
 {% endblock %}

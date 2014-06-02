@@ -35,7 +35,9 @@ class Probe(models.Model):
     )
 
     hash = models.CharField(
-        max_length=40 #todo: Auto-Generate this field, with the user ID, the probeID and a Seed. User hashlib.sha1().
+        max_length=40,
+        editable = False,
+        unique=True,
     )
 
     # todo: make this a list or a foreign key, something like that
