@@ -7,6 +7,7 @@ from django.contrib.sites.models import Site
 from probe_app.settings import DEBUG
 
 import hashlib
+import random
 
 
 class Sensor(models.Model):
@@ -37,7 +38,6 @@ class Probe(models.Model):
     hash = models.CharField(
         max_length=40,
         editable = False,
-        unique=True,
     )
 
     # todo: make this a list or a foreign key, something like that
@@ -57,6 +57,17 @@ class Probe(models.Model):
 
     class Meta:
         pass
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            #This code only happens if the objects is
+            #not in the database yet. Otherwise it would
+            #have pk
+            s = str(random.random())
+            user = self.user.__str__()
+            name = self.name.encode('utf-8')
+            self.hash = hashlib.sha1(s + user + name).hexdigest()
+        super(Probe, self).save(*args, **kwargs)
 
     def probe_url(self, name='Prod'):
         current_site = Site.objects.get(name=name)
