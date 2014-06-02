@@ -57,3 +57,32 @@ enjoy
     django-admin.py makemessages -a -e py,jinja,jinja2,html -l fr --ignore node_modules
 
 Les fichiers `po` pour la traduction se trouvent dans `./conf/local/`. Après, c'est classique; on passe par [Poedit](http://poedit.net/).
+
+## Mise à jour des models
+
+Dans ce projet, on utilise [South](http://south.aeracode.org/), présent dans la pluspart des projets django, ça permet de faire des migrations de la base de données.
+
+### Commandes south
+
+Après la création d'un model, on execute habituellement `./manage.py syncdb`, Comme c'est le point initial du model, on cré donc un schema de migration;
+
+    ./manage.py schemamigration nom_app --initial
+
+On applique ensuite la migration
+
+    ./manage.py migrate nom_app
+
+Quand on modifie un model déjà existant, on s'assure qu'avant, il ait une migration initiale d'effectué (se trouve dans le dossier `migrations` à côté du dossier `mon_app`.
+
+    ./manage.py schemamigration nom_app --auto
+
+Puis on applique les migrations
+
+    ./manage.py migrate mon_app
+
+### Example
+
+Disons que j'ajoute un champ `date` dans le model `Probe`, j'exécuterai ces commandes:
+
+    ./manage.py schemamigration probe_app --auto
+    ./manage.py migrate
