@@ -64,6 +64,8 @@ Dans ce projet, on utilise [South](http://south.aeracode.org/), présent dans la
 
 ### Commandes south
 
+Le mieux, c'est de lire la [documentation de south](http://south.readthedocs.org/en/latest/tutorial/index.html), mais voici quand même les grandes lignes
+
 Après la création d'un model, on execute habituellement `./manage.py syncdb`, Comme c'est le point initial du model, on cré donc un schema de migration;
 
     ./manage.py schemamigration nom_app --initial
