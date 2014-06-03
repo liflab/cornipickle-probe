@@ -1,8 +1,9 @@
+{% load i18n %}
 <footer class="container">
     <div class="row links">
         <ul>
             <li class="current-version"><i
-                    class="glyphicon glyphicon-info-sign icon-muted"></i>{{ _('Currently in beta') }}
+                    class="glyphicon glyphicon-info-sign icon-muted"></i>{% trans 'Currently in beta' %}
             </li>
         </ul>
         <form id="locale_switcher" method="POST" action="{% url 'localeurl_change_locale' %}">

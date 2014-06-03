@@ -1,24 +1,5 @@
 {% extends 'base.html' %}
 {% load static i18n %}
-{% block header %}
-    <header class="site-header container">
-        <div class="row">
-            <div class="col-md-2">
-                <img class="logo img-responsive" src="{% static 'img/probe-logo.png' %}"
-                     alt="logo">
-            </div>
-            <div class="col-md-10">
-                <div class="content">
-                    <h1><span class="font-semi-bold">Probe</span></h1>
-
-                    <p class="lead">
-                    {% trans 'Welcome to' %} <span class="font-normal">{{ app }}</span>{% trans ", a web service for tracking client side bugs on a website." %}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </header>
-{% endblock %}
 
 {% block content %}
     <div class="row">

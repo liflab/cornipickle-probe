@@ -1,7 +1,7 @@
 {% load i18n %}
 <div class="register">
 
-    <h3>{% trans 'Register' %}, or <a href="{% url 'login' %}">{% trans 'Log in' %}</a></h3>
+    <h3>{% trans 'Register, or' %} <a href="{% url 'login' %}">{% trans 'Log in' %}</a></h3>
 
     <div class="row">
         {% for field in form %}
