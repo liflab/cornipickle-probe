@@ -25,9 +25,10 @@ def custom_login(request):
         if user is not None:
             if user.is_active:
                 return redirect(reverse(views.dashboard), context_instance=RequestContext(request, { 'message': 'Welcome back!'}))
+            else:
+                return render_to_response("login.html", RequestContext(request, {'error': _('User has been disabled, please contact us for more details')}))
         else:
-            return render_to_response("login.html",
-                                      RequestContext(request, {'error': _('Invalid user or password')}))
+            return render_to_response("login.html", RequestContext(request, {'error': _('Invalid user or password')}))
 
     else:
         return render_to_response("login.html", RequestContext(request, {}))
