@@ -10,42 +10,45 @@ from django.contrib.auth.forms import UserCreationForm
 
 from probe_dispatcher import views
 
-
+@csrf_protect
 def home(request):
     if request.user.is_active:
         return redirect(views.dashboard)
     else:
-        return render_to_response("home.jinja2", RequestContext(request, {'app': 'Probe'}))
+        return render_to_response("home.html", RequestContext(request, {'app': 'Probe'}))
 
 
 @csrf_protect
-def login(request):
+def custom_login(request):
     if request.POST:
         user = authenticate(username=request.POST.get('UsernameEmail'), password=request.POST.get('password'))
         if user is not None:
             if user.is_active:
-                return redirect(reverse(views.dashboard), context_instance=RequestContext(request, {
-                    'message': 'Welcome to your new account'}))
+                return redirect(reverse(views.dashboard), context_instance=RequestContext(request, { 'message': 'Welcome back!'}))
         else:
-            return render_to_response("login.jinja2",
-                                      RequestContext(request, {'message': _('Invalid user or password')}))
+            return render_to_response("login.html",
+                                      RequestContext(request, {'error': _('Invalid user or password')}))
 
     else:
-        return render_to_response("login.jinja2", RequestContext(request, {}))
+        return render_to_response("login.html", RequestContext(request, {}))
 
 
 @csrf_protect
-def register(request):
+def custom_register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            new_user = form.save()
-            return reverse(views.dashboard)
+            if ("terms_and_conditions" in request.POST):
+                new_user = form.save()
+                return redirect(reverse(views.dashboard), {'message': _('Welcome to your new account!')})
+            else:
+                return render_to_response("register.html", RequestContext(request, {'form':form, 'terms_error': _("You must accept the terms and conditions")}))
+
     else:
         form = UserCreationForm()
-    return render_to_response("registration/register-form.jinja2", RequestContext(request, {'form': form, }))
+    return render_to_response("register.html", RequestContext(request, {'form':form}))
 
 
-def logout(request):
+def custom_logout(request, next_page):
     logout(request)
-    return None
+    return redirect(next_page)

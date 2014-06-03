@@ -84,7 +84,7 @@ Puis on applique les migrations
 
 ### Example
 
-Disons que j'ajoute un champ `date` dans le model `Probe`, j'exécuterai ces commandes:
+Disons que j'ajoute un champ `date` dans le model `Probe` de l'application `probe_dispatcher`, j'exécuterai ces commandes:
 
-    ./manage.py schemamigration probe_app --auto
+    ./manage.py schemamigration probe_dispatcher --auto
     ./manage.py migrate

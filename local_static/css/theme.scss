@@ -135,6 +135,32 @@ footer {
   }
 }
 
+footer {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+$facebook_color: #3B5998;
+$google_color: #0266C8;
+
+.btn-google {
+  background-color: $google_color;
+  color: white;
+  &:hover {
+    color: white;
+    background-color: darken($google_color, 10%);
+  }
+}
+
+.btn-facebook {
+  background-color: $facebook_color;
+  color: white;
+  &:hover {
+    color: white;
+    background-color: darken($facebook_color, 10%);
+  }
+}
+
 .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
   background-color: rgba(0, 0, 0, 0.3);
 }
@@ -206,7 +232,6 @@ footer {
     float: none;
     text-align: center;
   }
-
 }
 
 @media (max-width: 767px) {
@@ -231,3 +256,5 @@ footer {
     margin-top: 20px;
   }
 }
+
+@import 'animate';

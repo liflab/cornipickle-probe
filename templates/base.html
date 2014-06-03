@@ -1,3 +1,4 @@
+{% load static i18n %}
 <!DOCTYPE html>
 <!--[if IE 7]>
 <html class="ie ie7" lang="{{ lang }}" prefix="og: http://ogp.me/ns#">
@@ -10,7 +11,7 @@
 <!--<![endif]-->
 
 <!--[if lt IE 8]>
-<p class="browsehappy alert warning">{{ _("You are using an <strong>outdated</strong> browser. Please, <a target='_blank' href='http://browsehappy.com/'>update your browser</a> so you can enjoy the web as it is ment to be.") }}</p>
+<p class="browsehappy alert warning">{% trans "You are using an <strong>outdated</strong> browser. Please, <a target='_blank' href='http://browsehappy.com/'>update your browser</a> so you can enjoy the web as it is ment to be." %}</p>
 <![endif]-->
 
 <head>
@@ -30,7 +31,7 @@
         <meta name="author" content="LIF">
     {% endblock %}
 
-    <link rel="shortcut icon" href="{{ "favicon.png"|static }}">
+    <link rel="shortcut icon" href="{% static "favicon.png" %}">
 
     {% block head_facebook %}
         {% if og %}
@@ -42,31 +43,37 @@
     {% endblock %}
 
     {% block head_stylesheets %}
-        {# bootstrap oh noes! :P #}
+        {# twitter bootstrap #}
         <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" type="text/css" href="{{ "css/theme.css"|static }}"/>
+        {# Main application theme #}
+        <link rel="stylesheet" type="text/css" href="{% static "css/theme.css" %}"/>
     {% endblock %}
 
     {% block head_scripts %}
+
         {# jQuery #}
         <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.1.min.js"></script>
         <script>
             if (typeof jQuery == 'undefined') {
-                document.write(unescape("%3Cscript src='{{ "/js/jquery-2.1.1.min.js"|static }} ' type='text/javascript'%3E%3C/script%3E"));
+                document.write(decodeURI("%3Cscript src='{% static "/js/jquery-2.1.1.min.js" %} ' type='text/javascript'%3E%3C/script%3E"));
             }
         </script>
+
+        {# twitter bootstrap #}
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
 
         {# Google maps #}
         <script type='text/javascript'
                 src='https://maps.googleapis.com/maps/api/js?v=3.exp&#038;sensor=false&#038;ver=3.9'></script>
         <script>
             if (typeof google == 'undefined') {
-                document.write(unescape("%3Cscript src='{{ '/js/maps.googleapis-3.9.min.js'|static }}' type='text/javascript'%3E%3C/script%3E"));
+                document.write(decodeURI("%3Cscript src='{% static '/js/maps.googleapis-3.9.min.js' %}' type='text/javascript'%3E%3C/script%3E"));
             }
         </script>
 
-        <script type="application/javascript" src="{{ "js/modernizr.js"|static }}"></script>
+        <script type="application/javascript" src="{% static "js/modernizr.js" %}"></script>
     {% endblock %}
 </head>
 
@@ -75,7 +82,7 @@
 
 {% block header %}
     <header class="site-header container">
-        <a href="{{ url('home') }}" id="site-logo" class="site-logo">{{ site_name }}</a>
+        <a href="{% url 'home' %}" id="site-logo" class="site-logo">{{ site_name }}</a>
     </header>
 {% endblock %}
 
@@ -86,12 +93,12 @@
 
 
 {% block footer %}
-    {% include 'footer.jinja2' %}
+    {% include 'footer.html' %}
 {% endblock %}
 
 
 {% block footer_scripts %}
-    {#    <script type="application/javascript" src="{{ "js/app.js"|static }}></script>#}
+    {#    <script type="application/javascript" src="{% static "js/app.js" %}></script>#}
 {% endblock %}
 
 </body>

@@ -1,19 +1,24 @@
 # -*- coding: utf-8 -*-
-from django.http import Http404
+from gettext import gettext as _
 
-from django.shortcuts import render_to_response, get_object_or_404
+from django.core.urlresolvers import reverse
+from django.http import Http404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 
-from models import Probe, Sensor
+from models import Probe
+import probe_app
 
 
 def probes(request):
     if request.user.is_authenticated():
-        return render_to_response("probe_dispatcher/probes.jinja2", RequestContext(request, {
+        return render_to_response("probe_dispatcher/probes.html", RequestContext(request, {
             'probes': Probe.objects.all()
         }))
     else:
-        return False
+        return redirect(reverse(probe_app.views.custom_login),
+                        {'message': _('You are not connected, please, connect first to view this page')})
+
 
 def probe_file(request, id, hash):
     currentProbe = get_object_or_404(Probe, id=id)
@@ -24,11 +29,13 @@ def probe_file(request, id, hash):
         print(sensor.name)
         pass
 
-    return render_to_response("probe_dispatcher/probe.jinja2", RequestContext(request, {'id' : id, 'hash' : hash}), content_type='application/javascript')
+    return render_to_response("probe_dispatcher/probe.html", RequestContext(request, {'id': id, 'hash': hash}),
+                              content_type='application/javascript')
 
 
 def answer(request):
-    return render_to_response(request, {},  )
+    return render_to_response(request, {}, )
+
 
 def dashboard(request):
-    return render_to_response("probe_dispatcher/dashboard.jinja2", RequestContext(request, {}))
+    return render_to_response("probe_dispatcher/dashboard.html", RequestContext(request, {}))

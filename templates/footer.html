@@ -1,0 +1,21 @@
+<footer class="container">
+    <div class="row links">
+        <ul>
+            <li class="current-version"><i
+                    class="glyphicon glyphicon-info-sign icon-muted"></i>{{ _('Currently in beta') }}
+            </li>
+        </ul>
+        <form id="locale_switcher" method="POST" action="{% url 'localeurl_change_locale' %}">
+            <label>
+                <select name="locale" onchange="$('#locale_switcher').submit()">
+                    {% for lang in LANGUAGES %}
+                        <option value="{{ lang.0 }}" {% ifequal lang.0 LANGUAGE_CODE %}selected="selected"{% endifequal %}>{{ lang.1 }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <noscript>
+                <input type="submit" value="Set"/>
+            </noscript>
+        </form>
+    </div>
+</footer>

@@ -3,6 +3,8 @@ from gettext import gettext as _
 import os
 
 DEBUG = True
+DEBUG_TOOLBAR = True
+
 ADMINS = (
     ('GabLeRoux', 'lebreton.gabriel@gmail.com'),
 )
@@ -51,6 +53,8 @@ LOCALE_PATHS = (
 )
 
 LOCALE_INDEPENDENT_PATHS = (
+    r'^/admin/',
+    r'^/localeurl/',
     r'^/api/',
     r'^/p/',
 )
@@ -68,7 +72,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-# LOCALEURL_USE_ACCEPT_LANGUAGE = True
+LOCALEURL_USE_ACCEPT_LANGUAGE = True
 
 STATIC_ROOT = os.path.join(PROJECT_PATH, '../static')
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
@@ -106,13 +110,11 @@ DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.jinja2'
 # }
 
 MIDDLEWARE_CLASSES = (
+    'localeurl.middleware.LocaleURLMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'debug_panel.middleware.DebugPanelMiddleware',
-    'localeurl.middleware.LocaleURLMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -151,8 +153,6 @@ INSTALLED_APPS = (
     'probe_dispatcher',
     'south',
     'orderedmodel',
-    'debug_toolbar',
-    'debug_panel',
     'custom_filters',
     'localeurl',
     'social_auth',
@@ -199,3 +199,24 @@ LOGGING = {
         },
     }
 }
+
+try:
+    from local_settings import *
+except:
+    pass
+
+if DEBUG and DEBUG_TOOLBAR:
+    # debug_toolbar
+    MIDDLEWARE_CLASSES += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+        'debug_panel.middleware.DebugPanelMiddleware',
+    )
+
+    INSTALLED_APPS += (
+        'debug_toolbar',
+        'debug_panel',
+    )
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': True,
+    }

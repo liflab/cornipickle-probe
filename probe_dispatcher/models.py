@@ -52,6 +52,8 @@ class Probe(models.Model):
         help_text=u"User"
     )
 
+    # domains = models.
+
     def __unicode__(self):
         return self.name
 

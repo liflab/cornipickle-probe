@@ -1,12 +1,12 @@
-{% extends 'base.jinja2' %}
+{% extends 'base.html' %}
 
 {% block header %}
-    {% include 'probe_dispatcher/dashboard_nav.jinja2' %}
+    {% include 'probe_dispatcher/dashboard_nav.html' %}
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        {% include 'probe_dispatcher/dashboard_sidebar.jinja2' %}
+        {% include 'probe_dispatcher/dashboard_sidebar.html' %}
 
         <div class="row">
             <div class="col-md-4">
