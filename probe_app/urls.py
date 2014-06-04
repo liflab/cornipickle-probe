@@ -13,9 +13,9 @@ urlpatterns = patterns('',
                        url(r'^dashboard/', include('probe_dispatcher.urls')),
 
                        # Login / register
-                       url(_(r'^register/$'), views.custom_register, name='register'),
-                       url(_(r'^login/$'), views.custom_login, name='login'),
-                       url(_(r'^logout/$'), views.custom_logout, {'next_page': '/'}, name='logout'),
+                       url(r'^register/$', views.custom_register, name='register'),
+                       url(r'^login/$', views.custom_login, name='login'),
+                       url(r'^logout/$', views.custom_logout, {'next_page': '/'}, name='logout'),
 
                        # probe file url
                        url(r'^p/(?P<id>\d+)_(?P<hash>[0-9a-fA-F]{40}).js$', 'probe_dispatcher.views.probe_file',
@@ -29,6 +29,9 @@ urlpatterns = patterns('',
 
                        # django admin
                        url(r'^admin/', include(admin.site.urls)),
+
+                       #userena
+                       (r'^accounts/', include('userena.urls')),
 )
 
 if settings.DEBUG:

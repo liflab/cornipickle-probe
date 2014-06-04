@@ -1,6 +1,7 @@
 # coding=utf-8
-from gettext import gettext as _
+
 import os
+from django.utils.translation import ugettext_lazy
 
 from oscar.defaults import *
 
@@ -44,8 +45,8 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = (
-    ('en', _(u'English')),
-    ('fr', _(u'Français')),
+    ('en', ugettext_lazy(u'English')),
+    ('fr', ugettext_lazy(u'Français')),
 )
 
 LANGUAGE_CODE = 'fr'
@@ -119,6 +120,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'oscar.apps.basket.middleware.BasketMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    #userena
+    'userena.middleware.UserenaLocaleMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -151,28 +154,34 @@ TEMPLATE_DIRS = (
 from oscar import get_core_apps
 
 INSTALLED_APPS = [
-    'django_jinja',
-    'django_jinja.contrib._humanize',
-    'django_jinja.contrib._easy_thumbnails',
-    'django_jinja.contrib._pipeline',
-    'djangocms_admin_style',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
-    'probe_dispatcher',
-    'south',
-    'orderedmodel',
-    'custom_filters',
-    'localeurl',
-    'social_auth',
-    'rest_framework',
-    'compressor',
-] + get_core_apps()
+                     'django_jinja',
+                     'django_jinja.contrib._humanize',
+                     'django_jinja.contrib._easy_thumbnails',
+                     'django_jinja.contrib._pipeline',
+                     'djangocms_admin_style',
+                     'django.contrib.auth',
+                     'django.contrib.contenttypes',
+                     'django.contrib.sessions',
+                     'django.contrib.sites',
+                     'django.contrib.messages',
+                     'django.contrib.staticfiles',
+                     'django.contrib.admin',
+                     'django.contrib.admindocs',
+                     'probe_dispatcher',
+                     'south',
+                     'orderedmodel',
+                     'custom_filters',
+                     'localeurl',
+                     'social_auth',
+                     'rest_framework',
+                     'compressor',
+
+                     # userena
+                     'userena',
+                     'guardian',
+                     'easy_thumbnails',
+                     'accounts',
+                 ] + get_core_apps()
 
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -181,9 +190,35 @@ HAYSTACK_CONNECTIONS = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'oscar.apps.customer.auth_backends.EmailBackend',
+    'oscar.apps.customer.auth_backends.Emailbackend',
+
+    #userena
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+
+    #django contrib
     'django.contrib.auth.backends.ModelBackend',
 )
+
+SOUTH_MIGRATION_MODULES = {
+    'easy_thumbnails': 'easy_thumbnails.south_migrations',
+}
+
+ANONYMOUS_USER_ID = -1
+
+AUTH_PROFILE_MODULE = 'accounts.ProbeUserProfile'
+
+LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'probetestprobe@gmail.com'
+EMAIL_HOST_PASSWORD = 'rYsMfnzwf7cReWift>darpQ4'
 
 # debug_panel optional cache config
 # CACHES = {
