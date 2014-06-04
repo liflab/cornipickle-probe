@@ -2,6 +2,8 @@
 from gettext import gettext as _
 import os
 
+from oscar.defaults import *
+
 DEBUG = True
 DEBUG_TOOLBAR = True
 
@@ -115,6 +117,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'oscar.apps.basket.middleware.BasketMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -125,18 +129,28 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.static',
+    'oscar.apps.search.context_processors.search_form',
+    'oscar.apps.promotions.context_processors.promotions',
+    'oscar.apps.checkout.context_processors.checkout',
+    'oscar.apps.customer.notifications.context_processors.notifications',
+    'oscar.core.context_processors.metadata',
 )
 
 ROOT_URLCONF = 'probe_app.urls'
+
+from oscar import OSCAR_MAIN_TEMPLATE_DIR
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, '../templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    OSCAR_MAIN_TEMPLATE_DIR,
 )
 
-INSTALLED_APPS = (
+from oscar import get_core_apps
+
+INSTALLED_APPS = [
     'django_jinja',
     'django_jinja.contrib._humanize',
     'django_jinja.contrib._easy_thumbnails',
@@ -157,6 +171,18 @@ INSTALLED_APPS = (
     'localeurl',
     'social_auth',
     'rest_framework',
+    'compressor',
+] + get_core_apps()
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
+
+AUTHENTICATION_BACKENDS = (
+    'oscar.apps.customer.auth_backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 # debug_panel optional cache config
@@ -212,10 +238,10 @@ if DEBUG and DEBUG_TOOLBAR:
         'debug_panel.middleware.DebugPanelMiddleware',
     )
 
-    INSTALLED_APPS += (
+    INSTALLED_APPS += [
         'debug_toolbar',
         'debug_panel',
-    )
+    ]
 
     DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': True,
