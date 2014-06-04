@@ -3,20 +3,34 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from picklefield.fields import PickledObjectField
 
 from probe_app.settings import DEBUG
 
 import hashlib
 import random
 
-
-class Sensor(models.Model):
-    name = models.CharField(
-        max_length=200
+class SensorType(models.Model):
+    template_name = models.CharField(
+        max_length=200,
     )
 
-    def __unicode__(self):
-        return self.name
+    description = models.TextField(
+        max_length=1200,
+    )
+
+    prototype_properties = PickledObjectField()
+
+    prototype_data = PickledObjectField()
+
+class Browser(models.Model):
+    date = models.DateTimeField(
+        auto_now=True,
+    )
+
+    user_agent = models.CharField(
+        max_length = 200,
+    )
 
 class Probe(models.Model):
 
@@ -38,11 +52,6 @@ class Probe(models.Model):
     hash = models.CharField(
         max_length=40,
         editable = False,
-    )
-
-    # todo: make this a list or a foreign key, something like that
-    sensors = models.ManyToManyField(
-        Sensor
     )
 
     user = models.ForeignKey(
@@ -97,3 +106,32 @@ class Probe(models.Model):
 
     clickable_probe_url.allow_tags = True
     clickable_probe_url.short_description = 'url'
+
+class Sensor(models.Model):
+    name = models.CharField(
+        max_length=200
+    )
+
+    probe = models.ForeignKey(Probe)
+    
+    sensor_type = models.ForeignKey(SensorType)
+
+    properties = PickledObjectField()
+
+    description = models.TextField(
+        max_length=1200,
+    )
+
+    def __unicode__(self):
+        return self.name
+
+class SensorData(models.Model):
+    sensor = models.ForeignKey(Sensor)
+    
+    browser = models.ForeignKey(Browser)
+
+    data = PickledObjectField()
+
+    datetime = models.DateTimeField(
+        auto_now=True,
+    )
