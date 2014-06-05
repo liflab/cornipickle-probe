@@ -36,7 +36,9 @@ On installe ça pour grunt et bower; compilation automatique du scss et gestion 
 
 procède par installer les dépendances mentionnés dans le fichier `package.json`
 
-#### Installer bower en global (dépendances javascript, etc)
+#### Installer bower en global (dépendances javascript, etc) *facultatif*
+
+Note: n'est pas encore utilisé, on va peut-être s'en servir un jour ;)
 
     npm install -g bower
     bower install

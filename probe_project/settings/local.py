@@ -1,0 +1,46 @@
+"""
+Example settings for local development
+
+Use this file as a base for your local development settings and copy
+it to clean_django_project/settings/local.py. It should not be checked into
+your code repository.
+
+"""
+from probe_project.settings.base import *
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+DEBUG_TOOLBAR = False
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(PROJECT_DIR, 'dev.sqlite'),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    },
+}
+
+if DEBUG and DEBUG_TOOLBAR:
+    # debug_toolbar
+    MIDDLEWARE_CLASSES += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+        'debug_panel.middleware.DebugPanelMiddleware',
+    )
+
+    INSTALLED_APPS += [
+        'debug_toolbar',
+        'debug_panel',
+    ]
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
+
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+# ROOT_URLCONF = 'clean_django_project.urls.local'
+# WSGI_APPLICATION = 'clean_django_project.wsgi.local.application'

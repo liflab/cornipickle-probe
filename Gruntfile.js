@@ -6,7 +6,7 @@ module.exports = function(grunt){
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        themePath: 'local_static/',
+        themePath: 'probe_project/local_static/',
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
