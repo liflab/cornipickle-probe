@@ -1,0 +1,260 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
+
+body {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  background: #0b1419 url('../img/space-background.jpg') no-repeat top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+
+p {
+  font-weight: 300;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-semi-bold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+header.container {
+  &.home {
+    margin-top: 200px;
+  }
+}
+
+.container {
+
+  margin-top: 20px;
+
+  .content {
+    margin-left: 10px;
+  }
+
+  .content h1 {
+    margin-top: 10px;
+    font-size: 60px;
+  }
+
+  .content h1 .smaller {
+    font-size: 40px;
+    color: #c2e8f2;
+  }
+
+  .content .lead {
+    font-size: 25px;
+    color: #c2e8f2;
+  }
+
+  .content .lead .font-normal {
+    color: #ffffff;
+  }
+}
+
+footer {
+  .links {
+    float: right;
+    right: 0;
+    margin-top: 125px;
+  }
+
+  .links ul {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  .links ul li {
+    list-style: none;
+    display: inline;
+    margin: 0 10px;
+  }
+
+  .links ul li:first-child {
+    margin-left: 0;
+  }
+
+  .links ul li:last-child {
+    margin-right: 0;
+  }
+
+  .links ul li.current-version {
+    color: #c2e8f2;
+    font-weight: 400;
+  }
+
+  .links ul li a {
+    color: #ffffff;
+  }
+
+  .links ul li a:hover {
+    text-decoration: underline;
+  }
+
+  .links ul li .icon-muted {
+    color: #88e5eb;
+    margin-right: 5px;
+  }
+
+  .links ul li:hover .icon-muted {
+    color: #ffffff;
+  }
+
+  .copyright {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #c2e8f2;
+    text-transform: lowercase;
+    right: 0;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.panel {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+  }
+}
+
+footer {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+$facebook_color: #3B5998;
+$google_color: #0266C8;
+
+.btn-google {
+  background-color: $google_color;
+  color: white;
+  &:hover {
+    color: white;
+    background-color: darken($google_color, 10%);
+  }
+}
+
+.btn-facebook {
+  background-color: $facebook_color;
+  color: white;
+  &:hover {
+    color: white;
+    background-color: darken($facebook_color, 10%);
+  }
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.panel-default > .panel-heading {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-color: rgba(0, 0, 0, 0.8);
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.428571429;
+  vertical-align: top;
+  border-top: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.8);
+}
+
+@import "login-register";
+
+@media (max-width: 1199px) {
+
+  header.container {
+    &.home {
+      margin-top: 80px;
+    }
+  }
+
+  .container .content h1 {
+    font-size: 45px;
+  }
+  .container .content h1 .smaller {
+    font-size: 30px;
+  }
+  .container .content .lead {
+    font-size: 20px;
+  }
+
+}
+
+@media (max-width: 991px) {
+
+  .container {
+    &.home {
+      margin-top: 80px;
+    }
+  }
+
+  .container .logo {
+    margin: 40px auto;
+  }
+  .container .content {
+    margin-left: 0;
+    text-align: center;
+  }
+  .container .content h1 {
+    margin-bottom: 20px;
+  }
+  .container .links {
+    float: none;
+    text-align: center;
+    margin-top: 60px;
+  }
+  .container .copyright {
+    float: none;
+    text-align: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .container .content h1 .smaller {
+    font-size: 25px;
+    display: block;
+  }
+  .container .content .lead {
+    font-size: 16px;
+  }
+  .container .links {
+    margin-top: 40px;
+  }
+  .container .links ul li {
+    display: block;
+    margin: 0;
+  }
+  .container .links ul li .icon-muted {
+    display: none;
+  }
+  .container .copyright {
+    margin-top: 20px;
+  }
+}
+
+@import 'animate';

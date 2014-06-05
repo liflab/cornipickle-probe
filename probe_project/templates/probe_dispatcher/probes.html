@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans 'Probes' %}</h1>
+    {% if probes %}
+        {% for probe in probes %}
+            <div class="panel">
+                <h2>{% trans probe.name %}</h2>
+
+                <p>{% trans probe.description %}</p>
+
+                <p>{% trans 'Domain:' %}<span class="label label-info">{{ probe.domain }}</span></p>
+                {% if sensors %}
+                    {% trans 'Enabled sensors:' %}
+                    <ul>
+                        {% for sensor in sensors %}
+                            <li>{{ sensor.name }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p>{% trans 'Rendered javascript:' %} {{ probe.clickable_probe_url|safe }}</p>
+                <pre class="highlight"><code class="html">{{ probe.get_script_tag }}</code></pre>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>{% trans 'You have no probes yet, create one now!' %}</p>
+    {% endif %}
+    <a href="#" class="btn btn-block btn-primary">{% trans 'Create a new probe' %}</a>
+{% endblock %}

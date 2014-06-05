@@ -1,0 +1,25 @@
+.login, .register {
+  max-width: 360px;
+  margin: 0 auto;
+
+  .login-or {
+    position: relative;
+    color: #aaa;
+    margin-bottom: 10px;
+    padding-top: 12px;
+  }
+
+  .span-or {
+    display: block;
+    background-color: rgba(10, 18, 23, 0.4);
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #1c3b48;
+    border-top: 1px solid #1c3b48;
+  }
+
+  h3 {
+    text-align: center;
+    line-height: 300%;
+  }
+}

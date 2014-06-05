@@ -1,0 +1,120 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="{{ lang }}" prefix="og: http://ogp.me/ns#">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="{{ lang }}" prefix="og: http://ogp.me/ns#">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8) ]><!-->
+<html lang="{{ lang }}" prefix="og:http://ogp.me/ns#">
+<!--<![endif]-->
+
+<!--[if lt IE 8]>
+<p class="browsehappy alert warning">{% trans "You are using an <strong>outdated</strong> browser. Please, <a target='_blank' href='http://browsehappy.com/'>update your browser</a> so you can enjoy the web as it is ment to be." %}</p>
+<![endif]-->
+
+<head>
+
+    <title>{% block title %}{{ site_name }}{% if page_name %} | {{ page_name }}{% endif %}{% endblock title %}</title>
+    {% block head_meta %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8"/>
+        <meta name="description" content="{{ site_description }}"/>
+        <meta name="keywords" content="{{ keywords }}"/>
+        <meta name="robots" content="index, follow, noarchive"/>
+        {# <meta name="googlebot" content="noarchive"/> #}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Probe web application">
+        <meta name="author" content="LIF">
+    {% endblock %}
+
+    <link rel="shortcut icon" href="{% static "favicon.png" %}">
+
+    {% block head_facebook %}
+        {% if og %}
+            <meta property="og:title" content="{{ og.title }}"/>
+            <meta property="og:image" content="{{ og.image }}"/>
+            <meta property="og:site_name" content="{{ og.site_name }}"/>
+            <meta property="og:description" content="{{ og.description }}"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block head_stylesheets %}
+        {# twitter bootstrap #}
+        <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+        {# Main application theme #}
+        <link rel="stylesheet" type="text/css" href="{% static "css/theme.css" %}"/>
+    {% endblock %}
+
+    {% block head_scripts %}
+
+        {# jQuery #}
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.1.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(decodeURI("%3Cscript src='{% static "/js/jquery-2.1.1.min.js" %} ' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        {# twitter bootstrap #}
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+        {# Google maps #}
+        <script type='text/javascript'
+                src='https://maps.googleapis.com/maps/api/js?v=3.exp&#038;sensor=false&#038;ver=3.9'></script>
+        <script>
+            if (typeof google == 'undefined') {
+                document.write(decodeURI("%3Cscript src='{% static '/js/maps.googleapis-3.9.min.js' %}' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <script type="application/javascript" src="{% static "js/modernizr.js" %}"></script>
+    {% endblock %}
+</head>
+
+<body class="{% if is_home %}home {% endif %}{% if is_blog %} blog{% endif %}{% if user.logged_in %} logged-in{% endif %}">
+
+
+{% block header %}
+    <header class="site-header container">
+        <div class="row">
+            <div class="col-md-2">
+                <img class="logo img-responsive" src="{% static 'img/probe-logo.png' %}"
+                     alt="logo">
+            </div>
+            <div class="col-md-10">
+                <div class="content">
+                    <h1><span class="font-semi-bold">Probe</span></h1>
+
+                    <p class="lead">
+                        {% trans 'Welcome to' %} <span
+                            class="font-normal">Probe</span>{% trans ", a web service for tracking client side bugs on a website." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+
+{% block footer %}
+    {% include 'footer.html' %}
+{% endblock %}
+
+
+{% block footer_scripts %}
+    {#    <script type="application/javascript" src="{% static "js/app.js" %}></script>#}
+{% endblock %}
+
+</body>
+</html>
