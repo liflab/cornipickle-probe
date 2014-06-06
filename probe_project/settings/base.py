@@ -42,7 +42,7 @@ INSTALLED_APPS = (
 
     'userena',
     'guardian',
-    'easy_thumbnails',
+    # 'easy_thumbnails',
 
     'localeurl',
     'social_auth',
@@ -51,6 +51,8 @@ INSTALLED_APPS = (
 
     'oscar',
     'haystack',
+
+    'bootstrapform',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -235,6 +237,8 @@ INSTALLED_APPS += (
     # 3rd-party apps that oscar depends on
     'treebeard',
     'sorl.thumbnail',
+    'django.contrib.flatpages',
+
 )
 
 REST_FRAMEWORK = {

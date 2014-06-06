@@ -1,5 +1,5 @@
 {% extends 'userena/base_userena.html' %}
-{% load i18n %}
+{% load i18n bootstrap %}
 {% load url from future %}
 
 {% block title %}{% trans "Account setup" %}{% endblock %}
@@ -18,8 +18,8 @@
   {% csrf_token %}
   <fieldset>
     <legend>{% trans "Edit Profile" %}</legend>
-    {{ form.as_p }}
+    {{ form|bootstrap }}
   </fieldset>
-  <input type="submit" value="{% trans "Save changes" %}" />
+  <input class="btn btn-primary" type="submit" value="{% trans "Save changes" %}" />
 </form>
 {% endblock %}

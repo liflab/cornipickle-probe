@@ -3,6 +3,8 @@ from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.conf.urls import include, url
+from oscar.app import shop
 from probe_project import views
 
 admin.autodiscover()
@@ -32,6 +34,9 @@ urlpatterns = patterns('',
 
                        #userena
                        (r'^accounts/', include('userena.urls')),
+
+                       #oscar
+                       (r'^oscar/', shop.urls),
 )
 
 if settings.DEBUG:
