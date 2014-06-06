@@ -9,7 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        url(r'^$', views.home, name="home"),
-                       url(r'^dashboard/', include('apps.probe_dispatcher.urls')),
+                       url(r'^dashboard/', include('probe_project.apps.probe_dispatcher.urls')),
 
                        # Login / register
                        url(r'^register/$', views.custom_register, name='register'),
@@ -17,7 +17,8 @@ urlpatterns = patterns('',
                        url(r'^logout/$', views.custom_logout, {'next_page': '/'}, name='logout'),
 
                        # probe file url
-                       url(r'^p/(?P<id>\d+)_(?P<hash>[0-9a-fA-F]{40}).js$', 'apps.probe_dispatcher.urls',
+                       url(r'^p/(?P<id>\d+)_(?P<hash>[0-9a-fA-F]{40}).js$',
+                           'probe_project.apps.probe_dispatcher.views.probe_file',
                            name="probe"),
 
                        # rest_framework

@@ -2,7 +2,7 @@
 Example settings for local development
 
 Use this file as a base for your local development settings and copy
-it to clean_django_project/settings/local.py. It should not be checked into
+it to probe/probe_project/settings/local.py. It should not be checked into
 your code repository.
 
 """

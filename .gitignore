@@ -1,3 +1,8 @@
+# custom unversionned files
+probe_project/settings/local.py
+var/media/
+var/static/
+
 # project files
 temp
 build

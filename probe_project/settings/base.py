@@ -12,7 +12,7 @@ import probe_project as project_module
 # noinspection PyUnresolvedReferences
 from django.utils.translation import ugettext_lazy as _
 
-from oscar import OSCAR_MAIN_TEMPLATE_DIR, get_core_apps
+from oscar import OSCAR_MAIN_TEMPLATE_DIR
 
 #==============================================================================
 # Generic Django project settings
@@ -198,6 +198,8 @@ AUTHENTICATION_BACKENDS += (
 
 # noinspection PyUnresolvedReferences
 from oscar.defaults import *
+
+from oscar import get_core_apps
 
 INSTALLED_APPS += (
     'oscar',

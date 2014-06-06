@@ -7,6 +7,7 @@
             </li>
         </ul>
         <form id="locale_switcher" method="POST" action="{% url 'localeurl_change_locale' %}">
+        {% csrf_token %}
             <label>
                 <select name="locale" onchange="$('#locale_switcher').submit()">
                     {% for lang in LANGUAGES %}
