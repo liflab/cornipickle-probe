@@ -29,12 +29,15 @@ p {
 }
 
 header.container {
+  .navbar-inverse {
+    background-color: rgba(30, 30, 30, 0.6);
+  }
   &.home {
     margin-top: 200px;
   }
 
   .navbar-brand {
-    padding: 3px 15px;
+    padding: 11px 15px;
   }
 }
 
@@ -193,7 +196,7 @@ $google_color: #0266C8;
 
 @import "login-register";
 
-@media (max-width: 1199px) {
+@media (max-width: 1200px) {
 
   header.container {
     &.home {
@@ -213,7 +216,7 @@ $google_color: #0266C8;
 
 }
 
-@media (max-width: 991px) {
+@media (max-width: 990px) {
 
   .container {
     &.home {
@@ -242,7 +245,18 @@ $google_color: #0266C8;
   }
 }
 
-@media (max-width: 767px) {
+@media (min-width: 768px) {
+  // fix navbar padding
+  .navbar-nav > li > a {
+    padding-top: 21px;
+    padding-bottom: 21px;
+  }
+  // used with user icon
+  .navbar-right > li > a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
   .container .content h1 .smaller {
     font-size: 25px;
     display: block;

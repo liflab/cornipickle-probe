@@ -27,11 +27,14 @@ p {
   font-weight: 700;
 }
 
+header.container .navbar-inverse {
+  background-color: rgba(30, 30, 30, 0.6);
+}
 header.container.home {
   margin-top: 200px;
 }
 header.container .navbar-brand {
-  padding: 3px 15px;
+  padding: 11px 15px;
 }
 
 .mugshot {
@@ -188,7 +191,7 @@ footer {
   line-height: 300%;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1200px) {
   header.container.home {
     margin-top: 80px;
   }
@@ -205,7 +208,7 @@ footer {
     font-size: 20px;
   }
 }
-@media (max-width: 991px) {
+@media (max-width: 990px) {
   .container.home {
     margin-top: 80px;
   }
@@ -234,7 +237,17 @@ footer {
     text-align: center;
   }
 }
-@media (max-width: 767px) {
+@media (min-width: 768px) {
+  .navbar-nav > li > a {
+    padding-top: 21px;
+    padding-bottom: 21px;
+  }
+
+  .navbar-right > li > a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
   .container .content h1 .smaller {
     font-size: 25px;
     display: block;
