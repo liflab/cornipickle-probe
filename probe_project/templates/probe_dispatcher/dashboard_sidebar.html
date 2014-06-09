@@ -1,5 +1,5 @@
 {% load i18n %}
-<p>{% trans 'Hello' %} {{ user }},</p>
+<p>{% trans 'Hello' %} {{ user.get_full_name }},</p>
 <div class="col-md-3">
     <strong>{% trans 'Tools' %}</strong>
     <hr>

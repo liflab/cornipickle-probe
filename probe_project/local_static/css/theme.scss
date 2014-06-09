@@ -32,6 +32,14 @@ header.container {
   &.home {
     margin-top: 200px;
   }
+
+  .navbar-brand {
+    padding: 3px 15px;
+  }
+}
+
+.mugshot {
+  border-radius: 3px;
 }
 
 .container {

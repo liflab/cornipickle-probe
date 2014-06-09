@@ -30,6 +30,13 @@ p {
 header.container.home {
   margin-top: 200px;
 }
+header.container .navbar-brand {
+  padding: 3px 15px;
+}
+
+.mugshot {
+  border-radius: 3px;
+}
 
 .container {
   margin-top: 20px;

@@ -1,11 +1,11 @@
 {% extends 'userena/base_userena.html' %}
-{% load i18n %}
+{% load i18n bootstrap %}
 {% load url from future %}
 
 {% block content_title %}<h2>{% blocktrans with user.username as username %}Account &raquo; {{ username }}{% endblocktrans %}</h2>{% endblock %}
 
 {% block content %}
-<form action="" method="post">
+<form class="form" action="" method="post">
   <ul id="box-nav">
     <li class="first"><a href="{% url 'userena_profile_detail' user.username %}"><span>{% trans 'View profile' %}</span></a></li>
     <li><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit profile" %}</a></li>
@@ -15,8 +15,8 @@
   {% csrf_token %}
   <fieldset>
     <legend>{% trans "Change email address" %}</legend>
-    {{ form.as_p }}
+    {{ form|bootstrap }}
   </fieldset>
-  <input type="submit" value="{% trans "Change email" %}" />
+  <input class="btn btn-primary" type="submit" value="{% trans "Change email" %}" />
 </form>
 {% endblock %}

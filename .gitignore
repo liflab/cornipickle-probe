@@ -1,7 +1,7 @@
 # custom unversionned files
 probe_project/settings/local.py
-var/media/
-var/static/
+probe_project/uploads/
+probe_project/static/
 
 # project files
 temp

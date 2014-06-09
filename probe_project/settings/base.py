@@ -72,30 +72,24 @@ INSTALLED_APPS = (
 PROJECT_DIR = os.path.dirname(os.path.realpath(project_module.__file__))
 
 PYTHON_BIN = os.path.dirname(sys.executable)
-ve_path = os.path.dirname(os.path.dirname(os.path.dirname(PROJECT_DIR)))
-
-# Assume that the presence of 'activate_this.py' in the python bin/
-# directory means that we're running in a virtual environment.
-if os.path.exists(os.path.join(PYTHON_BIN, 'activate_this.py')):
-    # We're running with a virtualenv python executable.
-    VAR_ROOT = os.path.join(os.path.dirname(PYTHON_BIN), 'var')
-elif ve_path and os.path.exists(os.path.join(ve_path, 'bin',
-                                             'activate_this.py')):
-    # We're running in [virtualenv_root]/src/[project_name].
-    VAR_ROOT = os.path.join(ve_path, 'var')
-else:
-    # Set the variable root to a path in the project which is
-    # ignored by the repository.
-    VAR_ROOT = os.path.join(PROJECT_DIR, 'var')
-
-if not os.path.exists(VAR_ROOT):
-    os.mkdir(VAR_ROOT)
 
 #==============================================================================
-# Project URLS and media settings
+# Project URLS auth and media settings
 #==============================================================================
 
 ROOT_URLCONF = 'probe_project.urls'
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_DIR, 'local_static'),
+)
+
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = os.path.join(PROJECT_DIR, 'uploads')
+
+ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 ANONYMOUS_USER_ID = -1
 
@@ -104,19 +98,6 @@ AUTH_PROFILE_MODULE = 'accounts.ProbeUserProfile'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
-
-STATIC_URL = '/static/'
-MEDIA_URL = '/uploads/'
-
-STATIC_ROOT = os.path.join(VAR_ROOT, 'static')
-MEDIA_ROOT = os.path.join(VAR_ROOT, 'uploads')
-
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_DIR, 'static'),
-    os.path.join(PROJECT_DIR, 'local_static'),
-)
-
-ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 #==============================================================================
 # Templates
@@ -153,8 +134,6 @@ USE_TZ = True
 USE_I18N = True
 USE_L10N = True
 
-LOCALEURL_USE_ACCEPT_LANGUAGE = True
-
 LANGUAGES = (
     ('en', _(u'English')),
     ('fr', _(u'Français')),
@@ -173,6 +152,12 @@ LOCALE_INDEPENDENT_PATHS = (
     r'^/p/',
     r'^/favicon.ico',
 )
+
+LOCALE_INDEPENDENT_MEDIA_URL = True
+LOCALE_INDEPENDENT_STATIC_URL = True
+PREFIX_DEFAULT_LOCALE = True
+LOCALEURL_USE_ACCEPT_LANGUAGE = True
+
 
 #==============================================================================
 # Middleware

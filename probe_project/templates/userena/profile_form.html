@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<form action="" enctype="multipart/form-data" method="post">
+<form class="form-horizontal" action="" enctype="multipart/form-data" method="post">
   <ul id="box-nav">
     <li class="first"><a href="{% url 'userena_profile_detail' user.username %}"><span>{% trans 'View profile' %}</span></a></li>
     <li class="selected"><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit profile" %}</a></li>
@@ -18,7 +18,7 @@
   {% csrf_token %}
   <fieldset>
     <legend>{% trans "Edit Profile" %}</legend>
-    {{ form|bootstrap }}
+    {{ form|bootstrap_horizontal }}
   </fieldset>
   <input class="btn btn-primary" type="submit" value="{% trans "Save changes" %}" />
 </form>

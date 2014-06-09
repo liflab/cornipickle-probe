@@ -1,4 +1,4 @@
-from django.conf.urls import include, url, patterns
+from django.conf.urls import patterns
 from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
@@ -6,6 +6,8 @@ from django.contrib import admin
 from django.conf.urls import include, url
 from oscar.app import shop
 from probe_project import views
+
+from userena.forms import SignupFormTos
 
 admin.autodiscover()
 
@@ -32,16 +34,19 @@ urlpatterns = patterns('',
                        # django admin
                        url(r'^admin/', include(admin.site.urls)),
 
-                       #userena
+                       # userena use Tos form instead
+                       url(r'^accounts/signup/$', 'userena.views.signup', {'signup_form': SignupFormTos}),
+
+                       # userena
                        (r'^accounts/', include('userena.urls')),
 
-                       #oscar
+                       # oscar
                        (r'^oscar/', shop.urls),
 )
 
 if settings.DEBUG:
     urlpatterns += patterns('',
-                            url(r'media/(?P<path>.*)$', 'django.views.static.serve',
+                            url(r'uploads/(?P<path>.*)$', 'django.views.static.serve',
                                 {'document_root': settings.MEDIA_ROOT}),
     )
 
