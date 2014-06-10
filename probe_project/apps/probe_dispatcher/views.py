@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+
 from django.core.urlresolvers import reverse
 
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 
-from probe_project.apps.probe_dispatcher.forms import ProbeForm
+from probe_project.apps.probe_dispatcher.forms import ProbeFrontendForm
 
 from probe_project.apps.probe_dispatcher.models import Probe, Sensor
 
@@ -32,10 +33,16 @@ def probe_detail(request, id):
 def probe_form(request):
     if request.user.is_authenticated():
         if request.method == 'POST':
-            form = ProbeForm(request.POST)
-            instance = form.save()
-            return HttpResponseRedirect(reverse(probe_detail, args=(instance.id,)))
-        return render_to_response("probe_dispatcher/probe_form.html", RequestContext(request, {'form': ProbeForm}))
+            form = ProbeFrontendForm(request.POST)
+            form.user = request.user
+            if form.is_valid():
+                instance = form.save()
+                return HttpResponseRedirect(reverse(probe_detail, args=(instance.id,)))
+            else:
+                return render_to_response("probe_dispatcher/probe_form.html",
+                                  RequestContext(request, {'form': form}))
+        return render_to_response("probe_dispatcher/probe_form.html",
+                                  RequestContext(request, {'form': ProbeFrontendForm}))
 
 
 def probes(request):
