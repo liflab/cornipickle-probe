@@ -18,14 +18,17 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="{% url 'probes' %}">{% trans 'Probes' %}</a></li>
-                    <li><a href="{% url 'sensors' %}">{% trans 'sensors' %}</a></li>
-                    {% if request.user.is_active and request.user.is_staff %}
-                        <li><a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a></li>
-                    {% endif %}
-                    {% if user.is_superuser %}
-                        <li class="admin"><a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a></li>
-                    {% endif %}
+                    {% load menu %}{% generate_menu %}
+                    {% with menu=menus.main %}{% include "include/bootstrap-navbar.html" %}{% endwith %}
+
+{#                    <li><a href="{% url 'probes' %}">{% trans 'Probes' %}</a></li>#}
+{#                    <li><a href="{% url 'sensors' %}">{% trans 'sensors' %}</a></li>#}
+{#                    {% if request.user.is_active and request.user.is_staff %}#}
+{#                        <li><a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a></li>#}
+{#                    {% endif %}#}
+{#                    {% if user.is_superuser %}#}
+{#                        <li class="admin"><a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a></li>#}
+{#                    {% endif %}#}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
