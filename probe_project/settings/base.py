@@ -44,6 +44,8 @@ INSTALLED_APPS = (
     'guardian',
     # 'easy_thumbnails',
 
+    'menu',
+
     'localeurl',
     'social_auth',
     'rest_framework',

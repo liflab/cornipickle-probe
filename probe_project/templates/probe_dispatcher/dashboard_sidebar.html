@@ -4,11 +4,5 @@
     <strong>{% trans 'Tools' %}</strong>
     <hr>
     <ul class="nav nav-pills nav-stacked">
-        <li><a href="{% url 'probes' %}">{% trans 'Probes' %}</a></li>
-        <li><a href="{% url 'sensors' %}">{% trans 'sensors' %}</a></li>
-        {% if request.user.is_active and request.user.is_staff %}
-            <li><a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a></li>
-        {% endif %}
-        <li><a href="{% url 'logout' %}">{% trans 'Layout' %}</a></li>
     </ul>
 </div>
