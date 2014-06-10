@@ -1,0 +1,18 @@
+{% load i18n %}
+<div class="panel">
+    <h2>{% trans probe.name %}</h2>
+
+    <p>{% trans probe.description %}</p>
+
+    <p>{% trans 'Domain:' %}<span class="label label-info">{{ probe.domain }}</span></p>
+    {% if sensors %}
+        {% trans 'Enabled sensors:' %}
+        <ul>
+            {% for sensor in sensors %}
+                <li>{{ sensor.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <p>{% trans 'Rendered javascript:' %} {{ probe.clickable_probe_url|safe }}</p>
+    <pre class="highlight"><code class="html">{{ probe.get_script_tag }}</code></pre>
+</div>

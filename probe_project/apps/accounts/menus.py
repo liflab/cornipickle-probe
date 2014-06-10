@@ -18,3 +18,13 @@ Menu.add_item(
         weight=20
     )
 )
+
+Menu.add_item(
+    "main", MenuItem(
+        _("Administration"),
+        reverse("admin:index"),
+        weight=80,
+        separator=True,
+        check=lambda request: request.user.is_superuser
+    )
+)
