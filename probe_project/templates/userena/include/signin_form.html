@@ -1,0 +1,39 @@
+{% load i18n bootstrap %}
+<div class="login">
+    {% if error %}
+        <div class="alert alert-danger alert-dismissable animated bounce fade in">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{ error }}
+        </div>
+    {% endif %}
+    <h3>{% trans 'Please Log In, or ' %}<a href="{% url 'userena_signup' %}">{% trans 'Sign Up' %}</a></h3>
+
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <a href="#" class="btn btn-lg btn-block btn-facebook">Facebook</a>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <a href="#" class="btn btn-lg btn-block btn-google">Google</a>
+        </div>
+    </div>
+    <div class="login-or">
+        <span class="span-or">{% trans 'or' %}</span>
+    </div>
+
+    <form role="form" action="{% url 'userena_signin' %}" method="POST">
+        {% csrf_token %}
+
+        {{ form|bootstrap }}
+
+        <div class="form-group">
+            <a class="pull-right" href="{% url 'userena_password_reset' %}"
+               title="{% trans 'Forgot your password?' %}">{% trans "Forgot your password?" %}</a>
+        </div>
+
+        <button type="submit" class="btn btn btn-primary">
+            {% trans 'Log In' %}
+        </button>
+
+        {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
+    </form>
+</div>

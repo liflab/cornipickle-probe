@@ -1,42 +1,8 @@
 {% extends 'userena/base_userena.html' %}
-{% load i18n bootstrap %}
+{% load i18n %}
 
 {% block title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-
-    <div class="register">
-
-        <h3>{% trans 'Register, or' %} <a href="{% url 'login' %}">{% trans 'Log in' %}</a></h3>
-
-        <div class="row">
-            {% for field in form %}
-                {% if field.errors %}
-                    {% for error in field.errors %}
-
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <a href="#" class="btn btn-lg btn-block btn-facebook">Facebook</a>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <a href="#" class="btn btn-lg btn-block btn-google">Google</a>
-            </div>
-        </div>
-        <div class="login-or">
-            <span class="span-or">{% trans 'or' %}</span>
-        </div>
-
-        <form role="form" class="form" action="" method="POST">
-            {% csrf_token %}
-
-            {{ form|bootstrap }}
-
-            <button type="submit" class="btn btn btn-primary">
-                {% trans 'Register' %}
-            </button>
-        </form>
-
-    </div>
+    {% include 'userena/include/signup_form.html' %}
 {% endblock %}
