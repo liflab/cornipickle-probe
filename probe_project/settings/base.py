@@ -98,8 +98,8 @@ ANONYMOUS_USER_ID = -1
 AUTH_PROFILE_MODULE = 'accounts.ProbeUserProfile'
 
 LOGIN_REDIRECT_URL = '/dashboard/'
-LOGIN_URL = '/accounts/signin/'
-LOGOUT_URL = '/accounts/signout/'
+LOGIN_URL = '/signin/'
+LOGOUT_URL = '/signout/'
 
 #==============================================================================
 # Templates

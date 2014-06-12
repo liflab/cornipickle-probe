@@ -4,22 +4,28 @@ from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.conf.urls import include, url
+from django.http import HttpResponseRedirect
 from oscar.app import shop
 from probe_project import views as probe_views
 from userena import views as userena_views
 
 from userena.forms import SignupFormTos
 
+
+def logout_required(view):
+    def f(request, *args, **kwargs):
+        if request.user.is_anonymous():
+            return view(request, *args, **kwargs)
+        return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
+
+    return f
+
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
                        url(r'^$', probe_views.home, name="home"),
                        url(r'^dashboard/', include('probe_project.apps.probe_dispatcher.urls')),
-
-                       # Login / register
-                       # url(r'^register/$', userena_views.signup, name='register'),
-                       # url(r'^login/$', userena_views.signin, name='login'),
-                       url(r'^logout/$', userena_views.signout, {'next_page': '/'}, name='logout'),
 
                        # probe file url
                        url(r'^p/(?P<id>\d+)_(?P<hash>[0-9a-fA-F]{40}).js$',
@@ -35,11 +41,13 @@ urlpatterns = patterns('',
                        # django admin
                        url(r'^admin/', include(admin.site.urls), name='administration'),
 
-                       # userena use Tos form instead
-                       url(r'^accounts/signup/$', 'userena.views.signup', {'signup_form': SignupFormTos}),
-
                        # userena
-                       (r'^accounts/', include('userena.urls')),
+                       url(r'^logout/$', userena_views.signout, {'next_page': '/'}, name='logout'),
+                       # don't show signin if logged in
+                       url(r'^signin/$', logout_required(userena_views.signin)),
+                       # userena use Tos form instead
+                       url(r'^signup/$', logout_required(userena_views.signup)),# {'signup_form': SignupFormTos}),
+                       (r'^', include('userena.urls')),
 
                        # oscar
                        (r'^oscar/', shop.urls),

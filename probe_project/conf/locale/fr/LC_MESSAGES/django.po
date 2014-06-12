@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Probe\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-02 23:28-0400\n"
-"PO-Revision-Date: 2014-06-02 23:28-0500\n"
+"PO-Revision-Date: 2014-06-12 17:23-0500\n"
 "Last-Translator: Gabriel Le Breton <lebreton.gabriel@gmail.com>\n"
 "Language-Team: LIF <lebreton.gabriel@gmail.com>\n"
 "Language: fr\n"
@@ -199,6 +199,10 @@ msgstr "Termes et conditions"
 #: templates/registration/register-form.html:63
 msgid "Register"
 msgstr "S'enregistrer"
+
+#: tests/test_forms.py:325
+msgid "Enter a valid email address."
+msgstr "Saisissez une adresse courriel valide."
 
 #~ msgid "fr"
 #~ msgstr "fr"
