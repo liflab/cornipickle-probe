@@ -62,7 +62,7 @@ def probe_file(request, probe_id, probe_hash):
     for sensor in current_probe.sensors.all():
         print(sensor.name)
 
-    return render_to_response("probe_dispatcher/probe.html",
+    return render_to_response("probe_dispatcher/probe.js.html",
                               RequestContext(request, {'id': probe_id, 'hash': probe_hash}),
                               content_type='application/javascript')
 

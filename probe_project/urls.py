@@ -4,22 +4,12 @@ from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.conf.urls import include, url
-from django.http import HttpResponseRedirect
 from oscar.app import shop
 from probe_project import views as probe_views
+from custom_userena_urls import urlpatterns as custom_userena_urls
 from userena import views as userena_views
 
 from userena.forms import SignupFormTos
-
-
-def logout_required(view):
-    def f(request, *args, **kwargs):
-        if request.user.is_anonymous():
-            return view(request, *args, **kwargs)
-        return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
-
-    return f
-
 
 admin.autodiscover()
 
@@ -28,7 +18,7 @@ urlpatterns = patterns('',
                        url(r'^dashboard/', include('probe_project.apps.probe_dispatcher.urls')),
 
                        # probe file url
-                       url(r'^p/(?P<id>\d+)_(?P<probe_hash>[0-9a-fA-F]{40}).js$',
+                       url(r'^p/(?P<probe_id>\d+)_(?P<probe_hash>[0-9a-fA-F]{40}).js$',
                            'probe_project.apps.probe_dispatcher.views.probe_file',
                            name="probe"),
 
@@ -42,12 +32,7 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls), name='administration'),
 
                        # userena
-                       url(r'^logout/$', userena_views.signout, {'next_page': '/'}, name='logout'),
-                       # don't show signin if logged in
-                       url(r'^signin/$', logout_required(userena_views.signin)),
-                       # userena use Tos form instead
-                       url(r'^signup/$', logout_required(userena_views.signup)),# {'signup_form': SignupFormTos}),
-                       (r'^', include('userena.urls')),
+                       (r'^', include(custom_userena_urls)),
 
                        # oscar
                        (r'^oscar/', shop.urls),
