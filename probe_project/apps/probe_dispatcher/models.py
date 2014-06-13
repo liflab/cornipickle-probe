@@ -7,10 +7,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 
 class Sensor(models.Model):
     name = models.CharField(
+        verbose_name=_("Name"),
         max_length=200
     )
 
@@ -20,21 +22,24 @@ class Sensor(models.Model):
 
 class Probe(models.Model):
     name = models.CharField(
-        verbose_name=u"name",
-        help_text=u"Name of the probe",
+        verbose_name=_("Name"),
+        help_text=_("Name of the probe"),
         editable=True,
         max_length=255
     )
 
     description = models.TextField(
+        verbose_name=_("Description"),
         max_length=1200,
     )
 
     domain = models.CharField(
+        verbose_name=_("Domain"),
         max_length=200
     )
 
     hash = models.CharField(
+        verbose_name=_("Hash"),
         max_length=40,
         editable=False,
     )
@@ -46,9 +51,9 @@ class Probe(models.Model):
 
     user = models.ForeignKey(
         User,
+        verbose_name=_("User"),
         unique=False,
-        verbose_name=u"user",
-        help_text=u"User"
+        help_text=_("Owner of the probe")
     )
 
     # domains = models.
