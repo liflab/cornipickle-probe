@@ -28,7 +28,7 @@ urlpatterns = patterns('',
                        url(r'^dashboard/', include('probe_project.apps.probe_dispatcher.urls')),
 
                        # probe file url
-                       url(r'^p/(?P<id>\d+)_(?P<hash>[0-9a-fA-F]{40}).js$',
+                       url(r'^p/(?P<id>\d+)_(?P<probe_hash>[0-9a-fA-F]{40}).js$',
                            'probe_project.apps.probe_dispatcher.views.probe_file',
                            name="probe"),
 
