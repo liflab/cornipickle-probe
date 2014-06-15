@@ -84,7 +84,7 @@ footer .links ul li:first-child {
 footer .links ul li:last-child {
   margin-right: 0;
 }
-footer .links ul li.current-version {
+footer .links ul li.current-version, footer .links ul li.copyright {
   color: #c2e8f2;
   font-weight: 400;
 }
@@ -101,18 +101,6 @@ footer .links ul li .icon-muted {
 footer .links ul li:hover .icon-muted {
   color: #ffffff;
 }
-footer .copyright {
-  margin-top: 10px;
-  font-size: 0.9em;
-  color: #c2e8f2;
-  text-transform: lowercase;
-  right: 0;
-  padding-top: 20px;
-  padding-bottom: 10px;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-}
 
 .panel {
   padding: 10px;
@@ -126,6 +114,11 @@ footer .copyright {
 footer {
   padding-bottom: 10px;
   padding-top: 10px;
+}
+
+.align-center {
+  text-align: center;
+  margin: 0 auto;
 }
 
 .btn-google {

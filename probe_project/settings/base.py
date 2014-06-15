@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     # 'probe_project.apps.orderedmodel',
 
     'south',
+    'django_extensions',
 
     'userena',
     'guardian',
@@ -154,6 +155,7 @@ LOCALE_INDEPENDENT_PATHS = (
     r'^/api/',
     r'^/p/',
     r'^/favicon.ico',
+    r'^/social/',
 )
 
 LOCALE_INDEPENDENT_MEDIA_URL = True
@@ -180,7 +182,22 @@ AUTHENTICATION_BACKENDS += (
     'oscar.apps.customer.auth_backends.Emailbackend',
     'userena.backends.UserenaAuthenticationBackend',
     'guardian.backends.ObjectPermissionBackend',
+    'social_auth.backends.google.OpenIdAuth',
+    'social_auth.backends.google.GoogleOAuth2',
+    'social_auth.backends.google.GoogleOAuth',
+    'social_auth.backends.contrib.github.GithubBackend',
 )
+
+GOOGLE_CONSUMER_KEY          = ''
+GOOGLE_CONSUMER_SECRET       = ''
+GOOGLE_OAUTH2_CLIENT_ID      = ''
+GOOGLE_OAUTH2_CLIENT_SECRET  = ''
+
+GITHUB_APP_ID                = '89fbe87089436ea76f71'
+GITHUB_API_SECRET            = '876ed85504747328c64895259adc0392a89c8e44'
+
+import random
+SOCIAL_AUTH_DEFAULT_USERNAME = lambda: random.choice(['Darth Vader', 'Obi-Wan Kenobi', 'R2-D2', 'C-3PO', 'Yoda'])
 
 #==============================================================================
 # Third party app settings

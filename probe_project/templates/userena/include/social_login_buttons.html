@@ -1,0 +1,15 @@
+{% load static %}
+{% block head_stylesheets %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}">
+{% endblock %}
+
+<div class="col-xs-6 col-sm-6 col-md-6">
+    <a href="{% url 'socialauth_begin' 'github' %}" class="btn btn-block btn-social btn-github">
+        <i class="fa fa-github"></i> Github
+    </a>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-6">
+    <a href="{% url 'socialauth_begin' 'google' %}" class="btn btn-block btn-social btn-google">
+        <i class="fa fa-google"></i> Google
+    </a>
+</div>

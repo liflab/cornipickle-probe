@@ -23,7 +23,7 @@ urlpatterns = patterns('',
                            name="probe"),
 
                        # rest_framework
-                       url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
+                       url(r'^api/?', include('rest_framework.urls', namespace='rest_framework')),
 
                        # localeurl (language selection)
                        (r'^localeurl/', include('localeurl.urls')),
@@ -32,10 +32,14 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls), name='administration'),
 
                        # userena
-                       (r'^', include(custom_userena_urls)),
+                       url(r'^', include(custom_userena_urls)),
 
                        # oscar
-                       (r'^oscar/', shop.urls),
+                       url(r'^oscar/', shop.urls),
+
+                       # Social Auth
+                       url(r'social/', include('social_auth.urls')),
+
 )
 
 if settings.DEBUG:

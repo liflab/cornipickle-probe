@@ -38,7 +38,7 @@ def probe_form(request):
 def probes(request):
     if request.user.is_authenticated():
         return render_to_response("probe_dispatcher/probes.html", RequestContext(request, {
-            'probes': Probe.objects.all()
+            'probes': Probe.objects.filter(user=request.user)
         }))
     else:
         return redirect('/')
