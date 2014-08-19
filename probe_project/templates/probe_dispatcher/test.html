@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang=en>
+<head>
+    <meta charset="utf-8"/>
+    <title>Probe Test Page</title>
+
+    {{ script|safe }}
+
+    <style>
+        body {
+            background: #000;
+            color: white;
+            font-size: 1.5em;
+        }
+
+        section {
+            margin: 0 auto;
+            max-width: 960px;
+        }
+
+        button {
+            background: #fff;
+            color: #000;
+            border: 2px solid #aaa;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        form { padding-top: 20px;}
+        form button { width: 100%; background: rgba(200, 220, 255, 0.9)}
+        input, textarea {width: 100%; font-size: 1em;}
+    </style>
+
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<section>
+    <h1>Probe test page</h1>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem expedita illum iste laudantium nisi ratione rerum
+        sapiente. A dolor quos rerum sint veritatis. Aperiam deserunt dolore dolorum hic non quo?</p>
+    <button id="button1">Click me!</button>
+    <button id="button2">Click me too!</button>
+
+    <form action="#">
+        <fieldset>
+            <label for="username">Username:
+                <input type="text" id="username"/>
+            </label>
+            <br />
+            <label for="password">Password:
+                <input type="password" id="password"/>
+            </label>
+            <br />
+            <label for="text">Say something
+                <textarea id="text" placeholder="Hello world"></textarea>
+            </label>
+            <button type="submit">Catch me!</button>
+        </fieldset>
+    </form>
+</section>
+
+<footer>
+
+</footer>
+</body>
+</html>

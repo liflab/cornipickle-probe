@@ -54,7 +54,7 @@ def sensors(request):
         return redirect('/')
 
 
-def probe_file(request, probe_id, probe_hash):
+def probe_file(request, probe_id, probe_hash, banner=True):
     current_probe = get_object_or_404(Probe, id=probe_id)
     if current_probe.hash != probe_hash:
         raise Http404
@@ -62,9 +62,36 @@ def probe_file(request, probe_id, probe_hash):
     for sensor in current_probe.sensors.all():
         print(sensor.name)
 
-    return render_to_response("probe_dispatcher/probe.js.html",
-                              RequestContext(request, {'id': probe_id, 'hash': probe_hash}),
-                              content_type='application/javascript')
+    return render_to_response(
+        "probe_dispatcher/probe.js",
+        RequestContext(
+            request, {
+                'id': probe_id,
+                'hash': probe_hash,
+                'banner': banner,
+                'site_url': request.get_host()
+            }
+        ),
+        content_type='application/javascript'
+    )
+
+
+def probe_test(request, probe_id, probe_hash):
+    current_probe = get_object_or_404(Probe, id=probe_id)
+    if current_probe.hash != probe_hash:
+        raise Http404
+
+    for sensor in current_probe.sensors.all():
+        print(sensor.name)
+
+    return render_to_response(
+        "probe_dispatcher/test.html",
+        RequestContext(
+            request, {
+                'script': current_probe.get_script_tag()
+            }
+        )
+    )
 
 
 @login_required

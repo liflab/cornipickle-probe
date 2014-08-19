@@ -2,7 +2,6 @@
 """Base settings shared by all environments"""
 
 import os
-import sys
 
 # Import global settings to make it easier to extend settings.
 from django.conf.global_settings import *
@@ -29,6 +28,8 @@ SITE_ID = 1
 
 ADMINS = (
     ('GabLeRoux', 'lebreton.gabriel@gmail.com'),
+    ('nsb002', 'nsb002@gmail.com'),
+    ('kimlavoie14', 'kim.lavoie.14@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -45,10 +46,13 @@ INSTALLED_APPS = (
     'guardian',
     # 'easy_thumbnails',
 
+    # social auth
+    'social.apps.django_app.default',
+
+
     'menu',
 
     'localeurl',
-    'social_auth',
     'rest_framework',
     'compressor',
 
@@ -74,7 +78,7 @@ INSTALLED_APPS = (
 
 PROJECT_DIR = os.path.dirname(os.path.realpath(project_module.__file__))
 
-PYTHON_BIN = os.path.dirname(sys.executable)
+# PYTHON_BIN = os.path.dirname(sys.executable)
 
 #==============================================================================
 # Project URLS auth and media settings
@@ -84,7 +88,7 @@ ROOT_URLCONF = 'probe_project.urls'
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')   
 STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, 'local_static'),
 )
@@ -117,13 +121,21 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS += (
+TEMPLATE_CONTEXT_PROCESSORS = (
     'oscar.apps.search.context_processors.search_form',
     'oscar.apps.promotions.context_processors.promotions',
     'oscar.apps.checkout.context_processors.checkout',
     'oscar.apps.customer.notifications.context_processors.notifications',
     'oscar.core.context_processors.metadata',
+
     'django.core.context_processors.request',
+
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.contrib.messages.context_processors.messages',
+    'social.apps.django_app.context_processors.backends',
 )
 
 #==============================================================================
@@ -172,32 +184,74 @@ MIDDLEWARE_CLASSES += (
     'oscar.apps.basket.middleware.BasketMiddleware',
     'localeurl.middleware.LocaleURLMiddleware',
     'userena.middleware.UserenaLocaleMiddleware',
+
+    'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
+
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    # simple clickjacking protection:
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 #==============================================================================
 # Auth / security
 #==============================================================================
 
-AUTHENTICATION_BACKENDS += (
+AUTHENTICATION_BACKENDS = (
     'oscar.apps.customer.auth_backends.Emailbackend',
     'userena.backends.UserenaAuthenticationBackend',
     'guardian.backends.ObjectPermissionBackend',
-    'social_auth.backends.google.OpenIdAuth',
-    'social_auth.backends.google.GoogleOAuth2',
-    'social_auth.backends.google.GoogleOAuth',
-    'social_auth.backends.contrib.github.GithubBackend',
+
+    "django.contrib.auth.backends.ModelBackend",
+
+    'social.backends.github.GithubOAuth2',
+    'social.backends.google.GoogleOAuth',
+    'social.backends.google.GoogleOAuth2',
+    'social.backends.google.GoogleOpenId',
+    'social.backends.google.GooglePlusAuth',
 )
 
-GOOGLE_CONSUMER_KEY          = ''
-GOOGLE_CONSUMER_SECRET       = ''
-GOOGLE_OAUTH2_CLIENT_ID      = ''
-GOOGLE_OAUTH2_CLIENT_SECRET  = ''
+# GOOGLE_OAUTH2_CLIENT_ID = '440027041129-hpcmjm5epmqr6bbm5kgobdd3fmps4ebt.apps.googleusercontent.com'
+# GOOGLE_OAUTH2_CLIENT_SECRET = 'VfyRCLADLEN8gJbeFglCaPav'
+#
+# GITHUB_APP_ID = '89fbe87089436ea76f71'
+# GITHUB_API_SECRET = '876ed85504747328c64895259adc0392a89c8e44'
 
-GITHUB_APP_ID                = '89fbe87089436ea76f71'
-GITHUB_API_SECRET            = '876ed85504747328c64895259adc0392a89c8e44'
 
-import random
-SOCIAL_AUTH_DEFAULT_USERNAME = lambda: random.choice(['Darth Vader', 'Obi-Wan Kenobi', 'R2-D2', 'C-3PO', 'Yoda'])
+# AUTH_USER_MODEL = 'app_label.model_name'
+
+SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
+SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
+SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
+    'https://www.googleapis.com/auth/drive',
+    'https://www.googleapis.com/auth/userinfo.profile'
+]
+# # SOCIAL_AUTH_EMAIL_FORM_URL = '/signup-email'
+# SOCIAL_AUTH_EMAIL_FORM_HTML = 'email_signup.html'
+# SOCIAL_AUTH_EMAIL_VALIDATION_FUNCTION = 'example.app.mail.send_validation'
+# SOCIAL_AUTH_EMAIL_VALIDATION_URL = '/email-sent/'
+# # SOCIAL_AUTH_USERNAME_FORM_URL = '/signup-username'
+# SOCIAL_AUTH_USERNAME_FORM_HTML = 'username_signup.html'
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'probe_project.apps.accounts.pipeline.require_email',
+    'social.pipeline.mail.mail_validation',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
+)
+
+# SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['first_name', 'last_name', 'email',
+#                                         'username']
 
 #==============================================================================
 # Third party app settings

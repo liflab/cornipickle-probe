@@ -21,6 +21,11 @@ urlpatterns = patterns('',
                        url(r'^p/(?P<probe_id>\d+)_(?P<probe_hash>[0-9a-fA-F]{40}).js$',
                            'probe_project.apps.probe_dispatcher.views.probe_file',
                            name="probe"),
+                       
+                       # probe file test url
+                       url(r'^p/(?P<probe_id>\d+)_(?P<probe_hash>[0-9a-fA-F]{40}).html$',
+                           'probe_project.apps.probe_dispatcher.views.probe_test',
+                           name="probe_test"),
 
                        # rest_framework
                        url(r'^api/?', include('rest_framework.urls', namespace='rest_framework')),
@@ -38,7 +43,7 @@ urlpatterns = patterns('',
                        url(r'^oscar/', shop.urls),
 
                        # Social Auth
-                       url(r'social/', include('social_auth.urls')),
+                       url(r'social/', include('social.apps.django_app.urls')),
 
 )
 
