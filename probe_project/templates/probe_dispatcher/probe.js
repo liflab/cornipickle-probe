@@ -65,7 +65,7 @@ BeepProbe.onMouseLeftButtonUp = function (sender, mouseEventArgs) {
     sender.findName("Status").text = pt.x + " : " + pt.y;
 }
 
-BeepProbe.sendData = function() {
+BeepProbe.sendData = function () {
     this.handleEvent(this.bp_events);
     this.bp_events = [];
 }
@@ -79,15 +79,15 @@ window.onload = function () {
     {% if banner %}
     document.body.innerHTML += "<div id=\"bp_witness\" title=\"BeepProbe status bar\" style=\"position:fixed;padding:4px;bottom:0;right:0;width:100px;height:16px;background:white;border-top:solid 1px;border-left:solid 1px;border-top-left-radius:8px\">\n<div id=\"bp_witness_transmit\" style=\"opacity:0.3;width:16px;height:16px;background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAA8vwAAPL8BIBbWoQAAAAd0SU1FB94EGAwmJ+sDwWQAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAADr0lEQVQ4y12SW0xbdRzHf/9zDqctY0xoS8tKL0vX0WyJCqVc5L6BiStlUnBc5hjGSyJmmrAnY0yqbG4JLvFtiVMcmPpmO10YY44pmWNs3DI3J8qt3JFSKKU9vZ7z88EQ5z6P3+TzefrCz/23Zfnm3HBOVjYeLi0LlReX3Gk6Xv/5ufazLyEiBU/xwen34VnIg6H7WScaG8cQMS4IAiGE0IIgACsSgVQmG1UoFHaLxdJf09QUkibtgpePVMDN/lv/BQAAWltbO93TM5J1jycxgWXzVldWGZqidsfjMVYkFoNWp+vdq1J92Hnlm4c74vTkFOgN+/8NPIvdbs8d/PXumyvLy5URLqSJxWN0qlQ6k6ZUvnv9Ru8tQojwP2FkdIwdvDsoQUT66f1iR0dmSWFx18EDRv++DDUW5OXzbzSfakREAACoq6sDcu2HH3dd7Og4TTOMSCaXr2/6fL+bTKaZ8xfOz++EqiyWtpXFpY+9Xu9zCoViU6VRH3W6XEMAAHD1e+fzeq0OtaoM1Ov2YZ45N3a4rPyarcZW/21X956dyImGhraDmcYNjSoDCwoKhu32T+SICLTVamWHR0aKEhjGkyiRJPu3tkRer/cAx3FVExMTjDknZ/zJH09Cjx4/vmfKzpb7trZMXJDT0IQEjjfUD9BOl9NfbbUOhTiuTyaXDxKKWhR4XhHY3pZtBwL5hBBJnc324N79obDT5Rq92ddXEQ4EVcFg0Nx25szXNADA2PjY2tzC/NJfU5O/zS8u3Ojvvz3P0PShbb9fGQlHTCgIq39OTo4rlcpAra1WPD01VRoKh5LEIpEHAADOftqur62xvVdxpOIYIooBAN55622L6YUXJzTpKiwrKp499frJLAAARGTN2Sa3XqvD0sKiMarm2Kvl3zkcvbMzM+0Gvf6S5ZWjl93Ts8lffnW5R56W1p2SmgLLy8u6ubm5HEQkhJCoVCa7Q1EU//fa2iFqc2PjUjgUMnDBYMru5OT0lpYWi6XKUg8AkK5S/cQkJIxHo1GIRqIlzSeb5QAAer3+IQLEI+EwS3Ecl0kQked5DPj9YDQaxR6PRw0A0NnZ6U4Ui90Cz0NioqSAQpQBAASCgV/4OB+nCAVUSmrqcByRsCIxKNLToed6z/Z+g+ERAAChiCfG8x6KYSDIcUkbPh8NAGCtro4hCiwv8EBeq62TLy4t9njXvWaFUsFptNovHA7HRzsH6r7StXdgYMCoVqu9lZWVE4XFRREAgAvnPiudX1hg/gEXjafdzTT07wAAAABJRU5ErkJggg==')\"></div>\n</div>";
     {% endif %}
-    
-    document.addEventListener('mousemove', function(event){ 
+
+    document.addEventListener('mousemove', function (event) {
         bp_probe.bp_events.push({'mousemove': {'time': new Date().getTime(), 'x': event.clientX || event.pageX, 'y': event.clientY || event.pageY}})
     }, false);
-    
-    document.addEventListener('keyup', function(event) {
+
+    document.addEventListener('keyup', function (event) {
         bp_probe.bp_events.push({'keyup': {'time': new Date().getTime(), 'keycode': event.keyCode, 'character': String.fromCharCode(event.keyCode)}})
     }, false);
-    
+
     // not working yet:
     setTimeout(bp_probe.sendData, 1000);
 }
