@@ -16,6 +16,12 @@ Si vous rencontrez des problèmes à l'installation des dépendances veuillez ex
 
     sudo apt-get install python2.7-dev
 
+Pour rouler le serveur
+
+    export DJANGO_SETTINGS_MODULE=probe_project.settings.local
+    export PYTHONUNBUFFERED=1
+    python manage.py runserver_plus
+
 Voilà, on est prêt à travailler avec django!
 
 ### Installer nodejs et npm
