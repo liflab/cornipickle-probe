@@ -100,6 +100,9 @@ window.onload = function () {
         // Lookup tables for other tag names will be automatically built at runtime if needed
         var tagNames = ["A","ABBR","ADDRESS","AREA","ARTICLE","ASIDE","AUDIO","B","BASE","BDI","BDO","BLOCKQUOTE","BODY","BR","BUTTON","CANVAS","CAPTION","CENTER","CITE","CODE","COL","COLGROUP","COMMAND","DATALIST","DD","DEL","DETAILS","DFN","DIV","DL","DT","EM","EMBED","FIELDSET","FIGCAPTION","FIGURE","FONT","FOOTER","FORM","H1","H2","H3","H4","H5","H6","HEAD","HEADER","HGROUP","HR","HTML","I","IFRAME","IMG","INPUT","INS","KBD","KEYGEN","LABEL","LEGEND","LI","LINK","MAP","MARK","MATH","MENU","META","METER","NAV","NOBR","NOSCRIPT","OBJECT","OL","OPTION","OPTGROUP","OUTPUT","P","PARAM","PRE","PROGRESS","Q","RP","RT","RUBY","S","SAMP","SCRIPT","SECTION","SELECT","SMALL","SOURCE","SPAN","STRONG","STYLE","SUB","SUMMARY","SUP","SVG","TABLE","TBODY","TD","TEXTAREA","TFOOT","TH","THEAD","TIME","TITLE","TR","TRACK","U","UL","VAR","VIDEO","WBR"];
 
+        var formTags   = ["INPUT", "BUTTON", "SELECT", "PROGRESS", "TEXTAREA"];
+	    var checkboxes = ["RADIO", "CHECKBOX"];
+
         // Precompute the lookup tables.
         for (var i = 0; i < tagNames.length; i++) {
             if(!noStyleTags[tagNames[i]]) {
@@ -144,6 +147,19 @@ window.onload = function () {
                     }
                 }
             }
+            
+            // Si c'est un elt modifiable
+			if (formTags.indexOf(e.tagName) >= 0) {
+				// Si c'est une checkbox
+				if (checkboxes.indexOf(e.type.toUpperCase()) >= 0) {
+					if (e.checked)  e.setAttribute('checked', true);
+					else			e.setAttribute('checked', false);
+				} else {
+					e.setAttribute('value', e.value);
+				}
+				
+			}
+            
             var result = this.outerHTML;
             for ( var i = 0; i < elements.length; i++ ) {
                 elements[i].style.cssText = cssTexts[i];
