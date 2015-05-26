@@ -5,6 +5,8 @@
  For more information, please visit {{ site_url }}
  *********************************************************************/
 
+var actualDom = "";
+
 var BeepProbe = function () {
 
     this.handleXhrResponse = function () {
@@ -63,11 +65,21 @@ BeepProbe.onMouseLeftButtonUp = function (sender, mouseEventArgs) {
 
     // Display the current mouse position.
     sender.findName("Status").text = pt.x + " : " + pt.y;
-}
+};
 
 BeepProbe.sendData = function () {
     this.handleEvent(this.bp_events);
     this.bp_events = [];
+};
+
+/*BeepProbe.logData = function () {
+    actualDom = document.body.serializeWithStyles();
+    console.log(actualDom);
+};*/
+
+function logData() {
+    actualDom = document.body.serializeWithStyles();
+    console.log(actualDom);
 }
 
 bp_mouse_handler = function () {
@@ -75,6 +87,87 @@ bp_mouse_handler = function () {
 };
 
 window.onload = function () {
+    // Source : http://stackoverflow.com/a/6310120
+    Element.prototype.serializeWithStyles = (function () {
+
+        // Mapping between tag names and css default values lookup tables. This allows to exclude default values in the result.
+        var defaultStylesByTagName = {};
+
+        // Styles inherited from style sheets will not be rendered for elements with these tag names
+        var noStyleTags = {"BASE":true,"HEAD":true,"HTML":true,"META":true,"NOFRAME":true,"NOSCRIPT":true,"PARAM":true,"SCRIPT":true,"STYLE":true,"TITLE":true};
+
+        // This list determines which css default values lookup tables are precomputed at load time
+        // Lookup tables for other tag names will be automatically built at runtime if needed
+        var tagNames = ["A","ABBR","ADDRESS","AREA","ARTICLE","ASIDE","AUDIO","B","BASE","BDI","BDO","BLOCKQUOTE","BODY","BR","BUTTON","CANVAS","CAPTION","CENTER","CITE","CODE","COL","COLGROUP","COMMAND","DATALIST","DD","DEL","DETAILS","DFN","DIV","DL","DT","EM","EMBED","FIELDSET","FIGCAPTION","FIGURE","FONT","FOOTER","FORM","H1","H2","H3","H4","H5","H6","HEAD","HEADER","HGROUP","HR","HTML","I","IFRAME","IMG","INPUT","INS","KBD","KEYGEN","LABEL","LEGEND","LI","LINK","MAP","MARK","MATH","MENU","META","METER","NAV","NOBR","NOSCRIPT","OBJECT","OL","OPTION","OPTGROUP","OUTPUT","P","PARAM","PRE","PROGRESS","Q","RP","RT","RUBY","S","SAMP","SCRIPT","SECTION","SELECT","SMALL","SOURCE","SPAN","STRONG","STYLE","SUB","SUMMARY","SUP","SVG","TABLE","TBODY","TD","TEXTAREA","TFOOT","TH","THEAD","TIME","TITLE","TR","TRACK","U","UL","VAR","VIDEO","WBR"];
+
+        var formTags   = ["INPUT", "BUTTON", "SELECT", "PROGRESS", "TEXTAREA"];
+	    var checkboxes = ["RADIO", "CHECKBOX"];
+
+        // Precompute the lookup tables.
+        for (var i = 0; i < tagNames.length; i++) {
+            if(!noStyleTags[tagNames[i]]) {
+                defaultStylesByTagName[tagNames[i]] = computeDefaultStyleByTagName(tagNames[i]);
+            }
+        }
+
+        function computeDefaultStyleByTagName(tagName) {
+            var defaultStyle = {};
+            var element = document.body.appendChild(document.createElement(tagName));
+            var computedStyle = getComputedStyle(element);
+            for (var i = 0; i < computedStyle.length; i++) {
+                defaultStyle[computedStyle[i]] = computedStyle[computedStyle[i]];
+            }
+            document.body.removeChild(element);
+            return defaultStyle;
+        }
+
+        function getDefaultStyleByTagName(tagName) {
+            tagName = tagName.toUpperCase();
+            if (!defaultStylesByTagName[tagName]) {
+                defaultStylesByTagName[tagName] = computeDefaultStyleByTagName(tagName);
+            }
+            return defaultStylesByTagName[tagName];
+        }
+
+        return function serializeWithStyles() {
+            if (this.nodeType !== Node.ELEMENT_NODE) { throw new TypeError(); }
+            var cssTexts = [];
+            var elements = this.querySelectorAll("*");
+            for ( var i = 0; i < elements.length; i++ ) {
+                var e = elements[i];
+                if (!noStyleTags[e.tagName]) {
+                    var computedStyle = getComputedStyle(e);
+                    var defaultStyle = getDefaultStyleByTagName(e.tagName);
+                    cssTexts[i] = e.style.cssText;
+                    for (var ii = 0; ii < computedStyle.length; ii++) {
+                        var cssPropName = computedStyle[ii];
+                        if (computedStyle[cssPropName] !== defaultStyle[cssPropName]) {
+                            e.style[cssPropName] = computedStyle[cssPropName];
+                        }
+                    }
+                }
+            }
+            
+            // Si c'est un elt modifiable
+			if (formTags.indexOf(e.tagName) >= 0) {
+				// Si c'est une checkbox
+				if (checkboxes.indexOf(e.type.toUpperCase()) >= 0) {
+					if (e.checked)  e.setAttribute('checked', true);
+					else			e.setAttribute('checked', false);
+				} else {
+					e.setAttribute('value', e.value);
+				}
+				
+			}
+            
+            var result = this.outerHTML;
+            for ( var i = 0; i < elements.length; i++ ) {
+                elements[i].style.cssText = cssTexts[i];
+            }
+            return result;
+        }
+    })();
+
     bp_probe = new BeepProbe();
     {% if banner %}
     document.body.innerHTML += "<div id=\"bp_witness\" title=\"BeepProbe status bar\" style=\"position:fixed;padding:4px;bottom:0;right:0;width:100px;height:16px;background:white;border-top:solid 1px;border-left:solid 1px;border-top-left-radius:8px\">\n<div id=\"bp_witness_transmit\" style=\"opacity:0.3;width:16px;height:16px;background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAA8vwAAPL8BIBbWoQAAAAd0SU1FB94EGAwmJ+sDwWQAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAADr0lEQVQ4y12SW0xbdRzHf/9zDqctY0xoS8tKL0vX0WyJCqVc5L6BiStlUnBc5hjGSyJmmrAnY0yqbG4JLvFtiVMcmPpmO10YY44pmWNs3DI3J8qt3JFSKKU9vZ7z88EQ5z6P3+TzefrCz/23Zfnm3HBOVjYeLi0LlReX3Gk6Xv/5ufazLyEiBU/xwen34VnIg6H7WScaG8cQMS4IAiGE0IIgACsSgVQmG1UoFHaLxdJf09QUkibtgpePVMDN/lv/BQAAWltbO93TM5J1jycxgWXzVldWGZqidsfjMVYkFoNWp+vdq1J92Hnlm4c74vTkFOgN+/8NPIvdbs8d/PXumyvLy5URLqSJxWN0qlQ6k6ZUvnv9Ru8tQojwP2FkdIwdvDsoQUT66f1iR0dmSWFx18EDRv++DDUW5OXzbzSfakREAACoq6sDcu2HH3dd7Og4TTOMSCaXr2/6fL+bTKaZ8xfOz++EqiyWtpXFpY+9Xu9zCoViU6VRH3W6XEMAAHD1e+fzeq0OtaoM1Ov2YZ45N3a4rPyarcZW/21X956dyImGhraDmcYNjSoDCwoKhu32T+SICLTVamWHR0aKEhjGkyiRJPu3tkRer/cAx3FVExMTjDknZ/zJH09Cjx4/vmfKzpb7trZMXJDT0IQEjjfUD9BOl9NfbbUOhTiuTyaXDxKKWhR4XhHY3pZtBwL5hBBJnc324N79obDT5Rq92ddXEQ4EVcFg0Nx25szXNADA2PjY2tzC/NJfU5O/zS8u3Ojvvz3P0PShbb9fGQlHTCgIq39OTo4rlcpAra1WPD01VRoKh5LEIpEHAADOftqur62xvVdxpOIYIooBAN55622L6YUXJzTpKiwrKp499frJLAAARGTN2Sa3XqvD0sKiMarm2Kvl3zkcvbMzM+0Gvf6S5ZWjl93Ts8lffnW5R56W1p2SmgLLy8u6ubm5HEQkhJCoVCa7Q1EU//fa2iFqc2PjUjgUMnDBYMru5OT0lpYWi6XKUg8AkK5S/cQkJIxHo1GIRqIlzSeb5QAAer3+IQLEI+EwS3Ecl0kQked5DPj9YDQaxR6PRw0A0NnZ6U4Ui90Cz0NioqSAQpQBAASCgV/4OB+nCAVUSmrqcByRsCIxKNLToed6z/Z+g+ERAAChiCfG8x6KYSDIcUkbPh8NAGCtro4hCiwv8EBeq62TLy4t9njXvWaFUsFptNovHA7HRzsH6r7StXdgYMCoVqu9lZWVE4XFRREAgAvnPiudX1hg/gEXjafdzTT07wAAAABJRU5ErkJggg==')\"></div>\n</div>";
@@ -89,6 +182,7 @@ window.onload = function () {
     }, false);
 
     // not working yet:
-    setTimeout(bp_probe.sendData, 1000);
+    //setTimeout(bp_probe.sendData, 1000);
+    setInterval(logData, 5000);
 }
 
