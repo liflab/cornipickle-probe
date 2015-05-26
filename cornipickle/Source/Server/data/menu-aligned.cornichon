@@ -1,0 +1,101 @@
+"""
+----------------------------------------------------------
+ Vocabulary definitions
+----------------------------------------------------------
+"""
+
+# We define a predicate using the construct
+# "We say that <arguments> is/are <predicate name> when".
+# The construct "an element" is neutral: it adds no meaning to the sentence
+# and could be omitted.
+
+We say that $x and $y are left-aligned when (
+  $x's left equals $y's left
+).
+
+We say that $x and $y are top-aligned when (
+  $x's top equals $y's top
+).
+
+# We then express the fact that all menu items are either
+# left- or top-aligned.
+
+"""
+  @name Menus aligned
+  @description All menu items are either left- or top-aligned.
+  @severity Warning
+"""
+For each $z in $(.menu li) (
+  For each $t in $(.menu li) (
+    ($z and $t are left-aligned)
+    Or
+    ($z and $t are top-aligned)
+  )
+).
+
+
+
+"""
+P1 +-------+
+   | P3    |
+   |   +---+------+
+   +---+---+      |
+       |    P2    |
+       +----------+ P4
+
+P2.y >= P3.y && P1.y <= P4.y && P2.x >= P3.x && P1.x <= P4.x
+"""
+We say that $x x-intersects $y when (
+  ($y's right is greater than $x's left)
+  And
+  ($x's right is greater than $y's left)
+).
+
+We say that $x y-intersects $y when (
+  ($y's top is greater than $x's top)
+  And
+  ($x's bottom is greater than $y's top)
+).
+
+We say that $x and $y overlap when (
+  ($x x-intersects $y)
+  And
+  ($x y-intersects $y)
+).
+
+We say that $x and $y don't overlap when (
+  Not ($x and $y overlap)
+).
+
+"""
+  @name Overlapping squares
+  @description Coloured squares should not overlap in the page
+  @severity Error
+"""
+For each $x in $(.square) (
+  For each $y in $(.square) (
+   ( $x's id equals $y's id )
+  Or
+   ( $x and $y don't overlap )
+  )
+).
+
+We say that $x extends outside the window when (
+  For each $w in $(window) (
+   (
+    ($x's right is greater than $w's width)
+    Or
+    (0 is greater than $x's left)
+   )
+   Or
+   (
+    ($x's bottom is greater than $w's height)
+    Or
+    (0 is greater than $x's top)
+   )
+  )
+).
+
+For each $x in $(.square) (
+  $x extends outside the window
+).
