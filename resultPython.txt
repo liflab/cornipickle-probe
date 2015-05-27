@@ -1,0 +1,2 @@
+First msg from java
+Second msg from java
