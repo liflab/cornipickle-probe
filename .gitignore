@@ -20,3 +20,4 @@ bin/
 lib/
 doc/
 *.jar
+*.sqlite

@@ -41,6 +41,7 @@ public class Pipe
             while(s.equals("x")==false)
             {
                 buffer.append(s);
+		buffer.append("\n");
                 s = reader.readLine();
             }
             PrintWriter writer = new PrintWriter("resultJava.txt", "UTF-8");

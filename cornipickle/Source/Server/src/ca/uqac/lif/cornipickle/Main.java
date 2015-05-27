@@ -62,8 +62,6 @@ public class Main
   public static void main(String[] args)
   {
     final AnsiPrinter stderr = new AnsiPrinter(System.err);
-    final AnsiPrinter stdout = new AnsiPrinter(System.out);
-    stdout.setForegroundColor(AnsiPrinter.Color.BLACK);
     stderr.setForegroundColor(AnsiPrinter.Color.BLACK);
     
     // Propertly close print streams when closing the program
@@ -74,7 +72,6 @@ public class Main
       public void run()
       {
         stderr.close();
-        stdout.close();
       }
     }));
 
@@ -88,7 +85,7 @@ public class Main
     }
     if (s_verbosity > 0)
     {
-      showHeader(stdout);
+      showHeader(stderr);
     }
     if (c_line.hasOption("version"))
     {
