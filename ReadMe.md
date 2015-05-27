@@ -96,3 +96,7 @@ Disons que j'ajoute un champ `date` dans le model `Probe` de l'application `prob
 
     ./manage.py schemamigration probe_dispatcher --auto
     ./manage.py migrate
+
+## Installation et compilation de Cornipickle
+
+Veuillez vous référer à l'installation de Cornipickle sur le [répertoire Cornipickle](https://bitbucket.org/sylvainhalle/cornipickle).
