@@ -16,6 +16,11 @@ class Sensor(models.Model):
         max_length=200
     )
 
+    code = models.TextField(
+        verbose_name=("Code"),
+        default=("")
+    )
+
     def __unicode__(self):
         return self.name
 

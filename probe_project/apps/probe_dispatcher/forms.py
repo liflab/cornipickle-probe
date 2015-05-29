@@ -10,4 +10,4 @@ class ProbeFrontendForm(forms.ModelForm):
     class Meta:
         model = Probe
 
-    exclude = ('user',) # doesn't seem to work :(
+    exclude = ['user'] # doesn't seem to work :(
