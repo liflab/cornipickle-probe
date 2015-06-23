@@ -4,7 +4,6 @@ Fabric==1.9.0
 MarkupSafe==0.23
 Pillow==2.4.0
 South==0.8.4
-Sys==1.0
 Unidecode==0.04.16
 Werkzeug==0.9.6
 basicauth==0.3

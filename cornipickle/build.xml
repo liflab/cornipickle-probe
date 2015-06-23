@@ -15,6 +15,7 @@
     <!-- Nothing else to do -->
     <mkdir dir="doc"/>
     <mkdir dir="Source/Server/bin"/>
+    <mkdir dir="Source/ServerTest/bin"/>
   </target>
   
   <target name="compile" depends="init" description="Compile the source">
@@ -25,6 +26,24 @@
       includeantruntime="false" />
     <copy todir="Source/Server/bin" includeemptydirs="false">
       <fileset dir="Source/Server/src" excludes="**/*.java" />
+    </copy>
+  </target>
+  
+  <target name="compile-tests" depends="init,compile,junit-download" description="Compile the tests">
+    <!-- Compile the java code for each project -->
+    <javac
+      srcdir="Source/ServerTest/src"
+      destdir="Source/ServerTest/bin"
+      includeantruntime="false">
+      <classpath>
+        <pathelement location="Source/Server/bin"/>
+        <pathelement path="${java.class.path}"/>
+        <pathelement location="test/${junit.jarname}"/>
+        <pathelement location="test/${junit.hamcrest}"/>
+      </classpath>
+    </javac>
+    <copy todir="Source/ServerTest/bin" includeemptydirs="false">
+      <fileset dir="Source/ServerTest/src" excludes="**/*.java" />
     </copy>
   </target>
   
@@ -47,7 +66,7 @@
   <target name="create_run_jar" depends="compile,javadoc" description="Create the runnable JAR">
       <jar destfile="${jar.filename}" filesetmanifest="mergewithoutmain">
 	  <manifest>
-	      <attribute name="Main-Class" value="ca.uqac.lif.cornipickle.Main"/>
+	      <attribute name="Main-Class" value="ca.uqac.lif.cornipickle.server.Main"/>
 	      <attribute name="Class-Path" value="."/>
 	  </manifest>
 	  <fileset dir="Source/Server/bin"/>
@@ -77,6 +96,27 @@
     <get src="http://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/${junit.hamcrest}" dest="test/${junit.hamcrest}"/>
   </target>
   
+  <!-- Tests with jUnit-->
+  <target name="test" depends="junit-download,compile-tests">
+    <mkdir dir="test"/>
+    <junit printsummary="yes" haltonfailure="yes">
+      <classpath>
+        <pathelement location="Source/Server/bin"/>
+        <pathelement location="Source/ServerTest/bin"/>
+        <pathelement path="${java.class.path}"/>
+        <pathelement location="test/${junit.jarname}"/>
+        <pathelement location="test/${junit.hamcrest}"/>
+      </classpath>
+      <formatter type="plain"/>
+      <formatter type="xml"/>
+      <batchtest fork="yes" todir="test">
+        <fileset dir="Source/ServerTest/src">
+          <include name="**/*.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+  
   <!-- Check dependencies and download them if required -->
   <target name="deps-targetdir">
     <property name="deps.targetdir" value="lib" />
@@ -90,7 +130,7 @@
   </condition>
   <target name="deps-bullwinkle" if="${Bullwinkle.absent}" depends="deps-targetdir">
     <echo message="Bullwinkle not present in classpath. Downloading..." level="info"/>
-    <get src="https://github.com/sylvainhalle/Bullwinkle/raw/master/BullwinkleParser.jar" dest="${deps.targetdir}"/>
+    <get src="http://sylvainhalle.github.io/Bullwinkle/releases/bullwinkle-1.1.1.jar" dest="${deps.targetdir}"/>
   </target>
   <!-- wro4j -->
   <condition property="wro4j.absent" value="false" else="true">
@@ -115,7 +155,7 @@
   </condition>
   <target name="deps-cli" if="${cli.absent}" depends="deps-targetdir">
     <echo message="Commons CLI not present in classpath. Downloading..." level="info"/>
-    <get src="http://mirror.its.dal.ca/apache//commons/cli/binaries/commons-cli-1.3-bin.zip" dest="${deps.targetdir}"/>
+    <get src="http://archive.apache.org/dist/commons/cli/binaries/commons-cli-1.3-bin.zip" dest="${deps.targetdir}"/>
     <unzip src="${deps.targetdir}/commons-cli-1.3-bin.zip" dest="${deps.targetdir}">
       <patternset>
         <include name="**/*.jar"/>
@@ -142,7 +182,7 @@
   
   <!-- Install dependencies -->
   <target name="deps-install" depends="deps">
-    <property name="deps.installdir" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext"/>
+    <property name="deps.installdir" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/"/>
     <mkdir dir="${deps.installdir}"/>
     <copy todir="${deps.installdir}">
       <fileset dir="${deps.targetdir}">
@@ -154,6 +194,8 @@
   <!-- Clean -->
   <target name="clean">
     <delete dir="Source/Server/bin"/>
+    <delete dir="Source/ServerTest/bin"/>
+    <delete dir="test"/>
     <delete dir="lib"/>
     <delete dir="doc"/>
   </target>

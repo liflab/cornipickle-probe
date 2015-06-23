@@ -15,8 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package ca.uqac.lif.cornipickle;
+package ca.uqac.lif.cornipickle.server;
 
 import java.io.PrintStream;
 import java.util.List;
@@ -51,6 +50,16 @@ public class Main
   protected static final String BUILD_STRING = "20150126";
   
   /**
+   * Default server name
+   */
+  protected static String s_defaultServerName = "localhost";
+
+  /**
+   * Default port to listen to
+   */
+  protected static int s_defaultPort = 10101;
+  
+  /**
    * Verbosity level for CLI
    */
   protected static int s_verbosity = 1;
@@ -61,7 +70,11 @@ public class Main
    */
   public static void main(String[] args)
   {
+    String server_name = s_defaultServerName;
+    int server_port = s_defaultPort;
     final AnsiPrinter stderr = new AnsiPrinter(System.err);
+    final AnsiPrinter stdout = new AnsiPrinter(System.out);
+    stdout.setForegroundColor(AnsiPrinter.Color.BLACK);
     stderr.setForegroundColor(AnsiPrinter.Color.BLACK);
     
     // Propertly close print streams when closing the program
@@ -72,6 +85,7 @@ public class Main
       public void run()
       {
         stderr.close();
+        stdout.close();
       }
     }));
 
@@ -85,7 +99,7 @@ public class Main
     }
     if (s_verbosity > 0)
     {
-      showHeader(stderr);
+      showHeader(stdout);
     }
     if (c_line.hasOption("version"))
     {
@@ -100,12 +114,31 @@ public class Main
       showUsage(options);
       System.exit(ERR_OK);
     }
-    Pipe namedPipe = new Pipe();
-    namedPipe.read();
-    /* 
-      DO STUFF WITH THE STUFF
-    */
-    namedPipe.write();
+    if (c_line.hasOption("p"))
+    {
+      server_port = Integer.parseInt(c_line.getOptionValue("p"));
+    }
+    
+    // The remaining arguments are the Cornipickle files to read
+    CornipickleServer server = new CornipickleServer();
+    @SuppressWarnings("unchecked")
+    List<String> remaining_args = c_line.getArgList();
+    for (String filename : remaining_args)
+    {
+      stdout.setForegroundColor(AnsiPrinter.Color.BROWN);
+      println(stdout, "Reading properties in " + filename, 1);
+      server.readProperties(filename);
+    }
+    
+    // Start server
+    server.setServerName(server_name);
+    server.setServerPort(server_port);
+    server.startServer();
+    stdout.setForegroundColor(AnsiPrinter.Color.BLUE);
+    println(stdout, "Server started on " + server_name + ":" + server_port, 1);
+
+    // Terminate without error
+    //System.exit(ERR_OK);
   }
   
   protected static void println(PrintStream out, String message, int verbosity_level)
@@ -130,6 +163,22 @@ public class Main
         .withDescription(
             "Display command line usage")
             .create("h");
+    options.addOption(opt);
+    opt = OptionBuilder
+        .withLongOpt("servername")
+        .withArgName("x")
+        .hasArg()
+        .withDescription(
+            "Set server name or IP address x (default: " + s_defaultServerName + ")")
+            .create("s");
+    options.addOption(opt);
+    opt = OptionBuilder
+        .withLongOpt("port")
+        .withArgName("x")
+        .hasArg()
+        .withDescription(
+            "Listen on port x (default: " + s_defaultPort + ")")
+            .create("p");
     options.addOption(opt);
     return options;
   }

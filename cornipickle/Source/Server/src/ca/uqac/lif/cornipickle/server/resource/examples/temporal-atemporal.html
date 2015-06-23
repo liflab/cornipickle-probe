@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="screen.css" />
+<link rel="stylesheet" type="text/css" href="../colouring.css" />
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="cornipickle.js"></script>
+<script type="text/javascript" src="/probe"></script>
+<title>Temporal vs. atemporal properties - Cornipickle</title>
+<script type="text/javascript">
+// <![CDATA[
+$(document).ready(function() {
+    toggled = false;
+    // Put Cornipickle codde in global var
+    cornipickle_code = $(".cornipickle-code").text();
+    // Colourize each code snippet
+    cornipickle_colourize_all();
+    javascript_colourize_all();
+    // Remove onmouseup event on some elements
+    $(".no-event").mouseup(function(event) {
+      event.stopPropagation();
+    });
+    // Add handler to button
+    $("#to-cornipickle").click(function(event) {
+        add_to_cornipickle(cornipickle_code);
+        event.stopPropagation(); // To avoid a call to Cornipickle
+      }).mouseup(function(event) {
+        event.stopPropagation(); // To avoid a call to Cornipickle
+      });
+    // Move second menu
+    $("#second-menu").css({ "margin-left": "10px"});
+    // Button code
+    $("#misalign-toggle").click(function() {
+        if (toggled)
+        {
+          $("#greeting").html("Hi <span class=\"username\">Joe</span>!");
+        }
+        else
+        {
+          $("#greeting").html("Hi <span class=\"username\">Bill</span>!");
+        }
+        toggled = !toggled;
+    });
+});
+// ]]>
+</script>
+</head>
+
+<body>
+
+<div id="contents">
+<h1>Temporal vs. atemporal properties</h1>
+
+<p class="backmenu"><a href="index.html" class="no-event">Back to example list</a></p>
+
+<div class="playground">
+
+<h2>Homepage for <span class="username">Bill</span></h2>
+
+<p id="greeting" class="greeting">Hi <span class="username">Joe</span>!</p>
+
+</div>
+
+<!-- Cornipickle explanation -->
+<div id="cornipickle-explanation">
+
+<h2>What's the problem?</h2>
+<p>The first property is <em>atemporal</em>: it returns true or false on every
+snapshot received. The second is <em>temporal</em>.</p>
+<p>A property that does not contain any temporal operator (Always, Next, etc.)
+can be evaluated either in atemporal (default) or temporal mode. When
+evaluated in temporal mode, the assertion applies only to the first
+snapshot on which it is evaluated.</p>
+
+<p><button id="misalign-toggle">Toggle username</button></p>
+
+<div id="cornipickle-section" class="nocornipickle">
+
+<h2>Detect it with Cornipickle</h2>
+
+<div class="cornipickle-square no-event">
+
+<p class="button"><button id="to-cornipickle">Add to Cornipickle</button></p>
+
+<div class="cornipickle-code">
+"""
+@description The value in every "username" span 
+  must be the same
+@name Matching username: atemporal
+@severity Error
+"""
+For each $x in $(.username) (
+  For each $y in $(.username) (
+    $x's text equals $y's text
+  )
+).
+
+"""
+@description The value in every "username" span 
+  must be the same
+@name Matching username: temporal
+@severity Error
+"""
+Always (
+  For each $x in $(.username) (
+    For each $y in $(.username) (
+      $x's text equals $y's text
+    )
+  )
+).
+</div>
+
+</div>
+
+</div>
+
+<div id="procedural-section" class="nocornipickle no-event">
+
+<h2>Procedural Equivalent</h2>
+
+<div class="procedural-equivalent jquery no-event">
+TODO
+
+</div>
+
+</div>
+
+</div> <!-- /explanation -->
+
+<div id="footer">
+<hr />
+&copy; 2015 LIF
+</div>
+
+</div> <!-- /contents -->
+
+</body>
+</html>

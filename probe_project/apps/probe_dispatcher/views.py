@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
-
 from probe_project.apps.probe_dispatcher.forms import ProbeFrontendForm
 from probe_project.apps.probe_dispatcher.models import Probe, Sensor
 
