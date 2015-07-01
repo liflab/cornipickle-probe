@@ -1,9 +1,8 @@
 {
   "name": "Probe",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Probe application",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "coffee-script": "^1.9.3",
     "grunt": "~0.4.2",
