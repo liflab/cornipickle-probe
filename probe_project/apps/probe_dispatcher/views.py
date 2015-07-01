@@ -2,7 +2,7 @@
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from probe_project.apps.probe_dispatcher.forms import ProbeFrontendForm
@@ -27,7 +27,7 @@ def probe_form(request, probe_id=None):
         if probe.user != request.user:
             return HttpResponseForbidden()
     else:
-        probe = Probe()
+        probe = None
 
     if request.method == 'POST':
         form = ProbeFrontendForm(request.POST, instance=probe)

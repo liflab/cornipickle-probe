@@ -2,7 +2,7 @@
 {% load i18n bootstrap %}
 
 {% block content %}
-    <form method="POST" action="{% url 'probe_form' %}">
+    <form method="POST" action="">
         {% csrf_token %}
         {{ form|bootstrap }}
         <button class="btn btn-primary btn-block" type="submit">{% trans 'Submit' %}</button>
