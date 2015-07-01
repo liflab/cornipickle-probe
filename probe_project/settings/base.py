@@ -118,13 +118,14 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
-
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.contrib.messages.context_processors.messages',
+
     'social.apps.django_app.context_processors.backends',
+    'dealer.contrib.django.context_processor',
 )
 
 #==============================================================================
@@ -173,14 +174,18 @@ MIDDLEWARE_CLASSES += (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+
     'localeurl.middleware.LocaleURLMiddleware',
     'userena.middleware.UserenaLocaleMiddleware',
 
     'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
 
+    'dealer.contrib.django.Middleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
     # simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )

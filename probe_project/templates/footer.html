@@ -19,11 +19,12 @@
         {% endif %}
         <ul>
             <li class="current-version">
-                {# todo: read current commit sha + package.json version here #}
-                <i class="fa fa-globe"></i> {% trans 'Currently in beta' %}
+                {# tag and revision comes from Dealer (https://github.com/klen/dealer) #}
+                {# use `npm version x.x.x` to update, then `git push --tags` #}
+                <i class="fa fa-globe"></i> {{ TAG }}#{{ REVISION }} {% trans 'Currently in beta' %}
             </li>
             <li class="current-version">
-                <i class="fa fa-copyright"></i> 2014 <a href="http://www.uqac.ca/lif/">{% trans "Laboratoire d'Informatique Formelle" %}</a>
+                <i class="fa fa-copyright"></i> 2015 <a href="http://www.uqac.ca/lif/">{% trans "Laboratoire d'Informatique Formelle" %}</a>
             </li>
         </ul>
     </div>

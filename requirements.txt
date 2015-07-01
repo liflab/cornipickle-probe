@@ -48,3 +48,4 @@ sorl-thumbnail==12.2
 sqlparse==0.1.15
 Unidecode==0.4.18
 Werkzeug==0.10.4
+dealer==2.0.4

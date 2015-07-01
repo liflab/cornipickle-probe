@@ -1,0 +1,1 @@
+// Place generic app js here, it will be executed on every pages
