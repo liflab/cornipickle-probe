@@ -11,7 +11,7 @@ from probe_project.apps.probe_dispatcher.models import Probe, Sensor
 
 @login_required
 def probe_detail(request, probe_id):
-    current_probe = get_object_or_404(Probe, id=probe_id)
+    current_probe = get_object_or_404(Probe, pk=probe_id)
     if current_probe.user_id == request.user.id or request.user.is_staff:
         return render_to_response("probe_dispatcher/probe_detail.html", RequestContext(request, {
             'probe': current_probe
@@ -19,19 +19,40 @@ def probe_detail(request, probe_id):
     else:
         return redirect('/')
 
-
+# http://stackoverflow.com/questions/1854237/django-edit-form-based-on-add-form
 @login_required
-def probe_form(request):
+def probe_form(request, probe_id=None):
+    if probe_id:
+        probe = get_object_or_404(Probe,pk=probe_id)
+        if probe.user != request.user:
+            return HttpResponseForbidden()
+    else:
+        probe = Probe()
+
     if request.method == 'POST':
-        form = ProbeFrontendForm(request.POST)
+        form = ProbeFrontendForm(request.POST, instance=probe)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
+            form.save_m2m()
             return HttpResponseRedirect(reverse(probe_detail, args=(instance.id,)))
         else:
-            return render_to_response("probe_dispatcher/probe_form.html", RequestContext(request, {'form': form}))
-    return render_to_response("probe_dispatcher/probe_form.html", RequestContext(request, {'form': ProbeFrontendForm}))
+            return render_to_response("probe_dispatcher/probe_form.html", RequestContext(request, {'form': form,}))
+    else:
+        form = ProbeFrontendForm(instance=probe)
+    return render_to_response("probe_dispatcher/probe_form.html", RequestContext(request, {'form': form,}))
+
+@login_required
+def probe_delete(request, probe_id):
+    probe = get_object_or_404(Probe,pk=probe_id)
+    if probe.user != request.user:
+        return HttpResponseForbidden()
+    probe.delete()
+    return render_to_response("probe_dispatcher/probes.html", RequestContext(request, {
+        'probes': Probe.objects.filter(user=request.user)
+        }))
+    
 
 
 @login_required

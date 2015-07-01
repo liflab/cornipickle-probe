@@ -1,14 +1,18 @@
 {% load i18n %}
 <div class="panel">
+    <div style="float:right">
+        <a href="{% url 'probe_edit' probe_id=probe.id %}" class="btn btn-default "><span class="glyphicon glyphicon-edit"></span>Edit</a>
+        <a href="{% url 'probe_delete' probe_id=probe.id %}" class="btn btn-default "><span class="glyphicon glyphicon-erase"></span>Delete</a>
+    </div>
     <h2>{% trans probe.name %}</h2>
 
     <p>{% trans probe.description %}</p>
 
     <p>{% trans 'Domain:' %}<span class="label label-info">{{ probe.domain }}</span></p>
-    {% if sensors %}
+    {% if probe.sensors %}
         {% trans 'Enabled sensors:' %}
         <ul>
-            {% for sensor in sensors %}
+            {% for sensor in probe.sensors.all %}
                 <li>{{ sensor.name }}</li>
             {% endfor %}
         </ul>
