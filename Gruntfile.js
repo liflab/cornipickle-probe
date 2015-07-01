@@ -1,6 +1,6 @@
 /* global module:true */
 
-module.exports = function(grunt){
+module.exports = function (grunt) {
     'use strict';
 
     // Project configuration.
@@ -13,25 +13,11 @@ module.exports = function(grunt){
             },
             gruntfile: {
                 src: 'Gruntfile.js'
-            },
-            js: {
-                beforeconcat: ['<%= themePath %>js/lib/*.js'],
-                afterconcat: ['<%= themePath %>js/app.js', '<%= themePath %>js/app.min.js']
             }
         },
         clean: {
             dist: {
                 src: ['<%= themePath %>js/app.js', '<%= themePath %>js/app.min.js']
-            }
-        },
-        concat: {
-            options: {
-                stripBanners: true,
-                banner: '/*! <%= pkg.name %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n\n'
-            },
-            dist: {
-                src: ['<%= themePath %>js/lib/*.js'],
-                dest: '<%= themePath %>js/app.js'
             }
         },
         uglify: {
@@ -55,10 +41,6 @@ module.exports = function(grunt){
                 files: '<%= jshint.gruntfile.src %>',
                 tasks: ['jshint:gruntfile']
             },
-            lib: {
-                files: ['<%= jshint.js.beforeconcat %>', '!<%= themePath %>js/app.js', '!' + '<%= themePath %>js/app.min.js'],
-                tasks: ['jshint:js', 'clean:dist', 'concat:dist', 'uglify:dist']
-            },
             sass: {
                 files: ['**/*.scss'],
                 tasks: ['sass']
@@ -80,6 +62,5 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-sass');
 
     // Default task.
-    grunt.registerTask('default', ['watch']);
-
+    grunt.registerTask('default', ['jshint', 'clean', 'sass', 'watch']);
 };

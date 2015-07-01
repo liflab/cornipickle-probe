@@ -1,8 +1,8 @@
 {% load i18n %}
 <div class="panel">
-    <div style="float:right">
-        <a href="{% url 'probe_edit' probe_id=probe.id %}" class="btn btn-default "><span class="glyphicon glyphicon-edit"></span>Edit</a>
-        <a href="{% url 'probe_delete' probe_id=probe.id %}" class="btn btn-default "><span class="glyphicon glyphicon-erase"></span>Delete</a>
+    <div class="pull-right">
+        <a href="{% url 'probe_edit' probe_id=probe.id %}" class="btn btn-default "><i class="fa fa-pencil"></i> {% trans 'Edit' %}</a>
+        <a href="{% url 'probe_delete' probe_id=probe.id %}" class="btn btn-default "><i class="fa fa-trash"></i> {% trans 'Delete' %}</a>
     </div>
     <h2>{% trans probe.name %}</h2>
 
@@ -17,7 +17,8 @@
             {% endfor %}
         </ul>
     {% endif %}
-    <p><a href="{{ probe.probe_url|safe }}" target="_blank"><i class="glyphicon glyphicon-file"></i> {% trans 'Rendered javascript' %}</a></p>
-    <p><a href="{% url 'probe_test' probe_hash=probe.hash probe_id=probe.id %}" target="_blank"><i class="glyphicon glyphicon-eye-open"></i> {% trans 'Live example' %}</a></p>
+    <p><a href="{{ probe.probe_url|safe }}" target="_blank"><i class="fa fa-file"></i> {% trans 'Rendered javascript' %}</a></p>
+    <p><a href="{% url 'probe_test' probe_hash=probe.hash probe_id=probe.id %}" target="_blank"><i class="fa fa-eye"></i> {% trans 'Live example' %}</a></p>
+    <p>{% trans 'Emebed code' %}</p>
     <pre class="highlight"><code class="html">{{ probe.get_script_tag }}</code></pre>
 </div>

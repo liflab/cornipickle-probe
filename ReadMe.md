@@ -1,22 +1,42 @@
 # Probe
 
 Développement actuellement avec `Python 2.7.6`, Programmation en anglais (question de se pratiquer un peu :P)
+IDE recommandé: PyCharm Community Edition de JetBrains](https://www.jetbrains.com/pycharm/download/)
 
-## Dépendances
+Il est recommandé de lire [Getting started](https://docs.djangoproject.com/en/1.8/intro/) dans la doc de django
+avant de débuter à travailler sur ce projet, ça sera beaucoup plus simple par la suite.
 
-Il est préférable d'utiliser `virtualenv` avec l'aide de [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) (Lire attentivement la documentation).
+## Installation
 
-Voir `requirements.txt` pour les versions des dépendance.
+### Dépendances
+
+Il est préférable d'utiliser `virtualenv` avec l'aide de 
+[virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) 
+(Lire attentivement la documentation).
+
+Voir `requirements.txt` pour les dépendances.
 
     mkvirtualenv probe
     workon probe
     pip install -r requirements.txt
 
-Si vous rencontrez des problèmes à l'installation des dépendances veuillez exécuter
+Sous Ubuntu, si vous rencontrez des problèmes à l'installation des dépendances, exécuter
 
     sudo apt-get install python2.7-dev
 
-Pour rouler le serveur
+### Base de données
+
+Vous devrez exécuter les migrations pour initialiser la base de données
+
+    ./manage.py migrate
+
+Se créer un utilisateur superuser
+
+    python manage.py createsuperuser --username=joe --email=joe@example.com
+
+### Exécution du serveur
+
+Pour démarer le serveur en mode dev:
 
     export DJANGO_SETTINGS_MODULE=probe_project.settings.local
     export PYTHONUNBUFFERED=1
@@ -24,9 +44,24 @@ Pour rouler le serveur
 
 Voilà, on est prêt à travailler avec django!
 
-### Installer nodejs et npm
 
-On installe ça pour grunt et bower; compilation automatique du scss et gestion des dépendances côté client (ex: bootstrap, jquery, etc)
+## Traduction du site
+
+Documentation django](https://docs.djangoproject.com/en/1.8/topics/i18n/translation/)
+
+    django-admin.py makemessages -a -e py,jinja,jinja2,html -l fr --ignore node_modules
+
+Les fichiers `po` pour la traduction se trouvent dans `./conf/locale/<lang_code>/LC_MESSAGES/django.po`. 
+Après, c'est classique; on passe par [Poedit](http://poedit.net/).
+[Weblate](https://weblate.org/en/) peut être une bonne idée une fois en production ;)
+
+## Développement et outils
+
+### Installer nodejs](https://nodejs.org/) et [npm](https://www.npmjs.com/)
+
+On installe ça pour grunt](http://gruntjs.com/) et [bower](http://bower.io/) 
+compilation automatique du [scss](http://sass-lang.com/) et 
+gestion des dépendances (js) côté client (ex: bootstrap, jquery, etc)
 
 #### sous OSX
 
@@ -40,63 +75,28 @@ On installe ça pour grunt et bower; compilation automatique du scss et gestion 
 
     npm install
 
-procède par installer les dépendances mentionnés dans le fichier `package.json`
+Cette commande va nstaller les dépendances mentionnées dans le fichier `package.json`
 
-#### Installer bower en global (dépendances javascript, etc) *facultatif*
+### Installer bower (outil de gestion de dépendances javascript, etc)
 
 Note: n'est pas encore utilisé, on va peut-être s'en servir un jour ;)
 
     npm install -g bower
     bower install
 
-#### Installer Grunt en global
+### Installer Grunt
+
+[grunt](http://gruntjs.com/)
 
     npm install -g grunt-cli
     grunt
 
-Il est peut-être nécessaire d'ajouter les apps de nodejs PATH
+Il est peut-être nécessaire d'ajouter le dossier d'installation des applications npm dans 
+la variable d'environnement `$PATH` pour exécuter les apps installées avec npm.
 
     export PATH="/usr/local/share/npm/bin:$PATH"
-
-enjoy
-
-## Traduction du site
-
-    django-admin.py makemessages -a -e py,jinja,jinja2,html -l fr --ignore node_modules
-
-Les fichiers `po` pour la traduction se trouvent dans `./conf/local/`. Après, c'est classique; on passe par [Poedit](http://poedit.net/).
-
-## Mise à jour des models
-
-Dans ce projet, on utilise [South](http://south.aeracode.org/), présent dans la pluspart des projets django, ça permet de faire des migrations de la base de données.
-
-### Commandes south
-
-Le mieux, c'est de lire la [documentation de south](http://south.readthedocs.org/en/latest/tutorial/index.html), mais voici quand même les grandes lignes
-
-Après la création d'un model, on execute habituellement `./manage.py syncdb`, Comme c'est le point initial du model, on cré donc un schema de migration;
-
-    ./manage.py schemamigration nom_app --initial
-
-On applique ensuite la migration
-
-    ./manage.py migrate nom_app
-
-Quand on modifie un model déjà existant, on s'assure qu'avant, il ait une migration initiale d'effectué (se trouve dans le dossier `migrations` à côté du dossier `mon_app`.
-
-    ./manage.py schemamigration nom_app --auto
-
-Puis on applique les migrations
-
-    ./manage.py migrate mon_app
-
-### Example
-
-Disons que j'ajoute un champ `date` dans le model `Probe` de l'application `probe_dispatcher`, j'exécuterai ces commandes:
-
-    ./manage.py schemamigration probe_dispatcher --auto
-    ./manage.py migrate
-
+    
+    
 ## Installation et compilation de Cornipickle
 
 Veuillez vous référer à l'installation de Cornipickle sur le [répertoire Cornipickle](https://bitbucket.org/sylvainhalle/cornipickle).

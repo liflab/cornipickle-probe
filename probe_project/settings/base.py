@@ -11,8 +11,6 @@ import probe_project as project_module
 # noinspection PyUnresolvedReferences
 from django.utils.translation import ugettext_lazy as _
 
-from oscar import OSCAR_MAIN_TEMPLATE_DIR
-
 #==============================================================================
 # Generic Django project settings
 #==============================================================================
@@ -39,7 +37,6 @@ INSTALLED_APPS = (
     'probe_project.apps.probe_dispatcher',
     # 'probe_project.apps.orderedmodel',
 
-    'south',
     'django_extensions',
 
     'userena',
@@ -56,7 +53,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'compressor',
 
-    'oscar',
     'haystack',
 
     'bootstrapform',
@@ -113,7 +109,6 @@ LOGOUT_URL = '/signout/'
 # Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),
-    OSCAR_MAIN_TEMPLATE_DIR,
 )
 
 TEMPLATE_LOADERS = (
@@ -122,12 +117,6 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'oscar.apps.search.context_processors.search_form',
-    'oscar.apps.promotions.context_processors.promotions',
-    'oscar.apps.checkout.context_processors.checkout',
-    'oscar.apps.customer.notifications.context_processors.notifications',
-    'oscar.core.context_processors.metadata',
-
     'django.core.context_processors.request',
 
     'django.contrib.auth.context_processors.auth',
@@ -181,16 +170,16 @@ LOCALEURL_USE_ACCEPT_LANGUAGE = True
 #==============================================================================
 
 MIDDLEWARE_CLASSES += (
-    'oscar.apps.basket.middleware.BasketMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'localeurl.middleware.LocaleURLMiddleware',
     'userena.middleware.UserenaLocaleMiddleware',
 
     'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
 
     'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -201,7 +190,6 @@ MIDDLEWARE_CLASSES += (
 #==============================================================================
 
 AUTHENTICATION_BACKENDS = (
-    'oscar.apps.customer.auth_backends.Emailbackend',
     'userena.backends.UserenaAuthenticationBackend',
     'guardian.backends.ObjectPermissionBackend',
 
@@ -257,41 +245,8 @@ SOCIAL_AUTH_PIPELINE = (
 # Third party app settings
 #==============================================================================
 
-# noinspection PyUnresolvedReferences
-from oscar.defaults import *
-
 INSTALLED_APPS += (
-    'oscar',
-    'oscar.apps.analytics',
-    'oscar.apps.checkout',
-    'oscar.apps.address',
-    'oscar.apps.shipping',
-    'oscar.apps.catalogue',
-    'oscar.apps.catalogue.reviews',
-    'oscar.apps.partner',
-    'oscar.apps.basket',
-    'oscar.apps.payment',
-    'oscar.apps.offer',
-    'oscar.apps.order',
-    'oscar.apps.customer',
-    'oscar.apps.promotions',
-    'oscar.apps.search',
-    'oscar.apps.voucher',
-    'oscar.apps.wishlists',
-    'oscar.apps.dashboard',
-    'oscar.apps.dashboard.reports',
-    'oscar.apps.dashboard.users',
-    'oscar.apps.dashboard.orders',
-    'oscar.apps.dashboard.promotions',
-    'oscar.apps.dashboard.catalogue',
-    'oscar.apps.dashboard.offers',
-    'oscar.apps.dashboard.partners',
-    'oscar.apps.dashboard.pages',
-    'oscar.apps.dashboard.ranges',
-    'oscar.apps.dashboard.reviews',
-    'oscar.apps.dashboard.vouchers',
-    'oscar.apps.dashboard.communications',
-    # 3rd-party apps that oscar depends on
+    # 3rd-party apps
     'treebeard',
     'sorl.thumbnail',
     'django.contrib.flatpages',
@@ -314,10 +269,6 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
     },
-}
-
-SOUTH_MIGRATION_MODULES = {
-    'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }
 
 #==============================================================================

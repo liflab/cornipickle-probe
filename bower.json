@@ -1,22 +1,26 @@
 {
-    "name": "ssbc",
-    "version": "0.0.0",
-    "authors": [
-        "Gabriel Le Breton <lebreton.gabriel@gmail.com>",
-        "Nicolas Bergeron <nsb002@gmail.com>",
-        "Kim Lavoie <kim.lavoie.14@gmail.com>"
-    ],
-    "license": "MIT",
-    "private": true,
-    "ignore": [
-        "node_modules",
-        "bower_components",
-        "components"
-    ],
-    "dependencies": {
-        "requirejs": "~2.1.11",
-        "jquery": "~2.1.0",
-        "jquery-ui": "~1.10.4",
-        "jQuery-Timepicker-Addon": "~1.4.4"
-    }
+  "name": "Probe",
+  "version": "1.0.0",
+  "authors": [
+    "Gabriel Le Breton <lebreton.gabriel@gmail.com>",
+    "Nicolas Bergeron <nsb002@gmail.com>",
+    "Kim Lavoie <fetarou@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "components"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.11",
+    "jquery": "~2.1.0",
+    "jquery-ui": "~1.10.4",
+    "jQuery-Timepicker-Addon": "~1.4.4",
+    "font-awesome": "~4.3.0",
+    "bootstrap": "~3.3.5",
+    "modernizr": "~2.8.3",
+    "highlightjs": "~8.5.0"
+  }
 }

@@ -2,6 +2,7 @@
 probe_project/settings/local.py
 probe_project/uploads/
 probe_project/static/
+probe_project/local_static/bower_components
 
 # project files
 temp

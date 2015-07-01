@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+
 {% block content %}
     <h1>{% trans 'Probes' %}</h1>
     {% if probes %}
@@ -9,5 +10,5 @@
     {% else %}
         <p>{% trans 'You have no probes yet, create one now!' %}</p>
     {% endif %}
-    <a href="{% url 'probe_form' %}" class="btn btn-block btn-primary">{% trans 'Create a new probe' %}</a>
+    <a href="{% url 'probe_form' %}" class="btn btn-block btn-primary"><i class="fa fa-plus-circle"></i> {% trans 'Create a new probe' %}</a>
 {% endblock %}
