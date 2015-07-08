@@ -49,6 +49,11 @@ class Probe(models.Model):
         editable=False,
     )
 
+    is_enabled = models.BooleanField(
+        verbose_name=("Enabled"),
+        default=(False)
+    )
+
     # todo: make this a list or a foreign key, something like that
     sensors = models.ManyToManyField(
         Sensor
