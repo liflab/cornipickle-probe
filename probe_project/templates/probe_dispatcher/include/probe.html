@@ -8,17 +8,27 @@
 
     <p>{% trans probe.description %}</p>
 
-    <p>{% trans 'Domain:' %}<span class="label label-info">{{ probe.domain }}</span></p>
+    <p>{% trans 'Domain: ' %}<span class="label label-info">{{ probe.domain }}</span></p>
     {% if probe.sensors %}
         {% trans 'Enabled sensors:' %}
         <ul>
             {% for sensor in probe.sensors.all %}
-                <li>{{ sensor.name }}</li>
+                <li><a class="spoiler-trigger" href="#sensor{{ sensor.id }}" data-toggle="collapse">{{ sensor.name }}</a></li>
+                <div class="panel-collapse collapse out" id="sensor{{ sensor.id }}">
+                    <div class="panel-body">
+                        <pre><code class="nohighlight">{% trans sensor.code|linebreaks %}</code></pre>
+                    </div>
+                </div>
             {% endfor %}
         </ul>
     {% endif %}
+    {% if probe.is_enabled %}
+        <p class="fa fa-check"> {% trans 'This probe is enabled' %}</p>
+    {% else %}
+        <p class="fa fa-close"> {% trans 'This probe is disabled' %}</p>
+    {%  endif %}
     <p><a href="{{ probe.probe_url|safe }}" target="_blank"><i class="fa fa-file"></i> {% trans 'Rendered javascript' %}</a></p>
     <p><a href="{% url 'probe_test' probe_hash=probe.hash probe_id=probe.id %}" target="_blank"><i class="fa fa-eye"></i> {% trans 'Live example' %}</a></p>
-    <p>{% trans 'Emebed code' %}</p>
+    <p>{% trans 'Embeded code' %}</p>
     <pre class="highlight"><code class="html">{{ probe.get_script_tag }}</code></pre>
 </div>

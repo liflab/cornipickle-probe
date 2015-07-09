@@ -20,6 +20,7 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(max_length=1200, verbose_name='Description')),
                 ('domain', models.CharField(max_length=200, verbose_name='Domain')),
                 ('hash', models.CharField(verbose_name='Hash', max_length=40, editable=False)),
+                ('is_enabled', models.BooleanField(default=False, verbose_name=b'Enabled')),
             ],
         ),
         migrations.CreateModel(
@@ -28,6 +29,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=200, verbose_name='Name')),
                 ('code', models.TextField(default=b'', verbose_name=b'Code')),
+                ('user', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL, help_text='Owner of the sensor')),
             ],
         ),
         migrations.AddField(

@@ -5,8 +5,8 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
-from probe_project.apps.probe_dispatcher.forms import ProbeFrontendForm
-from probe_project.apps.probe_dispatcher.models import Probe, Sensor
+from probe_project.apps.probe_dispatcher.forms import ProbeFrontendForm, SensorFrontendForm
+from probe_project.apps.probe_dispatcher.models import Probe, Sensor, User
 
 
 @login_required
@@ -18,6 +18,7 @@ def probe_detail(request, probe_id):
         }))
     else:
         return redirect('/')
+
 
 # http://stackoverflow.com/questions/1854237/django-edit-form-based-on-add-form
 @login_required
@@ -41,18 +42,18 @@ def probe_form(request, probe_id=None):
             return render_to_response("probe_dispatcher/probe_form.html", RequestContext(request, {'form': form,}))
     else:
         form = ProbeFrontendForm(instance=probe)
-    return render_to_response("probe_dispatcher/probe_form.html", RequestContext(request, {'form': form,}))
+    return render_to_response("probe_dispatcher/probe_form.html", RequestContext(request, {'form': form, }))
+
 
 @login_required
 def probe_delete(request, probe_id):
-    probe = get_object_or_404(Probe,pk=probe_id)
+    probe = get_object_or_404(Probe, pk=probe_id)
     if probe.user != request.user:
         return HttpResponseForbidden()
     probe.delete()
     return render_to_response("probe_dispatcher/probes.html", RequestContext(request, {
         'probes': Probe.objects.filter(user=request.user)
         }))
-    
 
 
 @login_required
@@ -67,12 +68,54 @@ def probes(request):
 
 @login_required
 def sensors(request):
-    if request.user.is_authenticated():
-        return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
-            'sensors': Sensor.objects.all()
+    return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
+        'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username="admin")])
+    }))
+
+
+@login_required
+def sensor_form(request, sensor_id=None):
+    if sensor_id:
+        sensor = get_object_or_404(Sensor, pk=sensor_id)
+        if sensor.user != request.user:
+            return HttpResponseForbidden()
+    else:
+        sensor = None
+
+    if request.method == 'POST':
+        form = SensorFrontendForm(request.POST, instance=sensor)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            return HttpResponseRedirect(reverse(sensor_detail, args=(instance.id,)))
+        else:
+            return render_to_response("probe_dispatcher/sensor_form.html", RequestContext(request, {'form': form, }))
+    else:
+        form = SensorFrontendForm(instance=sensor)
+    return render_to_response("probe_dispatcher/sensor_form.html", RequestContext(request, {'form': form, }))
+
+
+@login_required
+def sensor_detail(request, sensor_id):
+    current_sensor = get_object_or_404(Sensor, pk=sensor_id)
+    if current_sensor.user_id == request.user.id or request.user.is_staff:
+        return render_to_response("probe_dispatcher/sensor_detail.html", RequestContext(request, {
+            'sensor': current_sensor
         }))
     else:
         return redirect('/')
+
+
+@login_required
+def sensor_delete(request, sensor_id):
+    sensor = get_object_or_404(Sensor, pk=sensor_id)
+    if sensor.user != request.user:
+        return HttpResponseForbidden()
+    sensor.delete()
+    return render_to_response("probe_dispatcher/probes.html", RequestContext(request, {
+        'probes': Probe.objects.filter(user=request.user)
+        }))
 
 
 def probe_file(request, probe_id, probe_hash, banner=True):

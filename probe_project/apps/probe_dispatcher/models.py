@@ -17,8 +17,15 @@ class Sensor(models.Model):
     )
 
     code = models.TextField(
-        verbose_name=("Code"),
-        default=("")
+        verbose_name= "Code",
+        default= ""
+    )
+
+    user = models.ForeignKey(
+        User,
+        verbose_name=_("User"),
+        unique=False,
+        help_text=_("Owner of the sensor"),
     )
 
     def __unicode__(self):
@@ -50,13 +57,14 @@ class Probe(models.Model):
     )
 
     is_enabled = models.BooleanField(
-        verbose_name=("Enabled"),
-        default=(False)
+        verbose_name="Enabled",
+        default=False
     )
 
     # todo: make this a list or a foreign key, something like that
     sensors = models.ManyToManyField(
-        Sensor
+        Sensor,
+        blank=True
     )
 
     user = models.ForeignKey(

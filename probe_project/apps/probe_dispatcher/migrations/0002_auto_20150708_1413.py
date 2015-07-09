@@ -11,9 +11,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
+        migrations.AlterField(
             model_name='probe',
-            name='is_enabled',
-            field=models.BooleanField(default=False, verbose_name=b'Is_Enabled'),
+            name='sensors',
+            field=models.ManyToManyField(to='probe_dispatcher.Sensor', blank=True),
         ),
     ]

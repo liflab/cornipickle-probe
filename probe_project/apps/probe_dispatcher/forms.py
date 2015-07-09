@@ -10,3 +10,8 @@ class ProbeFrontendForm(forms.ModelForm):
     class Meta:
         model = Probe
         exclude = ('user',)
+
+class SensorFrontendForm(forms.ModelForm):
+    class Meta:
+        model = Sensor
+        exclude = ('user',)
