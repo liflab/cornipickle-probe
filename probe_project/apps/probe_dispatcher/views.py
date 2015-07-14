@@ -113,8 +113,8 @@ def sensor_delete(request, sensor_id):
     if sensor.user != request.user:
         return HttpResponseForbidden()
     sensor.delete()
-    return render_to_response("probe_dispatcher/probes.html", RequestContext(request, {
-        'probes': Probe.objects.filter(user=request.user)
+    return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
+        'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username="admin")])
         }))
 
 
