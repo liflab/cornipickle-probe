@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Operation.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Cornipickle</a> &gt; <a href="index.source.html" class="el_package">ca.uqac.lif.cornipickle</a> &gt; <span class="el_source">Operation.java</span></div><h1>Operation.java</h1><pre class="source lang-java linenums">/*
+    Cornipickle, validation of layout bugs in web applications
+    Copyright (C) 2015 Sylvain Hallé
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package ca.uqac.lif.cornipickle;
+
+import ca.uqac.lif.cornipickle.json.JsonNumber;
+
+public abstract class Operation extends Property
+{
+  protected NumberConstant m_left;
+  protected NumberConstant m_right;
+  
+  public Operation(NumberConstant n1, NumberConstant n2) 
+  {
+<span class="fc" id="L29">    super();</span>
+<span class="fc" id="L30">    setLeft(n1);</span>
+<span class="fc" id="L31">    setRight(n2);</span>
+<span class="fc" id="L32">  }</span>
+
+  public Operation(JsonNumber n1, JsonNumber n2) 
+  {
+<span class="fc" id="L36">    super();</span>
+<span class="fc" id="L37">    setLeft(new NumberConstant(n1));</span>
+<span class="fc" id="L38">    setRight(new NumberConstant(n2));</span>
+<span class="fc" id="L39">  }</span>
+  
+  public void setLeft(NumberConstant p)
+  {
+<span class="fc" id="L43">    m_left = p;</span>
+<span class="fc" id="L44">  }</span>
+  
+  public void setRight(NumberConstant p)
+  {
+<span class="fc" id="L48">    m_right = p;</span>
+<span class="fc" id="L49">  }</span>
+
+  @Override
+  public final void postfixAccept(LanguageElementVisitor visitor)
+  {
+<span class="nc" id="L54">    m_left.postfixAccept(visitor);</span>
+<span class="nc" id="L55">    m_right.postfixAccept(visitor);</span>
+<span class="nc" id="L56">    visitor.visit(this);</span>
+<span class="nc" id="L57">    visitor.pop();</span>
+<span class="nc" id="L58">  }</span>
+  
+  @Override
+  public final void prefixAccept(LanguageElementVisitor visitor)
+  {
+<span class="nc" id="L63">    visitor.visit(this);</span>
+<span class="nc" id="L64">    m_left.prefixAccept(visitor);</span>
+<span class="nc" id="L65">    m_right.prefixAccept(visitor);</span>
+<span class="nc" id="L66">    visitor.pop();</span>
+<span class="nc" id="L67">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

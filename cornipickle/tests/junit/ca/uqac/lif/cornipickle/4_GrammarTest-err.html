@@ -1,0 +1,40 @@
+<html xmlns:string="xalan://java.lang.String" xmlns:lxslt="http://xml.apache.org/xslt">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Standard Error from GrammarTest</title>
+</head>
+<body>
+<pre>Considering input 'A tomato is any of "abc"' with rule &lt;def_set&gt; := A &lt;def_set_name&gt; is any of &lt;def_set_elements&gt;
+Alternative A &lt;def_set_name&gt; is any of &lt;def_set_elements&gt;
+  Considering input 'tomato is any of "abc"' with rule &lt;def_set_name&gt; := ^.*?(?=is)
+  Alternative ^.*?(?=is)
+  Considering input '"abc"' with rule &lt;def_set_elements&gt; := &lt;def_set_element&gt; , &lt;def_set_elements&gt; | &lt;def_set_element&gt;
+  Alternative &lt;def_set_element&gt; , &lt;def_set_elements&gt;
+    Considering input '"abc"' with rule &lt;def_set_element&gt; := &lt;constant&gt;
+    Alternative &lt;constant&gt;
+      Considering input '"abc"' with rule &lt;constant&gt; := &lt;number&gt; | &lt;string&gt;
+      Alternative &lt;number&gt;
+        Considering input '"abc"' with rule &lt;number&gt; := ^\d+
+        Alternative ^\d+
+        FAILED parsing with case ^\d+
+        FAILED: expected more symbols with rule &lt;number&gt; := ^\d+
+      FAILED parsing input "abc" with rule &lt;constant&gt; := &lt;number&gt; | &lt;string&gt;
+      Alternative &lt;string&gt;
+        Considering input '"abc"' with rule &lt;string&gt; := ^"[^"]*"
+        Alternative ^"[^"]*"
+  Alternative &lt;def_set_element&gt;
+    Considering input '"abc"' with rule &lt;def_set_element&gt; := &lt;constant&gt;
+    Alternative &lt;constant&gt;
+      Considering input '"abc"' with rule &lt;constant&gt; := &lt;number&gt; | &lt;string&gt;
+      Alternative &lt;number&gt;
+        Considering input '"abc"' with rule &lt;number&gt; := ^\d+
+        Alternative ^\d+
+        FAILED parsing with case ^\d+
+        FAILED: expected more symbols with rule &lt;number&gt; := ^\d+
+      FAILED parsing input "abc" with rule &lt;constant&gt; := &lt;number&gt; | &lt;string&gt;
+      Alternative &lt;string&gt;
+        Considering input '"abc"' with rule &lt;string&gt; := ^"[^"]*"
+        Alternative ^"[^"]*"
+</pre>
+</body>
+</html>

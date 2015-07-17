@@ -19,17 +19,57 @@ package ca.uqac.lif.httpserver;
 
 import com.sun.net.httpserver.HttpExchange;
 
-public abstract class RequestCallback<T extends Server>
+public abstract class RequestCallback
 {
-  public RequestCallback(T s)
+	/**
+	 * The me
+	 * @author Sylvain
+	 *
+	 */
+	public static enum Method {GET, POST, PUT, DELETE};
+	
+	/**
+	 * Creates a callback
+	 */
+  public RequestCallback()
   {
     super();
-    m_server = s;
   }
   
+  /**
+   * Determines whether the request contained in the argument should
+   * be handled by this callback
+   * @param t The exchange
+   * @return true if this request is for this callback, false if it
+   *   should be passed on to another callback
+   */
   public abstract boolean fire(final HttpExchange t);
 
-  public abstract boolean process(HttpExchange t);
-
-  protected T m_server;
+  /**
+   * Process an HTTP request and prepare an HTTP response
+   * @param t The exchange
+   * @return A callback response, or null if nothing can be sent
+   */
+  public abstract CallbackResponse process(HttpExchange t);
+  
+  /**
+   * Creates a string out of a method
+   * @param m The method
+   * @return The method in string
+   */
+  public static final String methodToString(Method m)
+  {
+  	switch (m)
+  	{
+  	case GET:
+  		return "GET";
+  	case POST:
+  		return "POST";
+  	case PUT:
+  		return "PUT";
+  	case DELETE:
+  		return "DELETE";
+  	}
+  	return "";
+  }  
 }

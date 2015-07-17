@@ -25,14 +25,9 @@ import ca.uqac.lif.cornipickle.json.JsonNumber;
 public class AddOperation extends Operation
 {
 
-  public AddOperation(NumberConstant n1, NumberConstant n2)
+  public AddOperation(Property p1, Property p2)
   {
-    super(n1, n2);
-  }
-
-  public AddOperation(JsonNumber n1, JsonNumber n2)
-  {
-    super(n1, n2);
+    super(p1, p2);
   }
 
   @Override
@@ -50,7 +45,7 @@ public class AddOperation extends Operation
   public String toString(String indent)
   {
     StringBuilder out = new StringBuilder();
-    out.append(m_left.toString()).append(" + ").append(m_right.toString());
+    out.append(m_left.toString()).append(" plus ").append(m_right.toString());
     return out.toString();
   }
 

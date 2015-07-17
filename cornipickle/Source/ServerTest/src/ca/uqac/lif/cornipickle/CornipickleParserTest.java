@@ -40,7 +40,7 @@ public class CornipickleParserTest
   @Test
   public void testAddition1() throws ParseException
   {
-    String line = "[200 + 100]";
+    String line = "(200 plus 100)";
     ParseNode pn = shouldParseAndNotNull(line, "<add>");
     LanguageElement e = parser.parseStatement(pn);
     if (e == null)
@@ -56,7 +56,7 @@ public class CornipickleParserTest
   @Test
   public void testAddition2() throws ParseException
   {
-    String line1 = "[200 + 100]";
+    String line1 = "(200 plus 100)";
     ParseNode pn1 = shouldParseAndNotNull(line1, "<add>");
     LanguageElement e1 = parser.parseStatement(pn1);
     if (e1 == null)
@@ -86,6 +86,22 @@ public class CornipickleParserTest
       fail("Parsing returned null");
     }
     if (!(e3 instanceof EqualsStatement))
+    {
+      fail("Got wrong type of object");
+    }
+  }
+
+  @Test
+  public void testMult1() throws ParseException
+  {
+    String line = "(200 * 100)";
+    ParseNode pn = shouldParseAndNotNull(line, "<mult>");
+    LanguageElement e = parser.parseStatement(pn);
+    if (e == null)
+    {
+      fail("Parsing returned null");
+    }
+    if (!(e instanceof MultOperation))
     {
       fail("Got wrong type of object");
     }
@@ -126,7 +142,23 @@ public class CornipickleParserTest
   @Test
   public void testEquality3() throws ParseException
   {
-    String line = "$x's height equals [250 + 50]";
+    String line = "$x's height equals (250 plus 50)";
+    ParseNode pn = shouldParseAndNotNull(line, "<equality>");
+    LanguageElement e = parser.parseStatement(pn);
+    if (e == null)
+    {
+      fail("Parsing returned null");
+    }
+    if (!(e instanceof EqualsStatement))
+    {
+      fail("Got wrong type of object");
+    }
+  }
+
+  @Test
+  public void testEquality4() throws ParseException
+  {
+    String line = "$x's disabled is true";
     ParseNode pn = shouldParseAndNotNull(line, "<equality>");
     LanguageElement e = parser.parseStatement(pn);
     if (e == null)
@@ -190,7 +222,7 @@ public class CornipickleParserTest
   @Test
   public void testExists() throws ParseException
   {
-    String line = "There exists $d in $(#d) such that ( $d's width equals 200 + 100 )";
+    String line = "There exists $d in $(#d) such that ( $d's width equals (200 plus 100) )";
     ParseNode pn = shouldParseAndNotNull(line, "<exists>");
     LanguageElement e = parser.parseStatement(pn);
     if (e == null)
