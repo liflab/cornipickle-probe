@@ -35,6 +35,7 @@ MANAGERS = ADMINS
 INSTALLED_APPS = (
     'probe_project.apps.accounts',
     'probe_project.apps.probe_dispatcher',
+    'probe_project.apps.probe_parser',
     # 'probe_project.apps.orderedmodel',
 
     'django_extensions',

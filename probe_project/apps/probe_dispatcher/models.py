@@ -8,17 +8,22 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+import subprocess
+import requests
+import time
 
 
 class Sensor(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
-        max_length=200
+        max_length=200,
+        help_text=_("Name of the sensor")
     )
 
     code = models.TextField(
-        verbose_name= "Code",
-        default= ""
+        verbose_name=_("Code"),
+        default="",
+        help_text=_("Code in the Cornipickle language"),
     )
 
     user = models.ForeignKey(
@@ -37,17 +42,19 @@ class Probe(models.Model):
         verbose_name=_("Name"),
         help_text=_("Name of the probe"),
         editable=True,
-        max_length=255
+        max_length=255,
     )
 
     description = models.TextField(
         verbose_name=_("Description"),
         max_length=1200,
+        help_text=_("Description of the probe"),
     )
 
     domain = models.CharField(
         verbose_name=_("Domain"),
-        max_length=200
+        max_length=200,
+        help_text=_("Domain the probe will be attached to"),
     )
 
     hash = models.CharField(
@@ -57,14 +64,16 @@ class Probe(models.Model):
     )
 
     is_enabled = models.BooleanField(
-        verbose_name="Enabled",
-        default=False
+        verbose_name=_("Enabled"),
+        default=False,
+        help_text=_("Check the box if you want the probe to be enabled"),
     )
 
     # todo: make this a list or a foreign key, something like that
     sensors = models.ManyToManyField(
         Sensor,
-        blank=True
+        blank=True,
+        help_text=_("Sensors to be used by the probe (Use CTRL + Left Mouse Button to select)"),
     )
 
     user = models.ForeignKey(
@@ -72,6 +81,13 @@ class Probe(models.Model):
         verbose_name=_("User"),
         unique=False,
         help_text=_("Owner of the probe")
+    )
+
+    pid = models.IntegerField(
+        verbose_name="pid",
+        blank=True,
+        editable=False,
+        null=True
     )
 
     # domains = models.
@@ -83,10 +99,15 @@ class Probe(models.Model):
         pass
 
     def save(self, *args, **kwargs):
+        # if self.is_enabled:
+            # self.run_parser()
+            # self.add_property()
+        # else:
+            # self.kill_parser()
         if not self.pk:
-            #This code only happens if the objects is
-            #not in the database yet. Otherwise it would
-            #have pk
+            # This code only happens if the objects is
+            # not in the database yet. Otherwise it would
+            # have pk
             s = str(random.random())
             user = self.user.__str__()
             name = self.name.encode('utf-8')
@@ -108,6 +129,25 @@ class Probe(models.Model):
 
     def sensor_names(self):
         return ', '.join([sensor.name for sensor in self.sensors.all()])
+
+    def run_parser(self):
+        p = subprocess.Popen(["java", "-jar", "cornipickle/cornipickle.jar", "-p", str(11000 + self.id)])
+        self.pid = p.pid
+        f = open('pids.txt', 'a')
+        f.write(str(p.pid) + '\n')
+        f.close()
+
+    def kill_parser(self):
+        subprocess.call(["kill", str(self.pid), ])
+
+    def add_property(self):
+        port = str(11000 + self.id)
+        url = 'https://localhost:' + port + '/add'
+        text = ''
+        for sensor in self.sensors.all():
+            text = text + sensor.code + '\n\n'
+        r = requests.put(url, data=text)
+
 
     sensor_names.short_description = "Sensors"
 
