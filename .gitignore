@@ -19,6 +19,7 @@ static
 
 bin/
 lib/
+tests/
 doc/
 *.jar
 *.sqlite
