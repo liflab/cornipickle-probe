@@ -22,6 +22,7 @@ import java.net.URI;
 import ca.uqac.lif.cornipickle.util.PackageFileReader;
 
 import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.Headers;
 
 public class InnerFileCallback extends CachedRequestCallback
 {
@@ -29,11 +30,34 @@ public class InnerFileCallback extends CachedRequestCallback
 	
 	protected Class<?> m_context;
 	
+	/**
+	 * Whether or not to send a "404 Not Found" when the resource is
+	 * not found.
+	 */
+	protected boolean m_send404;
+	
   public InnerFileCallback(String path, Class<?> context)
   {
     super();
     m_path = path;
     m_context = context;
+    m_send404 = true;
+  }
+  
+  /**
+   * Sets whether or not to send a "404 Not Found" when the resource is
+	 * not found. This is useful when chaining multiple file callbacks into
+	 * the same server; one wants the first callback to "give a chance"
+	 * to the others of serving the resource if it does not find it by
+	 * itself. If set to false, the callback will rather send <tt>null</tt>
+	 * when serving an unsuccessful request, thereby letting the server
+	 * to try the request on further callbacks.
+   * @param b true to send a 404 when a resource is not found, false 
+   *   to send null instead
+   */
+  public void send404(boolean b)
+  {
+  	m_send404 = b;
   }
 
   @Override
@@ -45,8 +69,13 @@ public class InnerFileCallback extends CachedRequestCallback
   @Override
   public CallbackResponse serve(HttpExchange t)
   {
-    URI uri = t.getRequestURI();
     CallbackResponse response = new CallbackResponse(t);
+    //Give the right content-type to the browser by giving it what it's looking for
+    Headers headers = t.getRequestHeaders();
+    String accept_Header = headers.get("Accept").get(0);
+    response.setContentType(accept_Header.split(",")[0]);
+
+    URI uri = t.getRequestURI();
     String path = uri.getPath();
     if (path.contains(".."))
     {
@@ -56,6 +85,7 @@ public class InnerFileCallback extends CachedRequestCallback
       return response;
     }
     // Get file
+    System.err.println("Looking for " + m_path + path + " in context " + m_context);
     byte[] file_contents = PackageFileReader.readPackageFileToBytes(m_context, m_path + path);
     if (file_contents != null)
     {
@@ -64,7 +94,15 @@ public class InnerFileCallback extends CachedRequestCallback
     else
     {
       // Resource not found: send 404
-    	response.setCode(CallbackResponse.HTTP_NOT_FOUND);
+    	if (!m_send404)
+    	{
+    		// Don't return a 404; send null to indicate failure to the server
+    		return null;
+    	}
+    	else
+    	{
+    		response.setCode(CallbackResponse.HTTP_NOT_FOUND);
+    	}
     }
     return response;
   }

@@ -1,6 +1,7 @@
 {% load i18n %}
 <div class="panel">
     <div class="pull-right">
+        <a href="{% url 'probe_add_corni' probe_id=probe.id %}" class="btn btn-default "><i class="fa fa-plus"></i> {% trans 'Add' %}</a>
         <a href="{% url 'probe_edit' probe_id=probe.id %}" class="btn btn-default "><i class="fa fa-pencil"></i> {% trans 'Edit' %}</a>
         <a href="{% url 'probe_delete' probe_id=probe.id %}" class="btn btn-default "><i class="fa fa-trash"></i> {% trans 'Delete' %}</a>
     </div>

@@ -10,6 +10,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 import subprocess
 import requests
+import urllib
 import time
 
 
@@ -99,11 +100,10 @@ class Probe(models.Model):
         pass
 
     def save(self, *args, **kwargs):
-        # if self.is_enabled:
-            # self.run_parser()
-            # self.add_property()
-        # else:
-            # self.kill_parser()
+        if self.is_enabled:
+            self.run_parser()
+        else:
+            self.kill_parser()
         if not self.pk:
             # This code only happens if the objects is
             # not in the database yet. Otherwise it would
@@ -142,12 +142,13 @@ class Probe(models.Model):
 
     def add_property(self):
         port = str(11000 + self.id)
-        url = 'https://localhost:' + port + '/add'
+        url = 'http://localhost:' + port + '/add'
         text = ''
         for sensor in self.sensors.all():
-            text = text + sensor.code + '\n\n'
+            text = text + sensor.code + "\n\n"
+        text = urllib.quote_plus(text)
         r = requests.put(url, data=text)
-
+        r.status_code
 
     sensor_names.short_description = "Sensors"
 

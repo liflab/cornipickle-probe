@@ -20,6 +20,8 @@ static
 bin/
 lib/
 doc/
+tests/
+pids.txt
 *.jar
 *.sqlite
 *.exec
