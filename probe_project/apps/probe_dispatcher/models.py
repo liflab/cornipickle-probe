@@ -100,10 +100,6 @@ class Probe(models.Model):
         pass
 
     def save(self, *args, **kwargs):
-        if self.is_enabled:
-            self.run_parser()
-        else:
-            self.kill_parser()
         if not self.pk:
             # This code only happens if the objects is
             # not in the database yet. Otherwise it would
@@ -113,6 +109,10 @@ class Probe(models.Model):
             name = self.name.encode('utf-8')
             self.hash = hashlib.sha1(s + user + name).hexdigest()
         super(Probe, self).save(*args, **kwargs)
+        if self.is_enabled and not self.pid:
+            self.run_parser()
+        elif not self.is_enabled and self.pid:
+            self.kill_parser()
 
     def probe_url(self, id=settings.SITE_ID):
         current_site = Site.objects.get(id=id)
@@ -136,9 +136,13 @@ class Probe(models.Model):
         f = open('pids.txt', 'a')
         f.write(str(p.pid) + '\n')
         f.close()
+        self.save()
 
     def kill_parser(self):
+        print("Killing parser....")
         subprocess.call(["kill", str(self.pid), ])
+        self.pid = None
+        self.save()
 
     def add_property(self):
         port = str(11000 + self.id)
@@ -148,7 +152,7 @@ class Probe(models.Model):
             text = text + sensor.code + "\n\n"
         text = urllib.quote_plus(text)
         r = requests.put(url, data=text)
-        r.status_code
+        print(r.json())
 
     sensor_names.short_description = "Sensors"
 

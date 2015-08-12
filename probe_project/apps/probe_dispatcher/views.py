@@ -59,7 +59,8 @@ def probe_delete(request, probe_id):
 @login_required
 def probe_add_corni(request, probe_id):
     probe = get_object_or_404(Probe, pk=probe_id)
-    probe.add_property()
+    if probe.is_enabled:
+        probe.add_property()
     return render_to_response("probe_dispatcher/probes.html", RequestContext(request, {
         'probes': Probe.objects.filter(user=request.user)
         }))
