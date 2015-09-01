@@ -136,14 +136,19 @@ def probe_file(request, probe_id, probe_hash, banner=True):
     for sensor in current_probe.sensors.all():
         print(sensor.name)
 
+    encoded_tagnames = [x.encode('UTF8') for x in current_probe.tags_and_attributes["tagnames"]]
+    encoded_attributes = [x.encode('UTF8') for x in current_probe.tags_and_attributes["attributes"]]
+
     return render_to_response(
-        "probe_dispatcher/probe.js",
+        "probe_dispatcher/probe.inc.js",
         RequestContext(
             request, {
                 'id': probe_id,
                 'hash': probe_hash,
                 'banner': banner,
-                'site_url': request.get_host()
+                'server_name': 'localhost:' + str(11000 + int(probe_id)),
+                'tags': encoded_tagnames,
+                'attributes': encoded_attributes,
             }
         ),
         content_type='application/javascript'
@@ -159,7 +164,7 @@ def probe_test(request, probe_id, probe_hash):
         print(sensor.name)
 
     return render_to_response(
-        "probe_dispatcher/test.html",
+        "probe_dispatcher/test2.html",
         RequestContext(
             request, {
                 'script': current_probe.get_script_tag()

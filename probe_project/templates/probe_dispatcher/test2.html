@@ -1,15 +1,19 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css" href="screen.css" />
-<link rel="stylesheet" type="text/css" href="../colouring.css" />
-<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
-<script type="text/javascript" src="/cornipickle.js"></script>
-<script type="text/javascript" src="/probe"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/screen.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/colouring.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/jquery-ui/themes/smoothness/jquery-ui.css' %}" />
+<script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/jquery-ui/ui/minified/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/cornipickle.js' %}"></script>
+
+{{ script|safe }}
+
 <title>Misaligned menu elements - Cornipickle</title>
 <script type="text/javascript">
 // <![CDATA[
@@ -24,17 +28,11 @@ $(document).ready(function() {
     $(".no-event").mouseup(function(event) {
       event.stopPropagation();
     });
-    // Add handler to button
-    $("#to-cornipickle").click(function(event) {
-        add_to_cornipickle(cornipickle_code);
-        event.stopPropagation(); // To avoid a call to Cornipickle
-      }).mouseup(function(event) {
-        event.stopPropagation(); // To avoid a call to Cornipickle
-      });
     // Move second menu
     $("#second-menu").css({ "margin-left": "10px"});
     // Button code
     $("#misalign-toggle").click(function() {
+        console.log("misalign-toggle button pressed");
         if (toggled)
         {
           $("#second-menu").css({ "margin-left": "10px"});

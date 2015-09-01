@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 import subprocess
 import requests
 import urllib
+import jsonfield
 import time
 
 
@@ -91,6 +92,12 @@ class Probe(models.Model):
         null=True
     )
 
+    tags_and_attributes = jsonfield.JSONField(
+        default={},
+        null=False,
+        editable=False,
+    )
+
     # domains = models.
 
     def __unicode__(self):
@@ -116,7 +123,7 @@ class Probe(models.Model):
 
     def probe_url(self, id=settings.SITE_ID):
         current_site = Site.objects.get(id=id)
-        return "http://" + current_site.domain + '/p/' + self.id.__str__() + '_' + self.hash.__str__() + '.js'
+        return "http://localhost:8000" + '/p/' + self.id.__str__() + '_' + self.hash.__str__() + '.js'
 
     # makes the url clickable in the admin table
     def clickable_probe_url(self):
@@ -152,7 +159,8 @@ class Probe(models.Model):
             text = text + sensor.code + "\n\n"
         text = urllib.quote_plus(text)
         r = requests.put(url, data=text)
-        print(r.json())
+        self.tags_and_attributes = r.json()
+        self.save()
 
     sensor_names.short_description = "Sensors"
 
