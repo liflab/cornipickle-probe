@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from probe_project.apps.probe_dispatcher.forms import ProbeFrontendForm, SensorFrontendForm
 from probe_project.apps.probe_dispatcher.models import Probe, Sensor, User
+import json
 
 
 @login_required
@@ -136,8 +137,8 @@ def probe_file(request, probe_id, probe_hash, banner=True):
     for sensor in current_probe.sensors.all():
         print(sensor.name)
 
-    encoded_tagnames = [x.encode('UTF8') for x in current_probe.tags_and_attributes["tagnames"]]
-    encoded_attributes = [x.encode('UTF8') for x in current_probe.tags_and_attributes["attributes"]]
+    encoded_tagnames = json.dumps(current_probe.tags_and_attributes["tagnames"])
+    encoded_attributes = json.dumps(current_probe.tags_and_attributes["attributes"])
 
     return render_to_response(
         "probe_dispatcher/probe.inc.js",
