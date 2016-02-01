@@ -21,4 +21,6 @@ DATABASES = {
     }
 }
 
+ALLOWED_HOSTS = {"*"}
+
 # WSGI_APPLICATION = 'probe_project.wsgi.application'
