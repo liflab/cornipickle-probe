@@ -14,9 +14,9 @@ STATIC_ROOT = os.path.join(VAR_ROOT, 'static')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'probe_project',
-        'USER': 'probe',
+        'USER': 'probeprojectuser',
         'PASSWORD': 'R=jibiqeK9Xg2rBzmshxxtfW',
     }
 }
