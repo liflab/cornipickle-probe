@@ -84,6 +84,7 @@ def sensors(request):
     }))
 
 
+# http://stackoverflow.com/questions/1854237/django-edit-form-based-on-add-form
 @login_required
 def sensor_form(request, sensor_id=None):
     if sensor_id:
