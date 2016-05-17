@@ -76,6 +76,8 @@ gestion des dépendances (js) côté client (ex: bootstrap, jquery, etc)
     # NPM
     sudo apt-get install -y npm
 
+    ln -s /usr/bin/nodejs /usr/bin/node
+
 #### Installer les dépendances node
 
     npm install
