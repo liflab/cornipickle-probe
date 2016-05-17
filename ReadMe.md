@@ -69,13 +69,18 @@ gestion des dépendances (js) côté client (ex: bootstrap, jquery, etc)
 
 #### sous Ubuntu
 
+
+    # Node
     sudo apt-get install nodejs
+
+    # NPM
+    sudo apt-get install -y npm
 
 #### Installer les dépendances node
 
     npm install
 
-Cette commande va nstaller les dépendances mentionnées dans le fichier `package.json`
+Cette commande va installer les dépendances mentionnées dans le fichier `package.json`
 
 ### Installer bower (outil de gestion de dépendances javascript, etc)
 
