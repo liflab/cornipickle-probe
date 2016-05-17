@@ -49,9 +49,16 @@ Voilà, on est prêt à travailler avec django!
 
 Documentation django](https://docs.djangoproject.com/en/1.8/topics/i18n/translation/)
 
-    django-admin.py makemessages -a -e py,jinja,jinja2,html -l fr --ignore node_modules
+    python manage.py makemessages -all -e py,jinja,jinja2,html -l fr --ignore node_modules
 
-Les fichiers `po` pour la traduction se trouvent dans `./conf/locale/<lang_code>/LC_MESSAGES/django.po`. 
+Les fichiers `po` pour la traduction se trouvent dans `./conf/locale/<lang_code>/LC_MESSAGES/django.po`.
+
+Dans les fichiers HTML Ajouter des `{% trans 'Mot_en_ANGLAIS' %}` pour faire un id de la traduction.
+
+Par la suite, vous pouvez aller faire la commande suivante pour créer vos nouveau id de traduction au fichier `.po`
+
+        python manage.py makemessages -all -e py,jinja,jinja2,html -l fr --ignore node_modules
+
 Après, c'est classique; on passe par [Poedit](http://poedit.net/).
 [Weblate](https://weblate.org/en/) peut être une bonne idée une fois en production ;)
 

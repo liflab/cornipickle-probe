@@ -75,6 +75,8 @@ INSTALLED_APPS = (
 
 PROJECT_DIR = os.path.dirname(os.path.realpath(project_module.__file__))
 
+print PROJECT_DIR
+
 # PYTHON_BIN = os.path.dirname(sys.executable)
 
 #==============================================================================
@@ -137,7 +139,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 TIME_ZONE = 'America/Montreal'
 
 USE_TZ = True
-USE_I18N = True
+USE_I18N = False
 USE_L10N = True
 
 LANGUAGES = (
@@ -148,7 +150,7 @@ LANGUAGES = (
 LANGUAGE_CODE = 'fr'
 
 LOCALE_PATHS = (
-    os.path.join(PROJECT_DIR, 'conf/locale'),
+    os.path.join(PROJECT_DIR, 'conf/locale/'),
 )
 
 LOCALE_INDEPENDENT_PATHS = (
