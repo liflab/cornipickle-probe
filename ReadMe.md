@@ -86,10 +86,11 @@ Cette commande va installer les dépendances mentionnées dans le fichier `packa
 
 ### Installer bower (outil de gestion de dépendances javascript, etc)
 
-Note: n'est pas encore utilisé, on va peut-être s'en servir un jour ;)
-
     npm install -g bower
     bower install
+
+    # Récupération des fichiers statiques pour Django
+    sudo python manage.py collectstatic --noinput
 
 ### Installer Grunt
 
