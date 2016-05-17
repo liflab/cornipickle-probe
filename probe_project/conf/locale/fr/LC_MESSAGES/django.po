@@ -203,6 +203,16 @@ msgstr "S'enregistrer"
 #: tests/test_forms.py:325
 msgid "Enter a valid email address."
 msgstr "Saisissez une adresse courriel valide."
+#
+msgid "Change email"
+msgstr "Changer d'addresse électronique"
+#
+msgid "Change email"
+msgstr "Changer d'addresse électronique"
+
+
+
+
 
 #~ msgid "fr"
 #~ msgstr "fr"

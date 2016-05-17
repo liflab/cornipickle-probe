@@ -18,5 +18,5 @@ def home(request):
 
 
 def custom_logout(request, next_page):
-    logout(request)
-    return redirect(next_page)
+    print request
+    return logout(request)
