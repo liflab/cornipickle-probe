@@ -66,7 +66,7 @@ Après, c'est classique; on passe par [Poedit](http://poedit.net/).
 
 ### [Installer nodejs](https://nodejs.org/) et [npm](https://www.npmjs.com/)
 
-On installe ça pour grunt](http://gruntjs.com/) et [bower](http://bower.io/) 
+On installe ça pour [grunt](http://gruntjs.com/) et [bower](http://bower.io/) 
 compilation automatique du [scss](http://sass-lang.com/) et 
 gestion des dépendances (js) côté client (ex: bootstrap, jquery, etc)
 
