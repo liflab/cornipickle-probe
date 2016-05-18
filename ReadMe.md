@@ -64,7 +64,7 @@ Après, c'est classique; on passe par [Poedit](http://poedit.net/).
 
 ## Développement et outils
 
-### Installer nodejs](https://nodejs.org/) et [npm](https://www.npmjs.com/)
+### [Installer nodejs](https://nodejs.org/) et [npm](https://www.npmjs.com/)
 
 On installe ça pour grunt](http://gruntjs.com/) et [bower](http://bower.io/) 
 compilation automatique du [scss](http://sass-lang.com/) et 
