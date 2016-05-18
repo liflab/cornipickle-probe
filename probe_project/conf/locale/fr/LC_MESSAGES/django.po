@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Probe\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-17 16:52-0400\n"
+"POT-Creation-Date: 2016-05-18 15:32-0400\n"
 "PO-Revision-Date: 2014-06-12 17:23-0500\n"
 "Last-Translator: Gabriel Le Breton <lebreton.gabriel@gmail.com>\n"
 "Language-Team: LIF <lebreton.gabriel@gmail.com>\n"
@@ -116,11 +116,11 @@ msgstr ""
 msgid "Owner of the probe"
 msgstr ""
 
-#: probe_project/settings/base.py:146
+#: probe_project/settings/base.py:144
 msgid "English"
 msgstr "English"
 
-#: probe_project/settings/base.py:147
+#: probe_project/settings/base.py:145
 msgid "Français"
 msgstr "Français"
 
@@ -211,7 +211,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Domain:"
 msgid "Domain: "
-msgstr "Domaine:"
+msgstr "Domaine: "
 
 #: probe_project/templates/probe_dispatcher/include/probe.html:14
 msgid "Enabled sensors:"
@@ -482,7 +482,7 @@ msgstr "Svp, connectez-vous, ou "
 
 #: probe_project/templates/userena/include/signin_form.html:9
 msgid "Sign Up"
-msgstr "Engistrez-vous"
+msgstr "Enregistrez-vous"
 
 #: probe_project/templates/userena/include/signin_form.html:15
 #: probe_project/templates/userena/include/signup_form.html:10
@@ -639,7 +639,7 @@ msgstr "Suivant"
 #, fuzzy
 #| msgid "Sign Up"
 msgid "Signin"
-msgstr "Engistrez-vous"
+msgstr "Enregistrez-vous"
 
 #: probe_project/templates/userena/signout.html:4
 msgid "Signed out"
@@ -672,7 +672,9 @@ msgstr "Merci, de participer à notre projet !"
 msgid ""
 "You have been sent an e-mail with an activation link</b> to the supplied\n"
 "                email."
-msgstr "Vous devriez recevoir un email de notre part <\b> contenant une clé d'activation\n"
+msgstr ""
+"Vous devriez recevoir un email de notre part <\b> contenant une clé "
+"d'activation\n"
 
 #: probe_project/templates/userena/signup_complete.html:14
 #, python-format

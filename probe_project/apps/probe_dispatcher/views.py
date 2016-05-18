@@ -80,9 +80,13 @@ def probes(request):
 
 @login_required
 def sensors(request):
-    return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
-        'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username="admin")])
-    }))
+    if request.user.is_authenticated():
+        current_user = request.user.get_username()
+        return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
+            'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username=current_user)])
+        }))
+    else:
+        return redirect('/')
 
 
 # http://stackoverflow.com/questions/1854237/django-edit-form-based-on-add-form
