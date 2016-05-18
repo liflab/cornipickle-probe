@@ -1,7 +1,7 @@
 # Probe
 
 Développement actuellement avec `Python 2.7.6`, Programmation en anglais (question de se pratiquer un peu :P)
-IDE recommandé: PyCharm Community Edition de JetBrains](https://www.jetbrains.com/pycharm/download/)
+IDE recommandé: [PyCharm Community Edition de JetBrains](https://www.jetbrains.com/pycharm/download/)
 
 Il est recommandé de lire [Getting started](https://docs.djangoproject.com/en/1.8/intro/) dans la doc de django
 avant de débuter à travailler sur ce projet, ça sera beaucoup plus simple par la suite.
@@ -47,7 +47,7 @@ Voilà, on est prêt à travailler avec django!
 
 ## Traduction du site
 
-Documentation django](https://docs.djangoproject.com/en/1.8/topics/i18n/translation/)
+[Documentation django](https://docs.djangoproject.com/en/1.8/topics/i18n/translation/)
 
     python manage.py makemessages -all -e py,jinja,jinja2,html -l fr --ignore node_modules
 
@@ -64,9 +64,9 @@ Après, c'est classique; on passe par [Poedit](http://poedit.net/).
 
 ## Développement et outils
 
-### Installer nodejs](https://nodejs.org/) et [npm](https://www.npmjs.com/)
+### [Installer nodejs](https://nodejs.org/) et [npm](https://www.npmjs.com/)
 
-On installe ça pour grunt](http://gruntjs.com/) et [bower](http://bower.io/) 
+On installe ça pour [grunt](http://gruntjs.com/) et [bower](http://bower.io/) 
 compilation automatique du [scss](http://sass-lang.com/) et 
 gestion des dépendances (js) côté client (ex: bootstrap, jquery, etc)
 
