@@ -47,7 +47,7 @@ Voilà, on est prêt à travailler avec django!
 
 ## Traduction du site
 
-Documentation django](https://docs.djangoproject.com/en/1.8/topics/i18n/translation/)
+[Documentation django](https://docs.djangoproject.com/en/1.8/topics/i18n/translation/)
 
     python manage.py makemessages -all -e py,jinja,jinja2,html -l fr --ignore node_modules
 
