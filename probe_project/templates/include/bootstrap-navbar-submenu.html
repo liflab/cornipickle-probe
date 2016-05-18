@@ -2,7 +2,6 @@
     {% for item in items %}
         {% if item.visible %}
             <li class="{% if item.selected %} active{% endif %}{% if item.children %} dropdown-submenu{% endif %}">
-                {{ item }}
                 <a href="{{ item.url }}">{{ item.title }}</a>
                 {% if item.children %}
                     {% with items=item.children template_name='bootstrap-navbar-submenu.html' %}

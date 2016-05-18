@@ -633,7 +633,7 @@ msgstr ""
 
 #: probe_project/templates/userena/profile_list.html:33
 msgid "next"
-msgstr ""
+msgstr "Suivant"
 
 #: probe_project/templates/userena/signin_form.html:4
 #, fuzzy
@@ -643,36 +643,36 @@ msgstr "Engistrez-vous"
 
 #: probe_project/templates/userena/signout.html:4
 msgid "Signed out"
-msgstr ""
+msgstr "Déconnexion"
 
 #: probe_project/templates/userena/signout.html:5
 msgid "You have been signed out"
-msgstr ""
+msgstr "Vous avez été déconnecté "
 
 #: probe_project/templates/userena/signout.html:9
 msgid "You have been signed out. Hope we see you soon."
-msgstr ""
+msgstr "Vous avez été déconnecté. Nous espérons vous voir bientôt"
 
 #: probe_project/templates/userena/signup_complete.html:4
 msgid "Signup almost done!"
-msgstr ""
+msgstr "L'enregistrement est presque terminé "
 
 #: probe_project/templates/userena/signup_complete.html:6
 #: probe_project/templates/userena/signup_form.html:4
 #, fuzzy
 #| msgid "Sign Up"
 msgid "Signup"
-msgstr "Engistrez-vous"
+msgstr "Enregistrement"
 
 #: probe_project/templates/userena/signup_complete.html:10
 msgid "Thank you for signing up with us!"
-msgstr ""
+msgstr "Merci, de participer à notre projet !"
 
 #: probe_project/templates/userena/signup_complete.html:13
 msgid ""
 "You have been sent an e-mail with an activation link</b> to the supplied\n"
 "                email."
-msgstr ""
+msgstr "Vous devriez recevoir un email de notre part <\b> contenant une clé d'activation\n"
 
 #: probe_project/templates/userena/signup_complete.html:14
 #, python-format
@@ -684,7 +684,7 @@ msgstr ""
 
 #: probe_project/templates/userena/signup_complete.html:17
 msgid "You can now use the supplied credentials to signin."
-msgstr ""
+msgstr "Vous pouvez maintenant vous connecter avec votre identifiant"
 
 #~ msgid "^register/$"
 #~ msgstr "^enregistrer/$"
