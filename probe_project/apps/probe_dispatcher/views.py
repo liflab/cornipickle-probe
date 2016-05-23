@@ -71,8 +71,11 @@ def probe_add_corni(request, probe_id):
 @login_required
 def probes(request):
     if request.user.is_authenticated():
+        list_probes = Probe.objects.filter(user=request.user)
+        if len(list_probes) == 0:
+            list_probes = None
         return render_to_response("probe_dispatcher/probes.html", RequestContext(request, {
-            'probes': Probe.objects.filter(user=request.user)
+            'probes': list_probes
         }))
     else:
         return redirect('/')
@@ -81,9 +84,12 @@ def probes(request):
 @login_required
 def sensors(request):
     if request.user.is_authenticated():
-        current_user = request.user.get_username()
+        current_user = request.user
+        list_sensor = Sensor.objects.filter(user=current_user)
+        if len(list_sensor) == 0:
+            list_sensor = None
         return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
-            'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username=current_user)])
+            'sensors': list_sensor
         }))
     else:
         return redirect('/')
@@ -130,7 +136,7 @@ def sensor_delete(request, sensor_id):
     sensor = get_object_or_404(Sensor, pk=sensor_id)
     if sensor.user != current_user:
         return HttpResponseForbidden()
-    sensor.delete()
+    sensor.check_delete(sensor_id)
     return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
         'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username=current_user.get_username())])
         }))

@@ -3,11 +3,13 @@
 import hashlib
 import random
 
+from django.utils.translation import ugettext as _
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 import subprocess
 import requests
 import urllib
@@ -37,6 +39,17 @@ class Sensor(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+    def check_delete(self,sensor_id):
+
+        list_probe = Probe.objects.all().filter(sensors=sensor_id)
+
+        if len(list_probe) != 0:
+            output = _("You cannot delete the Sensor id {0}, because is use by probe id {1}".format(sensor_id,list_probe[0].id))
+            raise ValueError(output)
+
+        self.delete()
 
 
 class Probe(models.Model):

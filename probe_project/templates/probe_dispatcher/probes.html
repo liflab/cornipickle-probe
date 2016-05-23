@@ -3,7 +3,7 @@
 
 {% block content %}
     <h1>{% trans 'Probes' %}</h1>
-    {% if probes == None %}
+    {% if probes != None %}
         {% for probe in probes %}
             {% include 'probe_dispatcher/include/probe.html' %}
         {% endfor %}
