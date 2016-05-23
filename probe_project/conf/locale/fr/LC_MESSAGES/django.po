@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Probe\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 15:32-0400\n"
+"POT-Creation-Date: 2016-05-23 14:10-0400\n"
 "PO-Revision-Date: 2014-06-12 17:23-0500\n"
 "Last-Translator: Gabriel Le Breton <lebreton.gabriel@gmail.com>\n"
 "Language-Team: LIF <lebreton.gabriel@gmail.com>\n"
@@ -73,7 +73,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Create a new probe"
 msgid "Name of the probe"
-msgstr "Créer une nouvelle sonde"
+msgstr "Le nom de la sonde"
 
 #: probe_project/apps/probe_dispatcher/models.py:51
 msgid "Description"
@@ -81,7 +81,7 @@ msgstr ""
 
 #: probe_project/apps/probe_dispatcher/models.py:53
 msgid "Description of the probe"
-msgstr ""
+msgstr "Description de la sonde"
 
 #: probe_project/apps/probe_dispatcher/models.py:57
 #, fuzzy
@@ -105,7 +105,7 @@ msgstr "Capteurs activés:"
 
 #: probe_project/apps/probe_dispatcher/models.py:71
 msgid "Check the box if you want the probe to be enabled"
-msgstr ""
+msgstr "Cocher la case si vous voulez activer la sonde"
 
 #: probe_project/apps/probe_dispatcher/models.py:78
 msgid ""
@@ -673,7 +673,7 @@ msgid ""
 "You have been sent an e-mail with an activation link</b> to the supplied\n"
 "                email."
 msgstr ""
-"Vous devriez recevoir un email de notre part <\b> contenant une clé "
+"Vous devriez recevoir un email de notre part </b> contenant une clé "
 "d'activation\n"
 
 #: probe_project/templates/userena/signup_complete.html:14

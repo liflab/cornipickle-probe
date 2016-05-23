@@ -126,12 +126,13 @@ def sensor_detail(request, sensor_id):
 
 @login_required
 def sensor_delete(request, sensor_id):
+    current_user = request.user
     sensor = get_object_or_404(Sensor, pk=sensor_id)
-    if sensor.user != request.user:
+    if sensor.user != current_user:
         return HttpResponseForbidden()
     sensor.delete()
     return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
-        'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username="admin")])
+        'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username=current_user.get_username())])
         }))
 
 
