@@ -41,7 +41,12 @@ class Sensor(models.Model):
         return self.name
 
 
-    def check_delete(self,sensor_id):
+    def check_delete_if_Sensor_is_presente_in_Probe(self,sensor_id):
+        """
+        Regarde si un Sensor est présent dans un Probe.
+        :param sensor_id: L'id du sensor a regarder
+        :return: Delete si le sensor n'est present dans aucun probe si non, message d'erreur
+        """
 
         list_probe = Probe.objects.all().filter(sensors=sensor_id)
 
