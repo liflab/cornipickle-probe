@@ -92,6 +92,7 @@ class Probe(models.Model):
     # todo: make this a list or a foreign key, something like that
     sensors = models.ManyToManyField(
         Sensor,
+        verbose_name= _("Sensor"),
         blank=True,
         help_text=_("Sensors to be used by the probe (Use CTRL + Left Mouse Button to select)"),
     )
