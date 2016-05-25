@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Probe\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-23 14:10-0400\n"
+"POT-Creation-Date: 2016-05-25 10:02-0400\n"
 "PO-Revision-Date: 2014-06-12 17:23-0500\n"
 "Last-Translator: Gabriel Le Breton <lebreton.gabriel@gmail.com>\n"
 "Language-Team: LIF <lebreton.gabriel@gmail.com>\n"
@@ -41,78 +41,83 @@ msgstr "Administration"
 msgid "user"
 msgstr ""
 
-#: probe_project/apps/probe_dispatcher/models.py:20
-#: probe_project/apps/probe_dispatcher/models.py:44
+#: probe_project/apps/probe_dispatcher/models.py:22
+#: probe_project/apps/probe_dispatcher/models.py:62
 msgid "Name"
 msgstr ""
 
-#: probe_project/apps/probe_dispatcher/models.py:22
+#: probe_project/apps/probe_dispatcher/models.py:24
 msgid "Name of the sensor"
 msgstr ""
 
-#: probe_project/apps/probe_dispatcher/models.py:26
+#: probe_project/apps/probe_dispatcher/models.py:28
 msgid "Code"
 msgstr ""
 
-#: probe_project/apps/probe_dispatcher/models.py:28
+#: probe_project/apps/probe_dispatcher/models.py:30
 msgid "Code in the Cornipickle language"
 msgstr ""
 
-#: probe_project/apps/probe_dispatcher/models.py:33
-#: probe_project/apps/probe_dispatcher/models.py:83
+#: probe_project/apps/probe_dispatcher/models.py:35
+#: probe_project/apps/probe_dispatcher/models.py:101
 #, fuzzy
 #| msgid "Username"
 msgid "User"
 msgstr "Utilisateur"
 
-#: probe_project/apps/probe_dispatcher/models.py:35
+#: probe_project/apps/probe_dispatcher/models.py:37
 msgid "Owner of the sensor"
 msgstr ""
 
-#: probe_project/apps/probe_dispatcher/models.py:45
+#: probe_project/apps/probe_dispatcher/models.py:54
+#, python-brace-format
+msgid "You cannot delete the Sensor id {0}, because is use by probe id {1}"
+msgstr ""
+
+#: probe_project/apps/probe_dispatcher/models.py:63
 #, fuzzy
 #| msgid "Create a new probe"
 msgid "Name of the probe"
 msgstr "Le nom de la sonde"
 
-#: probe_project/apps/probe_dispatcher/models.py:51
+#: probe_project/apps/probe_dispatcher/models.py:69
 msgid "Description"
 msgstr ""
 
-#: probe_project/apps/probe_dispatcher/models.py:53
+#: probe_project/apps/probe_dispatcher/models.py:71
 msgid "Description of the probe"
 msgstr "Description de la sonde"
 
-#: probe_project/apps/probe_dispatcher/models.py:57
+#: probe_project/apps/probe_dispatcher/models.py:75
 #, fuzzy
 #| msgid "Domain:"
 msgid "Domain"
 msgstr "Domaine:"
 
-#: probe_project/apps/probe_dispatcher/models.py:59
+#: probe_project/apps/probe_dispatcher/models.py:77
 msgid "Domain the probe will be attached to"
 msgstr ""
 
-#: probe_project/apps/probe_dispatcher/models.py:63
+#: probe_project/apps/probe_dispatcher/models.py:81
 msgid "Hash"
 msgstr ""
 
-#: probe_project/apps/probe_dispatcher/models.py:69
+#: probe_project/apps/probe_dispatcher/models.py:87
 #, fuzzy
 #| msgid "Enabled sensors:"
 msgid "Enabled"
 msgstr "Capteurs activés:"
 
-#: probe_project/apps/probe_dispatcher/models.py:71
+#: probe_project/apps/probe_dispatcher/models.py:89
 msgid "Check the box if you want the probe to be enabled"
 msgstr "Cocher la case si vous voulez activer la sonde"
 
-#: probe_project/apps/probe_dispatcher/models.py:78
+#: probe_project/apps/probe_dispatcher/models.py:96
 msgid ""
 "Sensors to be used by the probe (Use CTRL + Left Mouse Button to select)"
 msgstr ""
 
-#: probe_project/apps/probe_dispatcher/models.py:85
+#: probe_project/apps/probe_dispatcher/models.py:103
 msgid "Owner of the probe"
 msgstr ""
 
@@ -671,10 +676,10 @@ msgstr "Merci, de participer à notre projet !"
 #: probe_project/templates/userena/signup_complete.html:13
 msgid ""
 "You have been sent an e-mail with an activation link</b> to the supplied\n"
-"                email."
+"email."
 msgstr ""
-"Vous devriez recevoir un email de notre part </b> contenant une clé "
-"d'activation\n"
+"Vous devriez recevoir un email de notre part </b> contenant une clé \n"
+"d'activation."
 
 #: probe_project/templates/userena/signup_complete.html:14
 #, python-format
