@@ -92,8 +92,8 @@ class Probe(models.Model):
         null=True
     )
 
-    tags_and_attributes = jsonfield.JSONField(
-        default={},
+    tags_attributes_interpreter = jsonfield.JSONField(
+        default={'tagnames': '', 'attributes': '', 'interpreter': ''},
         null=False,
         editable=False,
     )
@@ -115,52 +115,37 @@ class Probe(models.Model):
             user = self.user.__str__()
             name = self.name.encode('utf-8')
             self.hash = hashlib.sha1(s + user + name).hexdigest()
+        if self.is_enabled:
+            self.add_property()
+        else:
+            self.tags_attributes_interpreter = {'tagnames': '', 'attributes': '', 'interpreter': ''}
         super(Probe, self).save(*args, **kwargs)
-        if self.is_enabled and not self.pid:
-            self.run_parser()
-        elif not self.is_enabled and self.pid:
-            self.kill_parser()
 
-    def probe_url(self, id=settings.SITE_ID):
-        current_site = Site.objects.get(id=id)
-        return "http://localhost:8000" + '/p/' + self.id.__str__() + '_' + self.hash.__str__() + '.js'
 
     # makes the url clickable in the admin table
     def clickable_probe_url(self):
-        probe_url = self.probe_url()
-        return '<a href="%s" target="_blank">%s</a>' % (probe_url, probe_url)
+        script_url = self.get_script_url()
+        return '<a href="%s" target="_blank">%s</a>' % (script_url, script_url)
 
     def get_script_tag(self):
-        probe_url = self.probe_url()
-        return '<script type="application/javascript" src="%s"></script>' % (probe_url)
+        script_url = self.get_script_url()
+        return '<script type="application/javascript" src="%s"></script>' % (script_url)
+
+    def get_script_url(self):
+        current_site = Site.objects.get_current().domain
+        return 'http://' + current_site + '/p/' + self.id.__str__() + '_' + self.hash.__str__() + '.js'
 
     def sensor_names(self):
         return ', '.join([sensor.name for sensor in self.sensors.all()])
 
-    def run_parser(self):
-        p = subprocess.Popen(["java", "-jar", "cornipickle/cornipickle.jar", "-p", str(11000 + self.id)])
-        self.pid = p.pid
-        f = open('pids.txt', 'a')
-        f.write(str(p.pid) + '\n')
-        f.close()
-        self.save()
-
-    def kill_parser(self):
-        print("Killing parser....")
-        subprocess.call(["kill", str(self.pid), ])
-        self.pid = None
-        self.save()
-
     def add_property(self):
-        port = str(11000 + self.id)
-        url = 'http://localhost:' + port + '/add'
+        url = 'http://localhost:11019/add'
         text = ''
         for sensor in self.sensors.all():
             text = text + sensor.code + "\n\n"
         text = urllib.quote_plus(text)
-        r = requests.put(url, data=text)
-        self.tags_and_attributes = r.json()
-        self.save()
+        r = requests.post(url, data=text)
+        self.tags_attributes_interpreter = r.json()
 
     sensor_names.short_description = "Sensors"
 

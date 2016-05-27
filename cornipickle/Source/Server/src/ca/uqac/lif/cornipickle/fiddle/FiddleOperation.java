@@ -1,6 +1,6 @@
 /*
     Cornipickle, validation of layout bugs in web applications
-    Copyright (C) 2015 Sylvain Hallé
+    Copyright (C) 2015-2016 Sylvain Hallé
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,20 +15,20 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ca.uqac.lif.cornipickle.json;
+package ca.uqac.lif.cornipickle.fiddle;
 
-public abstract class JsonElement
+import ca.uqac.lif.cornipickle.Interpreter;
+import ca.uqac.lif.json.JsonElement;
+import ca.uqac.lif.json.JsonMap;
+
+public abstract class FiddleOperation
 {
-  @Override
-  public final String toString()
-  {
-    return toString("");
-  }
-  
-  protected String toString(String indent)
-  {
-  	return toString(indent, false);
-  }
-  
-  protected abstract String toString(String indent, boolean compact);
+	public FiddleOperation()
+	{
+		super();
+	}
+	
+	public abstract boolean fire(JsonMap in);
+	
+	public abstract JsonElement doOperation(JsonMap argument, Interpreter i);
 }

@@ -42,7 +42,7 @@ Cornipickle.CornipickleProbe = function()
 	this.getAttributes = function()
 	{
 		return this.m_attributesToInclude;
-	}
+	};
 
 	/**
 	 * Sets the tag names to include in the JSON
@@ -60,7 +60,8 @@ Cornipickle.CornipickleProbe = function()
 	this.getTagNames = function() 
 	{
 		return this.m_tagsToInclude;
-	}
+	};
+	
 	/**
 	 * Sets the server name
 	 * @param name The name of the server
@@ -100,6 +101,7 @@ Cornipickle.CornipickleProbe = function()
 				var pos = Cornipickle.cumulativeOffset(n);
 				out.tagname = n.tagName.toLowerCase();
 				out.cornipickleid = n.cornipickleid;
+				out = this.addIfDefined(out, "value", Cornipickle.CornipickleProbe.setValue(n));
 				out = this.addIfDefined(out, "class", n.className);
 				out = this.addIfDefined(out, "id", n.id);
 				out = this.addIfDefined(out, "height", n.clientHeight);
@@ -274,7 +276,22 @@ Cornipickle.CornipickleProbe = function()
 		//out.type = event.type;
 		//return out;
 		// At the moment, we only return a string with the event's name
-		// Eventually, this will be replaced with a more complex structure
+		// Eventually, this will be replaced with a more complex structure 
+		
+		// Determine if it is left or right click
+		if (event.type === "mouseup")
+		{
+			//event.which -> Firefox, Safari, Chrome, Opera
+			//event.button -> IE, Opera
+			if (event.which == 3 || event.button == 2)
+			{
+				return "right click";
+			}
+			else if (event.which == 1 || event.button === 0)
+			{
+				return "click";
+			}
+		}
 		return event.type;
 	};
 
@@ -452,13 +469,29 @@ Cornipickle.CornipickleProbe.formatBackgroundString = function(elem)
 {
 	var s_background_color = Cornipickle.CornipickleProbe.getStyle(elem, "background-color");
 	return s_background_color.trim();
-}
+};
 
 Cornipickle.CornipickleProbe.formatBool = function(property)
 {
 	if (property) {return "true";}
 	else {return "false";}
-}
+};
+
+Cornipickle.CornipickleProbe.setValue = function(elem)
+{
+	//value property is only defined for input elements
+	if (elem.tagName === "INPUT" || elem.tagName === "BUTTON")
+	{
+		if (elem.type === "range" || elem.type == "number")
+		{
+			return elem.valueAsNumber;
+		}
+		else
+		{
+			return elem.value;
+		}
+	}
+};
 
 /**
  * The delay in ms before the probe refreshes its status,
@@ -570,7 +603,7 @@ Cornipickle.get_class_list = function(element)
 		}
 	}
 	return out;
-}
+};
 
 /**
  * Computes the absolute coordinates of an element
@@ -698,6 +731,6 @@ var addFunctionOnWindowLoad = function(callback){
       else {
           window.attachEvent('onload',callback);
       }
-}
+};
 
 addFunctionOnWindowLoad(loadFunction);

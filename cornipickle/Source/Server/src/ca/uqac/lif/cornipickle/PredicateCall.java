@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import ca.uqac.lif.cornipickle.json.JsonElement;
+import ca.uqac.lif.json.JsonElement;
 
 public class PredicateCall extends Statement
 {
@@ -31,6 +31,11 @@ public class PredicateCall extends Statement
   protected String m_matchedString;
   
   protected Vector<String> m_captureBlocks;
+  
+  PredicateCall()
+  {
+	  super();
+  }
   
   public PredicateCall(PredicateDefinition predicate, String match, List<String> capture_blocks)
   {

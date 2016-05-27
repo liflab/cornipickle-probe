@@ -4,11 +4,11 @@ Settings for Production Server
 from probe_project.settings.base import *
 
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+TEMPLATE_DEBUG = False
 
 SITE_ID = 2  # webprobe.io
 
-VAR_ROOT = '/var/www/probe_project'
+VAR_ROOT = '/home/django/www/probe_project'
 MEDIA_ROOT = os.path.join(VAR_ROOT, 'uploads')
 STATIC_ROOT = os.path.join(VAR_ROOT, 'static')
 

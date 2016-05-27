@@ -25,7 +25,17 @@ Cornipickle.CornipickleProbe = function()
 	 */
 	this.server_name = "";
 
-	
+	/**
+	 * The probe's id
+	 */
+	this.probe_id = "";
+
+	/**
+	 * The probe's hash
+	 */
+	this.probe_hash = "";
+
+
 	/**
 	 * Sets the attributes to include in the JSON
 	 * @param list An array of DOM attribute names
@@ -42,7 +52,7 @@ Cornipickle.CornipickleProbe = function()
 	this.getAttributes = function()
 	{
 		return this.m_attributesToInclude;
-	}
+	};
 
 	/**
 	 * Sets the tag names to include in the JSON
@@ -52,15 +62,16 @@ Cornipickle.CornipickleProbe = function()
 	{
 		this.m_tagsToInclude = list;
 	};
-	
+
 	/**
 	 * getter for the tagnames list
 	 * @return the tagnames list
 	 */
-	this.getTagNames = function() 
+	this.getTagNames = function()
 	{
 		return this.m_tagsToInclude;
-	}
+	};
+
 	/**
 	 * Sets the server name
 	 * @param name The name of the server
@@ -68,6 +79,22 @@ Cornipickle.CornipickleProbe = function()
 	this.setServerName = function(name)
 	{
 		this.server_name = name;
+	};
+
+	/**
+	 * Sets the probe's id
+	 */
+	this.setProbeId = function(id)
+	{
+		this.probe_id = id;
+	};
+
+	/**
+	 * Sets the probe's hash
+	 */
+	this.setProbeHash = function(hash)
+	{
+		this.probe_hash = hash;
 	};
 
 	/**
@@ -100,6 +127,7 @@ Cornipickle.CornipickleProbe = function()
 				var pos = Cornipickle.cumulativeOffset(n);
 				out.tagname = n.tagName.toLowerCase();
 				out.cornipickleid = n.cornipickleid;
+				out = this.addIfDefined(out, "value", Cornipickle.CornipickleProbe.setValue(n));
 				out = this.addIfDefined(out, "class", n.className);
 				out = this.addIfDefined(out, "id", n.id);
 				out = this.addIfDefined(out, "height", n.clientHeight);
@@ -115,6 +143,8 @@ Cornipickle.CornipickleProbe = function()
 				out = this.addIfDefined(out, "size", n.size);
 				out = this.addIfDefined(out, "checked", Cornipickle.CornipickleProbe.formatBool(n.checked));
 				out = this.addIfDefined(out, "disabled", Cornipickle.CornipickleProbe.formatBool(n.disabled));
+				out = this.addIfDefined(out, "accesskey", n.accessKey);
+				out = this.addIfDefined(out, "min", n.min);
 				if (n === event.target)
 				{
 					out.event = this.serializeEvent(event);
@@ -174,7 +204,7 @@ Cornipickle.CornipickleProbe = function()
 		// First check if this attribute must be included in the report
 		if (Cornipickle.array_contains(this.m_attributesToInclude, property_name))
 		{
-			// Yes, now check if it is defined 
+			// Yes, now check if it is defined
 			if (property !== undefined && property !== "")
 			{
 				out[property_name] = property;
@@ -215,7 +245,7 @@ Cornipickle.CornipickleProbe = function()
 		}
 		return Cornipickle.CornipickleProbe.DONT_INCLUDE;
 	};
-	
+
 	/**
 	 * Checks whether an element's tag, class and ID name match the
      * CSS selector element.
@@ -273,6 +303,21 @@ Cornipickle.CornipickleProbe = function()
 		//return out;
 		// At the moment, we only return a string with the event's name
 		// Eventually, this will be replaced with a more complex structure
+
+		// Determine if it is left or right click
+		if (event.type === "mouseup")
+		{
+			//event.which -> Firefox, Safari, Chrome, Opera
+			//event.button -> IE, Opera
+			if (event.which == 3 || event.button == 2)
+			{
+				return "right click";
+			}
+			else if (event.which == 1 || event.button === 0)
+			{
+				return "click";
+			}
+		}
 		return event.type;
 	};
 
@@ -285,12 +330,32 @@ Cornipickle.CornipickleProbe = function()
 		// Serialize page contents
 		var json = cp_probe.serializePageContents(document.body, [], event);
 		json = cp_probe.serializeWindow(json);
-		var json_url = encodeURIComponent(JSON.stringify(json, Cornipickle.escape_json_string));
-		var url = "http://" + this.server_name + "/image?rand=" + Math.round(Math.random() * 1000);
-		document.getElementById("cp-image").src = url + "&contents=" + json_url;
-		window.setTimeout(Cornipickle.CornipickleProbe.handleResponse.bind(this), Cornipickle.CornipickleProbe.refreshDelay);
+		var url = "http://" + this.server_name + "/image/";
+		xhttp = new XMLHttpRequest();
+		xhttp.open("POST", url, true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.onreadystatechange = function () {
+		    var DONE = this.DONE || 4;
+		    if (this.readyState === DONE){
+		    	Cornipickle.CornipickleProbe.handleResponse(this.responseText);
+		    }
+		};
+		toSend = "contents=" + encodeURIComponent(JSON.stringify(json, Cornipickle.escape_json_string));
+		if(sessionStorage.interpreter)
+		{
+			toSend += "&interpreter=" + encodeURIComponent(sessionStorage.interpreter);
+		}
+		if(this.probe_id != "")
+		{
+			toSend += "&id=" + this.probe_id;
+		}
+		if(this.probe_hash != "")
+		{
+			toSend += "&hash=" + this.probe_hash;
+		}
+		xhttp.send(toSend);
 	};
-	
+
 	this.registerNewElement = function(n)
 	{
 		if (n.cornipickleid !== undefined)
@@ -368,12 +433,12 @@ Cornipickle.CornipickleProbe.getStyle = function(elem, prop)
 	return res;
 };
 
-Cornipickle.CornipickleProbe.handleResponse = function()
+Cornipickle.CornipickleProbe.handleResponse = function(response)
 {
-	// Decode 
-	var cookie_string = Cornipickle.CornipickleProbe.getCookie("cornipickle");
 	// eval is evil, but we can't assume JSON.parse is available
-	eval("var response = " + decodeURI(cookie_string)); // jshint ignore:line
+	eval("var response = " + decodeURI(response)); // jshint ignore:line
+	sessionStorage.interpreter = response.interpreter;
+	document.getElementById("cp-image").src = response["image"];
 	if (response["global-verdict"] === "TRUE")
 	{
 		document.getElementById("bp_witness").style.backgroundColor = "green";
@@ -396,7 +461,7 @@ Cornipickle.CornipickleProbe.handleResponse = function()
 			for (var k = 0; k < tuple.length; k++)
 			{
 				var el_id = tuple[k];
-				Cornipickle.CornipickleProbe.highlightElement(el_id, i);				
+				Cornipickle.CornipickleProbe.highlightElement(el_id, i);
 			}
 		}
 		// Show explanation
@@ -450,13 +515,29 @@ Cornipickle.CornipickleProbe.formatBackgroundString = function(elem)
 {
 	var s_background_color = Cornipickle.CornipickleProbe.getStyle(elem, "background-color");
 	return s_background_color.trim();
-}
+};
 
 Cornipickle.CornipickleProbe.formatBool = function(property)
 {
 	if (property) {return "true";}
 	else {return "false";}
-}
+};
+
+Cornipickle.CornipickleProbe.setValue = function(elem)
+{
+	//value property is only defined for input elements
+	if (elem.tagName === "INPUT" || elem.tagName === "BUTTON")
+	{
+		if (elem.type === "range" || elem.type == "number")
+		{
+			return elem.valueAsNumber;
+		}
+		else
+		{
+			return elem.value;
+		}
+	}
+};
 
 /**
  * The delay in ms before the probe refreshes its status,
@@ -497,7 +578,7 @@ Cornipickle.CornipickleProbe.setClickThrough = function(b)
 		else
 		{
 			e.style.pointerEvents = "auto";
-			e.style.opacity = 1;			
+			e.style.opacity = 1;
 		}
 	}
 };
@@ -543,16 +624,16 @@ Cornipickle.CornipickleProbe.toggleExplanationBox = function(id, b)
 };
 
 /**
- * Gets the class list of the element using className 
- * and classList DOM attributes combined, to make sure 
+ * Gets the class list of the element using className
+ * and classList DOM attributes combined, to make sure
  * we get the class names in every case
  * @param  element  The DOM element to retrieve its classes
  * @return A list of class names separated by spaces
  */
-Cornipickle.get_class_list = function(element) 
+Cornipickle.get_class_list = function(element)
 {
 	var out = "";
-	if (element.className) 
+	if (element.className)
 	{
 		out += element.className; //className already is a space separated class name string
 	}
@@ -568,7 +649,7 @@ Cornipickle.get_class_list = function(element)
 		}
 	}
 	return out;
-}
+};
 
 /**
  * Computes the absolute coordinates of an element
@@ -656,7 +737,7 @@ Cornipickle.remove_units = function(s)
 
 /*
  * Replaces the window.onload() function
- * it allows us not to change the webpage's html code 
+ * it allows us not to change the webpage's html code
  * by not removing the onload blockers
  */
 function loadFunction() {
@@ -667,7 +748,7 @@ function loadFunction() {
             return String.prototype.indexOf.apply( this, arguments ) !== -1;
         };
     }
-    
+
     cp_probe = new Cornipickle.CornipickleProbe();
     var cp_witness_div = document.createElement("div");
     cp_witness_div.id = "cp-witness";
@@ -678,7 +759,7 @@ function loadFunction() {
         if (target_id.match(/bp_witness/) !== null) {
             // If we clicked on the probe status panel, do nothing
             return;
-        } 
+        }
         // Wait .25 sec, so that the browser has time to process the click
         window.setTimeout(function() {
             cp_probe.handleEvent(event);
@@ -692,10 +773,10 @@ function loadFunction() {
 var addFunctionOnWindowLoad = function(callback){
       if(window.addEventListener) {
           window.addEventListener('load',callback,false);
-      } 
+      }
       else {
           window.attachEvent('onload',callback);
       }
-}
+};
 
 addFunctionOnWindowLoad(loadFunction);

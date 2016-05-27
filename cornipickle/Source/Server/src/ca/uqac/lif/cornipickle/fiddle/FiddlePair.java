@@ -1,6 +1,6 @@
 /*
     Cornipickle, validation of layout bugs in web applications
-    Copyright (C) 2015 Sylvain Hallé
+    Copyright (C) 2015-2016 Sylvain Hallé
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,25 +15,40 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ca.uqac.lif.cornipickle.json;
+package ca.uqac.lif.cornipickle.fiddle;
 
-import ca.uqac.lif.util.EmptyException;
-
-public abstract class JsonParser
+/**
+ * Represents the response from the interpreter, along with its
+ * serialized state
+ * @author sylvain
+ *
+ */
+public class FiddlePair
 {
-  public abstract JsonElement parse(String s) throws JsonParseException;
-  
-  public static class JsonParseException extends EmptyException
-  {
-    /**
-     * Dummy UID
-     */
-    private static final long serialVersionUID = 1L;
-
-    public JsonParseException(String message)
-    {
-      super(message);
-    }
-
-  }
+	/**
+	 * The interpreter's serialized state
+	 */
+	protected String m_state;
+	
+	/**
+	 * The arguments of the request or the response
+	 */
+	protected String m_argument;
+	
+	public FiddlePair(String state, String argument)
+	{
+		super();
+		m_state = state;
+		m_argument = argument;
+	}
+	
+	public String getState()
+	{
+		return m_state;
+	}
+	
+	public String getArgument()
+	{
+		return m_argument;
+	}
 }

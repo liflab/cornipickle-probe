@@ -44,6 +44,8 @@ var dynamicProbe = function()
         cp_probe.setAttributesToInclude( {{ attributes|safe }} );
         cp_probe.setTagNamesToInclude( {{ tags|safe }} );
         cp_probe.setServerName( "{{ server_name }}" );
+        cp_probe.setProbeId( "{{ id }}" );
+        cp_probe.setProbeHash( "{{ hash }}" )
         document.getElementById("cp-witness").innerHTML = "{% include 'probe_dispatcher/witness.inc.html' %}";
     }, 500);
 };
@@ -51,4 +53,4 @@ var dynamicProbe = function()
 //Loads the part of the probe file that doesn't change 
 //according to the Cornipickle code given to the server
 //It can be loaded from any url
-loadScript("{% static 'js/staticProbe.inc.js' %}", dynamicProbe);
+loadScript("http://{{ server_name }}/static/js/staticProbe.inc.js", dynamicProbe);

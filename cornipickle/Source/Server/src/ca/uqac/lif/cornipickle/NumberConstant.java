@@ -19,12 +19,18 @@ package ca.uqac.lif.cornipickle;
 
 import java.util.Map;
 
-import ca.uqac.lif.cornipickle.json.JsonElement;
-import ca.uqac.lif.cornipickle.json.JsonNumber;
+import ca.uqac.lif.json.JsonElement;
+import ca.uqac.lif.json.JsonNumber;
 
 public class NumberConstant extends Constant
 {
-  protected final JsonNumber m_value;
+  protected JsonNumber m_value;
+  
+  NumberConstant()
+  {
+	  super();
+	  m_value = null;
+  }
   
   public NumberConstant(Number n)
   {

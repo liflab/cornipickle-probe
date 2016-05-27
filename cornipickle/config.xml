@@ -26,7 +26,7 @@
   <name>Cornipickle</name>
   
   <!-- The project's version number -->
-  <version>1.0.1</version>
+  <version>1.1</version>
   
   <!-- The project's author. Currently this only
   shows up in the footer of the Javadoc documentation. -->
@@ -69,28 +69,37 @@
       <name>Bullwinkle</name>
       <classname>ca.uqac.lif.bullwinkle.BnfParser</classname>
       <files>
-        <zip>https://github.com/sylvainhalle/Bullwinkle/releases/download/v1.1.7/bullwinkle-1.1.7.zip</zip>
+        <zip>https://github.com/sylvainhalle/Bullwinkle/releases/download/v1.2/bullwinkle-1.2.zip</zip>
       </files>
     </dependency>
     <dependency>
       <!--
-      wro4j. Used to minify JSON and JS
+      json-lif. Used to manage JSON objects
       -->
-      <name>wro4j</name>
-      <classname>ro.isdc.wro.model.resource.processor.impl.js.JSMinProcessor</classname>
+      <name>json-lif</name>
+      <classname>ca.uqac.lif.json.JsonMain</classname>
       <files>
-        <jar>https://wro4j.googlecode.com/files/wro4j-core-1.6.3.jar</jar>
-        <jar>https://wro4j.googlecode.com/files/wro4j-runner-1.6.3-jar-with-dependencies.jar</jar>
+        <zip>https://github.com/liflab/json-lif/releases/download/v1.2/json-lif-1.2.zip</zip>
       </files>
     </dependency>
     <dependency>
       <!--
-      json-simple. Used to parse JSON messages
+      Azrael. Used to serialize objects to JSON
       -->
-      <name>json-simple</name>
-      <classname>org.json.simple.parser.JSONParser</classname>
+      <name>Azrael</name>
+      <classname>ca.uqac.lif.azrael.DummyMain</classname>
       <files>
-        <jar>https://json-simple.googlecode.com/files/json-simple-1.1.1.jar</jar>
+        <zip>https://github.com/sylvainhalle/Azrael/releases/download/v0.3-alpha/azrael-0.3-alpha.zip</zip>
+      </files>
+    </dependency>
+    <dependency>
+      <!--
+      Jerrydog. Used for server mode.
+      -->
+      <name>Jerrydog</name>
+      <classname>ca.uqac.lif.jerrydog.Server</classname>
+      <files>
+        <zip>https://github.com/sylvainhalle/Jerrydog/releases/download/v0.1-alpha/jerrydog-0.1-alpha.zip</zip>
       </files>
     </dependency>
   </dependencies>
