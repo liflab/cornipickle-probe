@@ -36,7 +36,7 @@
                             <li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="{% url 'userena_signout' %}">{% trans 'Logout' %}</a></li>
+                            <li><a href="{% url 'userena_signout' %}?next=/signin/">{% trans 'Logout' %}</a></li>
                         </ul>
                     </li>
                 </ul>

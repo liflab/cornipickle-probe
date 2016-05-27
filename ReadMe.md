@@ -1,7 +1,7 @@
 # Probe
 
 Développement actuellement avec `Python 2.7.6`, Programmation en anglais (question de se pratiquer un peu :P)
-IDE recommandé: PyCharm Community Edition de JetBrains](https://www.jetbrains.com/pycharm/download/)
+IDE recommandé: [PyCharm Community Edition de JetBrains](https://www.jetbrains.com/pycharm/download/)
 
 Il est recommandé de lire [Getting started](https://docs.djangoproject.com/en/1.8/intro/) dans la doc de django
 avant de débuter à travailler sur ce projet, ça sera beaucoup plus simple par la suite.
@@ -47,19 +47,26 @@ Voilà, on est prêt à travailler avec django!
 
 ## Traduction du site
 
-Documentation django](https://docs.djangoproject.com/en/1.8/topics/i18n/translation/)
+[Documentation django](https://docs.djangoproject.com/en/1.8/topics/i18n/translation/)
 
-    django-admin.py makemessages -a -e py,jinja,jinja2,html -l fr --ignore node_modules
+    python manage.py makemessages -all -e py,jinja,jinja2,html -l fr --ignore node_modules
 
-Les fichiers `po` pour la traduction se trouvent dans `./conf/locale/<lang_code>/LC_MESSAGES/django.po`. 
+Les fichiers `po` pour la traduction se trouvent dans `./conf/locale/<lang_code>/LC_MESSAGES/django.po`.
+
+Dans les fichiers HTML Ajouter des `{% trans 'Mot_en_ANGLAIS' %}` pour faire un id de la traduction.
+
+Par la suite, vous pouvez faire la commande suivante pour créer vos nouveaux id de traduction dans le fichier `.po`
+
+     python manage.py makemessages -all -e py,jinja,jinja2,html -l fr --ignore node_modules
+
 Après, c'est classique; on passe par [Poedit](http://poedit.net/).
 [Weblate](https://weblate.org/en/) peut être une bonne idée une fois en production ;)
 
 ## Développement et outils
 
-### Installer nodejs](https://nodejs.org/) et [npm](https://www.npmjs.com/)
+### [Installer nodejs](https://nodejs.org/) et [npm](https://www.npmjs.com/)
 
-On installe ça pour grunt](http://gruntjs.com/) et [bower](http://bower.io/) 
+On installe ça pour [grunt](http://gruntjs.com/) et [bower](http://bower.io/) 
 compilation automatique du [scss](http://sass-lang.com/) et 
 gestion des dépendances (js) côté client (ex: bootstrap, jquery, etc)
 
@@ -69,20 +76,28 @@ gestion des dépendances (js) côté client (ex: bootstrap, jquery, etc)
 
 #### sous Ubuntu
 
+
+    # Node
     sudo apt-get install nodejs
+
+    # NPM
+    sudo apt-get install -y npm
+
+    ln -s /usr/bin/nodejs /usr/bin/node
 
 #### Installer les dépendances node
 
     npm install
 
-Cette commande va nstaller les dépendances mentionnées dans le fichier `package.json`
+Cette commande va installer les dépendances mentionnées dans le fichier `package.json`
 
 ### Installer bower (outil de gestion de dépendances javascript, etc)
 
-Note: n'est pas encore utilisé, on va peut-être s'en servir un jour ;)
-
     npm install -g bower
     bower install
+
+    # Récupération des fichiers statiques pour Django
+    sudo python manage.py collectstatic --noinput
 
 ### Installer Grunt
 

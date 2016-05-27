@@ -9,6 +9,7 @@ from probe_project.apps.probe_dispatcher.forms import ProbeFrontendForm, SensorF
 from probe_project.apps.probe_dispatcher.models import Probe, Sensor, User
 from django.contrib.sites.requests import RequestSite
 import json
+from datetime import datetime
 
 
 @login_required
@@ -62,8 +63,11 @@ def probe_delete(request, probe_id):
 @login_required
 def probes(request):
     if request.user.is_authenticated():
+        list_probes = Probe.objects.filter(user=request.user)
+        if len(list_probes) == 0:
+            list_probes = None
         return render_to_response("probe_dispatcher/probes.html", RequestContext(request, {
-            'probes': Probe.objects.filter(user=request.user)
+            'probes': list_probes
         }))
     else:
         return redirect('/')
@@ -71,9 +75,16 @@ def probes(request):
 
 @login_required
 def sensors(request):
-    return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
-        'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username="admin")])
-    }))
+    if request.user.is_authenticated():
+        current_user = request.user
+        list_sensor = Sensor.objects.filter(user=current_user)
+        if len(list_sensor) == 0:
+            list_sensor = None
+        return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
+            'sensors': list_sensor
+        }))
+    else:
+        return redirect('/')
 
 
 # http://stackoverflow.com/questions/1854237/django-edit-form-based-on-add-form
@@ -113,12 +124,13 @@ def sensor_detail(request, sensor_id):
 
 @login_required
 def sensor_delete(request, sensor_id):
+    current_user = request.user
     sensor = get_object_or_404(Sensor, pk=sensor_id)
-    if sensor.user != request.user:
+    if sensor.user != current_user:
         return HttpResponseForbidden()
-    sensor.delete()
+    sensor.check_delete_if_Sensor_is_presente_in_Probe(sensor_id)
     return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
-        'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username="admin")])
+        'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username=current_user.get_username())])
         }))
 
 

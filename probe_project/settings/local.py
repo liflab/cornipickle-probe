@@ -10,8 +10,9 @@ from probe_project.settings.base import *
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
 DEBUG_TOOLBAR = False
+
+
 
 DATABASES = {
     'default': {
