@@ -28,7 +28,6 @@ msgstr "Sondes"
 
 #: probe_project/apps/accounts/menus.py:16
 #: probe_project/templates/probe_dispatcher/sensors.html:5
-#, fuzzy
 #| msgid "sensors"
 msgid "Sensors"
 msgstr "Capteurs"
@@ -56,11 +55,10 @@ msgstr "Code"
 
 #: probe_project/apps/probe_dispatcher/models.py:30
 msgid "Code in the Cornipickle language"
-msgstr "Écriver votre sentence dans le language de Cornipickle"
+msgstr "Code en langage Cornipickle"
 
 #: probe_project/apps/probe_dispatcher/models.py:35
 #: probe_project/apps/probe_dispatcher/models.py:102
-#, fuzzy
 #| msgid "Username"
 msgid "User"
 msgstr "Utilisateur"
@@ -75,7 +73,6 @@ msgid "You cannot delete the Sensor id {0}, because is use by probe id {1}"
 msgstr ""
 
 #: probe_project/apps/probe_dispatcher/models.py:63
-#, fuzzy
 #| msgid "Create a new probe"
 msgid "Name of the probe"
 msgstr "Le nom de la sonde"
@@ -89,7 +86,6 @@ msgid "Description of the probe"
 msgstr "Description de la sonde"
 
 #: probe_project/apps/probe_dispatcher/models.py:75
-#, fuzzy
 #| msgid "Domain:"
 msgid "Domain"
 msgstr "Domaine"
@@ -103,7 +99,6 @@ msgid "Hash"
 msgstr "Hacher"
 
 #: probe_project/apps/probe_dispatcher/models.py:87
-#, fuzzy
 #| msgid "Enabled sensors:"
 msgid "Enabled"
 msgstr "Capteurs activés"
@@ -113,7 +108,6 @@ msgid "Check the box if you want the probe to be enabled"
 msgstr "Cocher la case si vous voulez activer la sonde"
 
 #: probe_project/apps/probe_dispatcher/models.py:95
-#, fuzzy
 #| msgid "sensors"
 msgid "Sensor"
 msgstr "Capteurs"
@@ -138,7 +132,6 @@ msgid "Français"
 msgstr "Français"
 
 #: probe_project/templates/base.html:14
-#, fuzzy
 #| msgid ""
 #| "You are using an <strong>outdated</strong> browser. Please, <a "
 #| "target='_blank' href='http://browsehappy.com/'>update your browser</a> so "
@@ -184,7 +177,6 @@ msgstr "Modifier les détails"
 #: probe_project/templates/probe_dispatcher/dashboard_nav.html:34
 #: probe_project/templates/userena/password_form.html:5
 #: probe_project/templates/userena/password_form.html:16
-#, fuzzy
 #| msgid "Repeat password"
 msgid "Change password"
 msgstr "Changer votre mot de passe nouveau"
@@ -221,7 +213,6 @@ msgid "Delete"
 msgstr "Supprimer"
 
 #: probe_project/templates/probe_dispatcher/include/probe.html:12
-#, fuzzy
 #| msgid "Domain:"
 msgid "Domain: "
 msgstr "Domaine: "
@@ -239,7 +230,6 @@ msgid "This probe is disabled"
 msgstr "Ce capteur est désactivé"
 
 #: probe_project/templates/probe_dispatcher/include/probe.html:31
-#, fuzzy
 #| msgid "Rendered javascript:"
 msgid "Rendered javascript"
 msgstr "Javascript généré:"
@@ -270,13 +260,11 @@ msgid "Create a new probe"
 msgstr "Créer une nouvelle sonde"
 
 #: probe_project/templates/probe_dispatcher/sensors.html:11
-#, fuzzy
 #| msgid "You have no probes yet, create one now!"
 msgid "You have no sensors yet, create one now!"
 msgstr "Vous n'avez pas encore de sonde, créez-en une maintenant!"
 
 #: probe_project/templates/probe_dispatcher/sensors.html:13
-#, fuzzy
 #| msgid "Create a new probe"
 msgid "Create a new sensor"
 msgstr "Créer une nouvelle sonde"
@@ -289,7 +277,7 @@ msgstr "L'activation de votre compte a échoué"
 #: probe_project/templates/userena/activate_fail.html:5
 #: probe_project/templates/userena/activate_retry.html:7
 msgid "Your account could not be activated..."
-msgstr "Votre compte ne peut-etre activé..."
+msgstr "Votre compte ne peut-être activé..."
 
 #: probe_project/templates/userena/activate_fail.html:8
 msgid ""
@@ -303,11 +291,11 @@ msgstr ""
 msgid ""
 "Please try signing up again or contact us if you think something went wrong."
 msgstr ""
-"Réessayer de vous enregistrer ou contacté nous si vous avez rencontrer des problèmes"
+"Réessayez de vous enregistrer ou contactez-nous si vous avez rencontré des problèmes"
 
 #: probe_project/templates/userena/activate_retry.html:10
 msgid "Your account could not be activated because activation link is expired."
-msgstr "Votre compte ne peut pas etre activé puisque votre lien de validation est expiré."
+msgstr "Votre compte ne peut pas être activé puisque votre lien de validation est expiré."
 
 #: probe_project/templates/userena/activate_retry.html:11
 msgid "Request a new activation link."
@@ -366,7 +354,7 @@ msgstr "Validation de l'adresse courriel"
 
 #: probe_project/templates/userena/email_change_complete.html:5
 msgid "Confirm your new email"
-msgstr "Valider votre nouvelle adresse courriel"
+msgstr "Validez votre nouvelle adresse courriel"
 
 #: probe_project/templates/userena/email_change_complete.html:8
 #, python-format
@@ -379,12 +367,12 @@ msgid ""
 "To associate this email address with your account (%(username)s) click on "
 "the link provided in this email."
 msgstr ""
-"Pour lié votre adresse courriel avec votre compte (%(username)s), veuiller cliqué"
+"Pour lier votre adresse courriel avec votre compte (%(username)s), veuillez cliquer"
 "sur le lien d'activation qui vous a été transmis par courriel."
 
 #: probe_project/templates/userena/email_confirm_complete.html:4
 msgid "Email changed!"
-msgstr "Adresse courriel changé !"
+msgstr "Adresse courriel changée !"
 
 #: probe_project/templates/userena/email_confirm_complete.html:6
 msgid "New email"
@@ -420,7 +408,6 @@ msgid "Account &raquo; %(username)s"
 msgstr "Compte &raquo; %(username)s"
 
 #: probe_project/templates/userena/email_form.html:11
-#, fuzzy
 #| msgid "Enter a valid email address."
 msgid "Change email address"
 msgstr "Saisissez une adresse courriel valide."
@@ -438,7 +425,7 @@ msgstr "<p>Merci pour votre avoir enregistrer sur %(site)s.</p>"
 
 #: probe_project/templates/userena/emails/activation_email_message.html:7
 msgid "To activate your account you should click on the link below:"
-msgstr "Pour activé votre compte vous devez cliquer sur le lien ci-dessous:"
+msgstr "Pour activer votre compte vous devez cliquer sur le lien ci-dessous:"
 
 #: probe_project/templates/userena/emails/activation_email_message.html:11
 #: probe_project/templates/userena/emails/confirmation_email_message_new.html:13
@@ -457,7 +444,7 @@ msgstr "Cordialement"
 #: probe_project/templates/userena/emails/confirmation_email_message_new.html:6
 #, python-format
 msgid "You requested a change of your email address at %(site)s."
-msgstr "Vous avez demandez un changement d'adresse courriel pour %(site)s."
+msgstr "Vous avez demandé un changement d'adresse courriel pour %(site)s."
 
 #: probe_project/templates/userena/emails/confirmation_email_message_new.html:9
 msgid "Please confirm this email address by clicking on the link below:"
@@ -519,7 +506,6 @@ msgid "or"
 msgstr "ou"
 
 #: probe_project/templates/userena/include/signin_form.html:25
-#, fuzzy
 #| msgid "Forgot password?"
 msgid "Forgot your password?"
 msgstr "Oublié votre mot de passe?"
@@ -541,7 +527,6 @@ msgid "Register"
 msgstr "S'enregistrer"
 
 #: probe_project/templates/userena/password_complete.html:4
-#, fuzzy
 #| msgid "Password"
 msgid "Password changed"
 msgstr "Mot de passe"
@@ -555,13 +540,11 @@ msgid "From now on you can use your new password to signin"
 msgstr "Maintenant vous pouvez utilisé votre nouveau mot de passe pour vous connectez"
 
 #: probe_project/templates/userena/password_form.html:12
-#, fuzzy
 #| msgid "Password"
 msgid "Change Password"
 msgstr "Mot de passe"
 
 #: probe_project/templates/userena/password_reset_complete.html:5
-#, fuzzy
 #| msgid "Password"
 msgid "Password reset"
 msgstr "Mot de passe"
@@ -580,14 +563,12 @@ msgstr ""
 #: probe_project/templates/userena/password_reset_confirm_form.html:4
 #: probe_project/templates/userena/password_reset_confirm_form.html:13
 #: probe_project/templates/userena/password_reset_form.html:4
-#, fuzzy
 #| msgid "Repeat password"
 msgid "Reset password"
 msgstr "Réinitialisation du mot de passe"
 
 #: probe_project/templates/userena/password_reset_confirm_form.html:9
 #: probe_project/templates/userena/password_reset_form.html:9
-#, fuzzy
 #| msgid "Repeat password"
 msgid "Reset Password"
 msgstr "Réinitialisation du mot de passe"
@@ -604,7 +585,6 @@ msgstr ""
 "Un courriel a été envoyé pour vous expliquez comment réinitialiser votre mot de passe."
 
 #: probe_project/templates/userena/password_reset_form.html:13
-#, fuzzy
 #| msgid "Repeat password"
 msgid "Send password"
 msgstr "Envoie du mot de passe"
@@ -670,7 +650,6 @@ msgid "next"
 msgstr "Suivant"
 
 #: probe_project/templates/userena/signin_form.html:4
-#, fuzzy
 #| msgid "Sign Up"
 msgid "Signin"
 msgstr "Enregistrez-vous"
@@ -693,7 +672,6 @@ msgstr "L'enregistrement est presque terminé "
 
 #: probe_project/templates/userena/signup_complete.html:6
 #: probe_project/templates/userena/signup_form.html:4
-#, fuzzy
 #| msgid "Sign Up"
 msgid "Signup"
 msgstr "Enregistrement"
@@ -703,7 +681,6 @@ msgid "Thank you for signing up with us!"
 msgstr "Merci, de participer à notre projet !"
 
 #: probe_project/templates/userena/signup_complete.html:13
-#, fuzzy
 #| msgid ""
 #| "You have been sent an e-mail with an activation link</b> to the supplied\n"
 #| "email."

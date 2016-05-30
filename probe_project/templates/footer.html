@@ -2,6 +2,7 @@
 {% now "Y" as current_year %}
 <footer class="container">
     <div class="row links">
+    <!-- L'utilsateur peut changer ca langue dans les réglages du compte-->
         {% if not user.is_authenticated %}
             <form id="locale_switcher" method="POST" action="{% url 'localeurl_change_locale' %} ">
                 {% csrf_token %}

@@ -20,6 +20,13 @@ Menu.add_item(
 )
 
 Menu.add_item(
+    "main",MenuItem(
+        _("Dashboard"),
+    reverse("probe_project.apps.probe_dispatcher.views.sensors"),
+    weight=30)
+)
+
+Menu.add_item(
     "main", MenuItem(
         _("Administration"),
         reverse("admin:index"),

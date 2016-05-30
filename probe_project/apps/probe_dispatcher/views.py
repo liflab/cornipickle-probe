@@ -136,7 +136,7 @@ def sensor_delete(request, sensor_id):
     sensor = get_object_or_404(Sensor, pk=sensor_id)
     if sensor.user != current_user:
         return HttpResponseForbidden()
-    sensor.check_delete_if_Sensor_is_presente_in_Probe(sensor_id)
+    sensor.delete()
     return render_to_response("probe_dispatcher/sensors.html", RequestContext(request, {
         'sensors': Sensor.objects.filter(user__in=[request.user, User.objects.get(username=current_user.get_username())])
         }))
