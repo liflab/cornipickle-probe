@@ -16,7 +16,7 @@ framework.
 import os
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                      "probe_project.settings.local")
+                      "probe_project.settings.production")
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION

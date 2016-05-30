@@ -23,14 +23,20 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ca.uqac.lif.cornipickle.json.JsonElement;
-import ca.uqac.lif.cornipickle.json.JsonList;
-import ca.uqac.lif.cornipickle.json.JsonMap;
-import ca.uqac.lif.cornipickle.json.JsonPath;
+import ca.uqac.lif.json.JsonElement;
+import ca.uqac.lif.json.JsonList;
+import ca.uqac.lif.json.JsonMap;
+import ca.uqac.lif.json.JsonPath;
 
 public class CssSelector extends SetExpression
 {
   String m_cssSelector;
+  
+  CssSelector()
+  {
+	  super();
+	  m_cssSelector = "";
+  }
   
   public CssSelector(String selector)
   {

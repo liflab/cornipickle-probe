@@ -156,6 +156,7 @@ LOCALE_INDEPENDENT_PATHS = (
     r'^/localeurl/',
     r'^/api/',
     r'^/p/',
+    r'^/image/',
     r'^/favicon.ico',
     r'^/social/',
 )
@@ -179,6 +180,7 @@ MIDDLEWARE_CLASSES += (
 
     'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
 
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -251,7 +253,7 @@ INSTALLED_APPS += (
     'treebeard',
     'sorl.thumbnail',
     'django.contrib.flatpages',
-
+'corsheaders',
 )
 
 REST_FRAMEWORK = {
@@ -271,6 +273,8 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
     },
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 #==============================================================================
 # Email and logging

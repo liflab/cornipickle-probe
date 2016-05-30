@@ -19,35 +19,44 @@ package ca.uqac.lif.cornipickle;
 
 import java.util.Map;
 
-import ca.uqac.lif.cornipickle.json.JsonElement;
-import ca.uqac.lif.cornipickle.json.JsonString;
+import ca.uqac.lif.json.JsonElement;
+import ca.uqac.lif.json.JsonString;
 
 public class StringConstant extends Constant
 {
-  protected final JsonString m_value;
-  
-  public StringConstant(String s)
-  {
-    super();
-    m_value = new JsonString(s);
-  }
-  
-  public StringConstant(JsonString s)
-  {
-    super();
-    m_value = s;
-  }
+	protected JsonString m_value;
 
-  @Override
-  public JsonElement evaluate(JsonElement t, Map<String, JsonElement> d)
-  {
-    return m_value;
-  }
-  
-  @Override
-  public String toString(String indent)
-  {
-    return m_value.stringValue();
-  }
+	/**
+	 * Empty constructor, added only to simplify serialization
+	 */
+	StringConstant()
+	{
+		super();
+		m_value = null;
+	}
+
+	public StringConstant(String s)
+	{
+		super();
+		m_value = new JsonString(s);
+	}
+
+	public StringConstant(JsonString s)
+	{
+		super();
+		m_value = s;
+	}
+
+	@Override
+	public JsonElement evaluate(JsonElement t, Map<String, JsonElement> d)
+	{
+		return m_value;
+	}
+
+	@Override
+	public String toString(String indent)
+	{
+		return m_value.stringValue();
+	}
 
 }

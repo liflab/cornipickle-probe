@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from probe_project.apps.probe_dispatcher.forms import ProbeFrontendForm, SensorFrontendForm
 from probe_project.apps.probe_dispatcher.models import Probe, Sensor, User
+from django.contrib.sites.requests import RequestSite
 import json
 from datetime import datetime
 
@@ -37,6 +38,7 @@ def probe_form(request, probe_id=None):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
+            instance.script_url = request.get_host()
             instance.save()
             form.save_m2m()
             return HttpResponseRedirect(reverse(probe_detail, args=(instance.id,)))
@@ -53,16 +55,6 @@ def probe_delete(request, probe_id):
     if probe.user != request.user:
         return HttpResponseForbidden()
     probe.delete()
-    return render_to_response("probe_dispatcher/probes.html", RequestContext(request, {
-        'probes': Probe.objects.filter(user=request.user)
-        }))
-
-
-@login_required
-def probe_add_corni(request, probe_id):
-    probe = get_object_or_404(Probe, pk=probe_id)
-    if probe.is_enabled:
-        probe.add_property()
     return render_to_response("probe_dispatcher/probes.html", RequestContext(request, {
         'probes': Probe.objects.filter(user=request.user)
         }))
@@ -147,11 +139,8 @@ def probe_file(request, probe_id, probe_hash, banner=True):
     if current_probe.hash != probe_hash:
         raise Http404
 
-    for sensor in current_probe.sensors.all():
-        print(sensor.name)
-
-    encoded_tagnames = json.dumps(current_probe.tags_and_attributes["tagnames"])
-    encoded_attributes = json.dumps(current_probe.tags_and_attributes["attributes"])
+    encoded_tagnames = json.dumps(current_probe.tags_attributes_interpreter["tagnames"])
+    encoded_attributes = json.dumps(current_probe.tags_attributes_interpreter["attributes"])
 
     return render_to_response(
         "probe_dispatcher/probe.inc.js",
@@ -160,7 +149,7 @@ def probe_file(request, probe_id, probe_hash, banner=True):
                 'id': probe_id,
                 'hash': probe_hash,
                 'banner': banner,
-                'server_name': 'localhost:' + str(11000 + int(probe_id)),
+                'server_name': request.get_host(),
                 'tags': encoded_tagnames,
                 'attributes': encoded_attributes,
             }
@@ -168,6 +157,12 @@ def probe_file(request, probe_id, probe_hash, banner=True):
         content_type='application/javascript'
     )
 
+def static_probe(request):
+    return render_to_response(
+        "static/staticProbe.inc.js",
+        RequestContext(
+            request, {}), content_type='application/javascript'
+    )
 
 def probe_test(request, probe_id, probe_hash):
     current_probe = get_object_or_404(Probe, id=probe_id)

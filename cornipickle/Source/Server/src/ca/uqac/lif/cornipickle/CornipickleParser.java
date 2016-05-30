@@ -33,7 +33,7 @@ import ca.uqac.lif.bullwinkle.BnfRule;
 import ca.uqac.lif.bullwinkle.CaptureBlockParseNode;
 import ca.uqac.lif.bullwinkle.ParseNode;
 import ca.uqac.lif.bullwinkle.ParseNodeVisitor;
-import ca.uqac.lif.cornipickle.json.JsonNumber;
+import ca.uqac.lif.json.JsonNumber;
 import ca.uqac.lif.cornipickle.util.PackageFileReader;
 import ca.uqac.lif.util.EmptyException;
 
@@ -303,11 +303,24 @@ public class CornipickleParser implements ParseNodeVisitor
     }
     else if (node_token.compareTo("<eventually>") == 0)
     {
-      m_nodes.pop(); // (
-      Statement right = (Statement) m_nodes.pop();
       m_nodes.pop(); // )
+      Statement right = (Statement) m_nodes.pop();
+      m_nodes.pop(); // (
       m_nodes.pop(); // Eventually
       Eventually out = new Eventually();
+      out.setInnerStatement(right);
+      m_nodes.push(out);
+    }
+    else if (node_token.compareTo("<eventually_within>") == 0)
+    {
+      m_nodes.pop(); // )
+      Statement right = (Statement) m_nodes.pop();
+      m_nodes.pop(); // (
+      m_nodes.pop(); // seconds
+      NumberConstant time = (NumberConstant) m_nodes.pop();
+      m_nodes.pop(); // within
+      m_nodes.pop(); // Eventually
+      EventuallyWithin out = new EventuallyWithin(time);
       out.setInnerStatement(right);
       m_nodes.push(out);
     }
