@@ -22,11 +22,6 @@ urlpatterns = patterns(
         'probe_project.apps.probe_dispatcher.views.probe_file',
         name="probe"),
 
-    # static probe fil url
-    url(r'^staticprobe.js',
-        'probe_project.apps.probe_dispatcher.views.static_probe',
-        name="static_probe"),
-
     # probe file test url
     url(r'^p/(?P<probe_id>\d+)_(?P<probe_hash>[0-9a-fA-F]{40}).html$',
         'probe_project.apps.probe_dispatcher.views.probe_test',

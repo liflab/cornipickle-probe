@@ -45,7 +45,7 @@ var dynamicProbe = function()
         cp_probe.setTagNamesToInclude( {{ tags|safe }} );
         cp_probe.setServerName( "{{ server_name }}" );
         cp_probe.setProbeId( "{{ id }}" );
-        cp_probe.setProbeHash( "{{ hash }}" )
+        cp_probe.setProbeHash( "{{ hash }}" );
         document.getElementById("cp-witness").innerHTML = "{% include 'probe_dispatcher/witness.inc.html' %}";
     }, 500);
 };

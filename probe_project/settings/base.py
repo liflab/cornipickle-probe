@@ -253,7 +253,7 @@ INSTALLED_APPS += (
     'treebeard',
     'sorl.thumbnail',
     'django.contrib.flatpages',
-'corsheaders',
+    'corsheaders',
 )
 
 REST_FRAMEWORK = {

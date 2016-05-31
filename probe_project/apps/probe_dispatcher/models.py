@@ -163,7 +163,7 @@ class Probe(models.Model):
         for sensor in self.sensors.all():
             text = text + sensor.code + "\n\n"
         text = urllib.quote_plus(text)
-        r = requests.post(url, data=text)
+        r = requests.put(url, data=text)
         self.tags_attributes_interpreter = r.json()
 
     sensor_names.short_description = "Sensors"

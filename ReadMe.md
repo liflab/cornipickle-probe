@@ -122,3 +122,9 @@ la variable d'environnement `$PATH` pour exécuter les apps installées avec npm
 ## Installation et compilation de Cornipickle
 
 Veuillez vous référer à l'installation de Cornipickle sur le [répertoire Cornipickle](https://bitbucket.org/sylvainhalle/cornipickle).
+
+
+Pour faire fonctionner Probe correctement il vous faudrait avoir un cornipickle fonctionnelle le port 11019
+
+    java -jar cornipickle.jar -p 11019
+
