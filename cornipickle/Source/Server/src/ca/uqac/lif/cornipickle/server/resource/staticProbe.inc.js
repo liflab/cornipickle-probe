@@ -297,7 +297,6 @@ Cornipickle.CornipickleProbe = function()
 
 	this.handleEvent = function(event)
 	{
-		console.log("Click");
 		Cornipickle.CornipickleProbe.updateTransmitIcon(true);
 		// Un-highlight previously highlighted elements
 		Cornipickle.CornipickleProbe.unHighlightElements();

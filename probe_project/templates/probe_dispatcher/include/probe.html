@@ -28,7 +28,6 @@
         <p class="fa fa-close"> {% trans 'This probe is disabled' %}</p>
     {%  endif %}
     <p><a href="{{ probe.get_script_url|safe }}" target="_blank"><i class="fa fa-file"></i> {% trans 'Rendered javascript' %}</a></p>
-    <p><a href="{% url 'probe_test' probe_hash=probe.hash probe_id=probe.id %}" target="_blank"><i class="fa fa-eye"></i> {% trans 'Live example' %}</a></p>
     <p>{% trans 'Embeded code' %}</p>
     <pre class="highlight"><code class="html">{{ probe.get_script_tag }}</code></pre>
 </div>

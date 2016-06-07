@@ -41,6 +41,7 @@ var dynamicProbe = function()
     //There is a Timeout in the window.onload function too. This gives time
     //to the window.onload function to execute.
     window.setTimeout(function() {
+
         cp_probe.setAttributesToInclude( {{ attributes|safe }} );
         cp_probe.setTagNamesToInclude( {{ tags|safe }} );
         cp_probe.setServerName( "{{ server_name }}" );

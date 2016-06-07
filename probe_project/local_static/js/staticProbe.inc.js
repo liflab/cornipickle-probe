@@ -101,6 +101,7 @@ Cornipickle.CornipickleProbe = function()
 	 * Map from unique IDs to element references
 	 */
 	this.m_idMap = {};
+	
 
 	/**
 	 * Serializes the contents of the page. This method recursively
@@ -341,19 +342,28 @@ Cornipickle.CornipickleProbe = function()
 		    }
 		};
 		toSend = "contents=" + encodeURIComponent(JSON.stringify(json, Cornipickle.escape_json_string));
+		contentLenghtByte = getByteCount(toSend);
+		console.log("Content :" +contentLenghtByte);
 		if(sessionStorage.interpreter)
 		{
 			toSend += "&interpreter=" + encodeURIComponent(sessionStorage.interpreter);
 		}
+		interpreterLenghtByte = getByteCount(toSend);
+		console.log("Interpreteur : " + interpreterLenghtByte);
 		if(this.probe_id != "")
 		{
 			toSend += "&id=" + this.probe_id;
 		}
+		probeIdLenghtByte = getByteCount(toSend);
+		console.log("Probe_id : " +probeIdLenghtByte);
 		if(this.probe_hash != "")
 		{
 			toSend += "&hash=" + this.probe_hash;
 		}
+		hashLenghtByte = getByteCount(toSend);
+		console.log("Hash :" +hashLenghtByte);
 		xhttp.send(toSend);
+		console.log("After Send ");
 	};
 
 	this.registerNewElement = function(n)
@@ -436,7 +446,11 @@ Cornipickle.CornipickleProbe.getStyle = function(elem, prop)
 Cornipickle.CornipickleProbe.handleResponse = function(response)
 {
 	// eval is evil, but we can't assume JSON.parse is available
+	var t1 = performance.now();
 	eval("var response = " + decodeURI(response)); // jshint ignore:line
+	var t2 = performance.now();
+	console.log("Eval Response " + (t2-t1) + " milliseconds");
+	console.timeEnd("Eval Response");
 	sessionStorage.interpreter = response.interpreter;
 	document.getElementById("cp-image").src = response["image"];
 	if (response["global-verdict"] === "TRUE")
@@ -485,6 +499,7 @@ Cornipickle.CornipickleProbe.unHighlightElements = function()
  */
 Cornipickle.CornipickleProbe.highlightElement = function(id, tuple_id)
 {
+	console.log("Highlight");
 	var el = cp_probe.m_idMap[id].element;
 	var offset = Cornipickle.cumulativeOffset(el);
 	var in_html = document.getElementById("cp-highlight").innerHTML;
@@ -778,5 +793,17 @@ var addFunctionOnWindowLoad = function(callback){
           window.attachEvent('onload',callback);
       }
 };
+
+function getByteCount( s )
+{
+  var count = 0, stringLength = s.length, i;
+  s = String( s || "" );
+  for( i = 0 ; i < stringLength ; i++ )
+  {
+    var partCount = encodeURI( s[i] ).split("%").length;
+    count += partCount==1?1:partCount-1;
+  }
+  return count;
+}
 
 addFunctionOnWindowLoad(loadFunction);

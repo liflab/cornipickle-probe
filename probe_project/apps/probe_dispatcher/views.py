@@ -9,8 +9,6 @@ from probe_project.apps.probe_dispatcher.forms import ProbeFrontendForm, SensorF
 from probe_project.apps.probe_dispatcher.models import Probe, Sensor, User
 from django.contrib.sites.requests import RequestSite
 import json
-from datetime import datetime
-
 
 @login_required
 def probe_detail(request, probe_id):
@@ -38,9 +36,15 @@ def probe_form(request, probe_id=None):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
-            instance.script_url = request.get_host()
+            instance.script_url = request.get_host
             instance.save()
             form.save_m2m()
+            if instance.is_enabled:
+                instance.add_property()
+            else:
+                instance.tags_attributes_interpreter = {'tagnames': '', 'attributes': '', 'interpreter': ''}
+
+            instance.save()
             return HttpResponseRedirect(reverse(probe_detail, args=(instance.id,)))
         else:
             return render_to_response("probe_dispatcher/probe_form.html", RequestContext(request, {'form': form,}))

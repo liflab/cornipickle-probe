@@ -15,6 +15,7 @@ import requests
 import urllib
 import jsonfield
 import time
+import json
 
 
 class Sensor(models.Model):
@@ -38,8 +39,7 @@ class Sensor(models.Model):
     )
 
     def __unicode__(self):
-        return self.name
-
+        return str("{0} - {1}".format(self.id,self.name))
 
     def check_delete_if_Sensor_is_presente_in_Probe(self,sensor_id):
         """
@@ -119,13 +119,7 @@ class Probe(models.Model):
 
     # domains = models.
 
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        pass
-
-    def save(self, *args, **kwargs):
+    def save(self,*args,**kwargs):
         if not self.pk:
             # This code only happens if the objects is
             # not in the database yet. Otherwise it would
@@ -134,12 +128,19 @@ class Probe(models.Model):
             user = self.user.__str__()
             name = self.name.encode('utf-8')
             self.hash = hashlib.sha1(s + user + name).hexdigest()
-        if self.is_enabled:
-            self.add_property()
-        else:
-            self.tags_attributes_interpreter = {'tagnames': '', 'attributes': '', 'interpreter': ''}
         super(Probe, self).save(*args, **kwargs)
 
+    def __unicode__(self):
+        return self.name
+
+    def add_property(self):
+        url = 'http://localhost:11019/add'
+        text = ''
+        for sensor in self.sensors.all():
+            text = text + sensor.code + "\n\n"
+        text = urllib.quote_plus(text)
+        r = requests.post(url, data=text)
+        self.tags_attributes_interpreter = r.json()
 
     # makes the url clickable in the admin table
     def clickable_probe_url(self):
@@ -151,20 +152,11 @@ class Probe(models.Model):
         return '<script type="application/javascript" src="%s"></script>' % (script_url)
 
     def get_script_url(self):
-        current_site = Site.objects.get_current().domain
-        return 'http://' + current_site + '/p/' + self.id.__str__() + '_' + self.hash.__str__() + '.js'
+            current_site = Site.objects.get_current().domain
+            return 'http://' + current_site + '/p/' + self.id.__str__() + '_' + self.hash.__str__() + '.js'
 
     def sensor_names(self):
         return ', '.join([sensor.name for sensor in self.sensors.all()])
-
-    def add_property(self):
-        url = 'http://localhost:11019/add'
-        text = ''
-        for sensor in self.sensors.all():
-            text = text + sensor.code + "\n\n"
-        text = urllib.quote_plus(text)
-        r = requests.put(url, data=text)
-        self.tags_attributes_interpreter = r.json()
 
     sensor_names.short_description = "Sensors"
 

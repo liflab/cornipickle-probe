@@ -6,6 +6,7 @@ from guardian.shortcuts import assign_perm
 # from social_auth.backends import facebook
 # from social_auth.backends.contrib import github
 from userena.models import UserenaLanguageBaseProfile, UserenaSignup
+import json
 
 
 class ProbeUserProfile(UserenaLanguageBaseProfile):

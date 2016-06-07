@@ -7,6 +7,7 @@ from probe_project.apps.probe_dispatcher.models import *
 
 
 class ProbeFrontendForm(forms.ModelForm):
+
     class Meta:
         model = Probe
         exclude = ('user',)
