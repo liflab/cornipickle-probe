@@ -19,10 +19,6 @@ def image(request):
     else:
         current_probe = get_object_or_404(Probe, pk=postDict["id"])
         if current_probe.hash != postDict["hash"] or current_probe.tags_attributes_interpreter["interpreter"] == '':
-            """
-            Soit le dictionnaire est différent ou soit l'intépréteur cornipickle n'a pas ete enregistrer
-            sur le site en question.
-            """
             messages.error(request,_("Vérifier si l'interpréteur Cornipickle fonctionne sur votre site. Il ce peut"
                                      "qui vous ayez fait des modifications à votre sonde sans changer le script sur votre"
                                      "page web."))
@@ -31,3 +27,6 @@ def image(request):
         r = requests.post(url="http://localhost:11019/image/", data=postDict)
         response = HttpResponse(r.content, content_type="application/json")
         return response
+
+
+
