@@ -8,7 +8,6 @@ from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 import requests
 
-
 @csrf_exempt
 def image(request):
     postDict = request.POST.copy()
