@@ -185,7 +185,3 @@ def probe_test(request, probe_id, probe_hash):
         )
     )
 
-
-@login_required
-def dashboard(request):
-    return render_to_response("probe_dispatcher/dashboard.html", RequestContext(request, {}))

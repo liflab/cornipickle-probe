@@ -11,9 +11,6 @@ from probe_project.apps.probe_dispatcher import views
 
 @csrf_protect
 def home(request):
-    if request.user.is_active:
-        return redirect(views.dashboard)
-    else:
         return render_to_response("home.html", RequestContext(request, {'app': 'Probe', 'form': AuthenticationForm}))
 
 

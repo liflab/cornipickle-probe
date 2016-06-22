@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     'localeurl',
     'rest_framework',
     'compressor',
-
+    'dashing',
     'haystack',
 
     'bootstrapform',

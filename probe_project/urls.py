@@ -12,8 +12,8 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^$', probe_views.home, name="home"),
-    url(r'^dashboard/', include('probe_project.apps.probe_dispatcher.urls')),
-    url(r'^dashboard/', include('probe_project.apps.dashboard.urls')),
+    url(r'^manager/', include('probe_project.apps.probe_dispatcher.urls')),
+    url(r'^dashboards/', include('probe_project.apps.dashboard.urls')),
 
     url(r'^image/$', 'probe_project.apps.dashboard.views.image', name="image"),
 

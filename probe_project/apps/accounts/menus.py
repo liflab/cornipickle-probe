@@ -22,7 +22,7 @@ Menu.add_item(
 Menu.add_item(
     "main",MenuItem(
         _("Dashboard"),
-    reverse("probe_project.apps.probe_dispatcher.views.sensors"),
+    reverse("probe_project.apps.dashboard.views.datum"),
     weight=30)
 )
 
