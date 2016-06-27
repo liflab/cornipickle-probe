@@ -1,8 +1,16 @@
 {% load i18n %}
 <tr>
-    <td>{{ datum.httpReferer }}</td>
+    <td><a style="color: white;" href={{ datum.httpReferer }}>{{ datum.httpReferer }}</a></td>
+    {% if datum.httpUserAgent > 10 %}
+    <td>{{ datum.httpUserAgent| slice:":8"}}...</td>
+    {% endif %}
     <td>{{ datum.OS }}</td>
-    <td>{{ datum.language }}</td>
     <td>{{ datum.timestamp }}</td>
-    <td><h2>Glyphicon</h2></td>
+    <td><a href="{% url 'datum_detail' datum_id=datum.id %}"
+         class="btn btn-default "><span class="glyphicon glyphicon-eye-open"></span>
+        </a>
+        <a href="{% url 'datum_delete' datum_id=datum.id %}"
+        class="btn btn-default"><span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </td>
 </tr>

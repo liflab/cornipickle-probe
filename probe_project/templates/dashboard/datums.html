@@ -2,15 +2,17 @@
 {% load i18n %}
 
 {% block content %}
-    <h1>{% trans 'Dashboard' %}</h1>
+    <h1>{% trans 'Dashboard' %} <a href="{% url 'datum_refresh' %}" style="font-size: 25px; color: #F0F0F2">
+        <span class="glyphicon glyphicon-refresh"></span>
+    </a>
+    </h1>
     {% if datums != None %}
-
         <div class="panel">
             <table style="width:100%">
                 <tr>
                     <th>{% trans Domain %} Domaine</th>
+                    <th>{% trans 'User Agent' %}</th>
                     <th>{% trans OS %} OS</th>
-                    <th>{%  trans Language %}Language</th>
                     <th>{% trans Time %} Time</th>
                     <th>{% trans Action %} Action</th>
                 </tr>

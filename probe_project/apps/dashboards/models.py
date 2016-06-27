@@ -23,6 +23,11 @@ Datum is a single Data
 class Datum(models.Model):
     probeId = models.ForeignKey(Probe)
     httpReferer = models.CharField(max_length=255)
+    """
+        Comment est former le User-Agents
+
+        Mozilla/[version] ([system and browser information]) [platform] ([platform details]) [extensions]
+    """
     httpUserAgent = models.CharField(max_length=255)
     language = models.CharField(max_length=255)
     OS = models.CharField(max_length=255)

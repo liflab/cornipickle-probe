@@ -13,9 +13,9 @@ urlpatterns = patterns(
     '',
     url(r'^$', probe_views.home, name="home"),
     url(r'^manager/', include('probe_project.apps.probe_dispatcher.urls')),
-    url(r'^dashboards/', include('probe_project.apps.dashboard.urls')),
+    url(r'^dashboards/', include('probe_project.apps.dashboards.urls')),
 
-    url(r'^image/$', 'probe_project.apps.dashboard.views.image', name="image"),
+    url(r'^image/$', 'probe_project.apps.dashboards.views.image', name="image"),
 
     # probe file url
     url(r'^p/(?P<probe_id>\d+)_(?P<probe_hash>[0-9a-fA-F]{40}).js$',

@@ -35,7 +35,7 @@ MANAGERS = ADMINS
 INSTALLED_APPS = (
     'probe_project.apps.accounts',
     'probe_project.apps.probe_dispatcher',
-    'probe_project.apps.dashboard',
+    'probe_project.apps.dashboards',
     # 'probe_project.apps.orderedmodel',
 
     'django_extensions',
@@ -99,7 +99,7 @@ ANONYMOUS_USER_ID = -1
 
 AUTH_PROFILE_MODULE = 'accounts.ProbeUserProfile'
 
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/dashboards/'
 LOGIN_URL = '/signin/'
 LOGOUT_URL = '/signout/'
 
