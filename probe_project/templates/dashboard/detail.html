@@ -1,13 +1,26 @@
-{% extends "base_dashboard.html" %}
-
-{% block title %}{{ metric }} | {{ block.super }}{% endblock %}
+{% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
-<div class="dashboard-detail">
-  <h2><a href="{{ metric.link }}">{{ metric }}</a></h2>
-  <div class="graph-wrapper">
-    <div id="graph" class="graph" data-path="{% url "metric-list" host "dashboards" %}" data-metric="{{ metric.slug }}"></div>
-  </div>
-  <a class="link-readmore back-link" href="{% url "dashboards-index" host "dashboards" %}">All metrics</a>
-</div>
+    <h1>{% trans 'Datum details' %}</h1>
+        <div class="panel">
+        <table class="table_dashboard">
+            <tr>
+                <th> {% trans "Web Browser" %}</th>
+                <th>{% trans "Operating System " %}</th>
+            </tr>
+            <tr>
+                <td style="padding-left:2em">{{ user_agent.browser.family }} " " {{ user_agent.browser.version_string }} </td>
+                <td> {{ user_agent.os.family}} " " {{ user_agent.os.version_string}}</td>
+            </tr>
+            <tr>
+                <th> {% trans "Is touch Capable" %}</th>
+                <th> {% trans "Is Bot" %}</th>
+            </tr>
+            <tr>
+                <td>{{ user_agent.is_touch_capable }}</td>
+                <td>{{ user_agent.is_bot }}</td>
+            </tr>
+        </table>
+        </div>
 {% endblock %}

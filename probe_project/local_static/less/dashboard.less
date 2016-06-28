@@ -1,0 +1,35 @@
+/* Définition de la classe .border-radius avec un paramètre */
+
+@red_border : #C64146;
+@white_creme : #F3F1F0;
+@brun_light : #453629;
+@black_black : #1E1E1E;
+@grey_silver : #C4BFBC;
+
+.border-radius(@radius: 10px) {
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+  border-radius: @radius;
+}
+
+/* Utilisation de .border-radius comme une classe abstraite */
+// table Classe
+.table_dashboard {
+  width:100%;
+  .border-radius(6px){
+    color: @red_border;
+  };
+  .table_dashboard_row
+}
+
+// table <tr>
+.table_dashboard_row(@radius: 10px) {
+  .border-radius(8px) {color: @white_creme};
+  .table_dashboard_data(8px,@brun_light);
+}
+// table <td>
+.table_dashboard_data (@border_left:8px,@background_color:black){
+  border-left: @border_left;
+  background-color: @background_color;
+  padding-left: 2em;
+}

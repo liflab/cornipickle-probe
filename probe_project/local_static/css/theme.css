@@ -268,4 +268,25 @@ footer {
   }
 }
 
+
+/* Ajout d'élément du dashboard */
+
+/* Définition de la classe .border-radius avec un paramètre */
+/* Utilisation de .border-radius comme une classe abstraite */
+/* Définition de la classe .border-radius avec un paramètre */
+/* Utilisation de .border-radius comme une classe abstraite */
+.table_dashboard {
+  width: 100%;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border-left: 8px;
+  background-color: #f3f1f0;
+  padding-left: 2em;
+}
+
+
+
+/**/
+
 /*# sourceMappingURL=theme.css.map */

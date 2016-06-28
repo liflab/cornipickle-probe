@@ -78,11 +78,16 @@ def datum_refresh(request):
 @login_required
 def datum_detail(request, datum_id):
     if request.user.is_authenticated():
-        datum = get_object_or_404(Datum,datum_id)
+        datum = get_object_or_404(Datum, pk=datum_id)
         if datum.user != request.user:
             return HttpResponseForbidden()
-        # Faire le Details Datum
-        # https://pypi.python.org/pypi/user-agents
+
+        ua_string = datum.httpUserAgent
+        user_agent = parse(ua_string)
+
+        return render_to_response("dashboard/detail.html",RequestContext(request,{
+            'datums': datum,'user_agent': user_agent
+        }))
 
 
 def datum_delete(request,datum_id):
