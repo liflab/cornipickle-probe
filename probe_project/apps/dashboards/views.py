@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 import json
 import ast
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404,redirect
-from probe_project.apps.probe_dispatcher.models import Probe
-from probe_project.apps.dashboard.models import Datum
+from probe_project.apps.probe_dispatcher.models import Probe, User
+from probe_project.apps.dashboards.models import Datum
 from django.shortcuts import render_to_response
 from django.utils.translation import ugettext_lazy as _
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from probe_project.apps.dashboard.signals import cornipickle_verdict_false
+from probe_project.apps.dashboards.signals import cornipickle_verdict_false
+from user_agents import parse
+
 
 from django.http.response import Http404, JsonResponse
 import requests
@@ -28,7 +30,7 @@ def image(request):
             current_data = ast.literal_eval(current_data)
             data = json.dumps(current_data)
             data = json.loads(data)
-            if data['global-verdict'] != True:
+            if data['global-verdict'] != 'TRUE':
                 cornipickle_verdict_false.send(sender=image,response=request.META,probe= postDict["id"],user=1)
             #if response['verdirt'] == false
             # cornipickle_verdict_false.send(probe = postDict['Probe],response= postDict,user = request.user)
@@ -59,3 +61,36 @@ def datum(request):
         }))
     else:
         return redirect('/')
+
+
+def datum_refresh(request):
+    if request.user.is_authenticated():
+        list_datum_refresh = Datum.objects.filter(user_id=request.user.id)
+        if len(list_datum_refresh) == 0:
+            list_datum_refresh = None
+        return render_to_response("dashboard/datums.html",RequestContext(request,{
+            'datums': list_datum_refresh
+        }))
+    else:
+        return redirect('/')
+
+
+@login_required
+def datum_detail(request, datum_id):
+    if request.user.is_authenticated():
+        datum = get_object_or_404(Datum,datum_id)
+        if datum.user != request.user:
+            return HttpResponseForbidden()
+        # Faire le Details Datum
+        # https://pypi.python.org/pypi/user-agents
+
+
+def datum_delete(request,datum_id):
+    current_user = request.user
+    datum = get_object_or_404(Datum, pk=datum_id)
+    if datum.user != current_user:
+        return HttpResponseForbidden()
+    datum.delete()
+    return render_to_response("dashboard/datums.html", RequestContext(request, {
+        'datums': Datum.objects.filter(user__in=[request.user, User.objects.get(username=current_user.get_username())])
+        }))

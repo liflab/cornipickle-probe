@@ -1,9 +1,9 @@
 from django.db.models.signals import pre_save
 import datetime
 import django.dispatch
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from probe_project.apps.probe_dispatcher.models import Probe
-from probe_project.apps.dashboard.models import Datum
+from probe_project.apps.dashboards.models import Datum
 from django.contrib.auth.models import User
 
 
