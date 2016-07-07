@@ -270,21 +270,64 @@ footer {
 
 
 /* Ajout d'élément du dashboard */
-
 /* Définition de la classe .border-radius avec un paramètre */
-/* Utilisation de .border-radius comme une classe abstraite */
-/* Définition de la classe .border-radius avec un paramètre */
-/* Utilisation de .border-radius comme une classe abstraite */
-.table_dashboard {
+.dashboard_table {
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
   width: 100%;
+}
+.dashboard_table_name {
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+}
+.dtm_left {
+  position: absolute;
+  top: 1em;
+  left: 1%;
+  width: 18%;
+}
+.dtm_right {
+  position: absolute;
+  top: 1em;
+  right: 1%;
+  width: 18%;
+}
+.panel_dashboard {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  border-left: 8px;
-  background-color: #f3f1f0;
-  padding-left: 2em;
 }
-
+.panel .max_width {
+  width: 100%;
+}
+.panel_dashboard > .left_halt,
+.right_halt {
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  display: inline-block;
+  vertical-align: top;
+  width: 49%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: rgba(105, 105, 105, 0.3);
+}
+.right_halt > div {
+  display: inline-block;
+  vertical-align: top;
+  width: 49%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.left_halt > div {
+  display: inline-block;
+  vertical-align: top;
+  width: 49%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
 
 
 /**/

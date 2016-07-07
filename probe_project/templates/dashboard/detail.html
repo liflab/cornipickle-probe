@@ -3,24 +3,42 @@
 
 {% block content %}
     <h1>{% trans 'Datum details' %}</h1>
-        <div class="panel">
-        <table class="table_dashboard">
-            <tr>
-                <th> {% trans "Web Browser" %}</th>
-                <th>{% trans "Operating System " %}</th>
-            </tr>
-            <tr>
-                <td style="padding-left:2em">{{ user_agent.browser.family }} " " {{ user_agent.browser.version_string }} </td>
-                <td> {{ user_agent.os.family}} " " {{ user_agent.os.version_string}}</td>
-            </tr>
-            <tr>
-                <th> {% trans "Is touch Capable" %}</th>
-                <th> {% trans "Is Bot" %}</th>
-            </tr>
-            <tr>
-                <td>{{ user_agent.is_touch_capable }}</td>
-                <td>{{ user_agent.is_bot }}</td>
-            </tr>
-        </table>
+    <div class="panel">
+        <div class="panel_dashboard">
+            <div class="left_halt">
+                <h3> {% trans "Web Browser" %}</h3>
+                <hr>
+
+                <div>{% trans 'Browser' %}</div>
+                <div> {{ user_agent.browser.family}} &nbsp; {{ user_agent.browser.version_string }}</div>
+            </div>
+            <div class="right_halt">
+                <h3>{% trans "Operating System " %}</h3>
+                <hr>
+                <div>{% trans 'OS' %}</div>
+                <div>{{ user_agent.os.family }} &nbsp; {{ user_agent.os.version_string}} </div>
+            </div>
+            <div class="left_halt">
+                <h3>{% trans 'Domain' %}</h3>
+                <hr>
+                <div>{% trans 'Website' %}</div>
+                <div style=" word-wrap:break-word;">{{ datums.httpReferer }}</div>
+                <div> {% trans 'Time' %}</div>
+                <div> {{ datums.timestamp }}</div>
+            </div>
+            {% if user_agent.is_pc == false  %}
+            <div class="right_halt">
+                <h3>{%  trans "Device" %}</h3>
+                <hr>
+                <div> {% trans 'Mobile' %}</div>
+                <div> {{ user_agent.is_mobile }}</div>
+                <div> {% trans 'Tablet' %}</div>
+                <div> {{ user_agent.is_tablet }}</div>
+                <div> {% trans 'Touch' %}</div>
+                <div> {{ user_agent.is_touch_capable }}</div>
+
+            {% endif %}
         </div>
+        </div>
+    </div>
 {% endblock %}

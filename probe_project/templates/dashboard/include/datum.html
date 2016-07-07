@@ -1,5 +1,5 @@
 {% load i18n %}
-<tr>
+<tr class="bordered">
     <td><a style="color: white;" href={{ datum.httpReferer }}>{{ datum.httpReferer }}</a></td>
     {% if datum.httpUserAgent > 10 %}
     <td>{{ datum.httpUserAgent| slice:":8"}}...</td>
@@ -14,3 +14,4 @@
         </a>
     </td>
 </tr>
+

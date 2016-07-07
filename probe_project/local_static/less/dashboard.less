@@ -12,24 +12,56 @@
   border-radius: @radius;
 }
 
-/* Utilisation de .border-radius comme une classe abstraite */
-// table Classe
-.table_dashboard {
-  width:100%;
-  .border-radius(6px){
-    color: @red_border;
-  };
-  .table_dashboard_row
+.inline-style(@largeur:50%){
+  display: inline-block;
+  vertical-align: top;
+  width: @largeur;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
-// table <tr>
-.table_dashboard_row(@radius: 10px) {
-  .border-radius(8px) {color: @white_creme};
-  .table_dashboard_data(8px,@brun_light);
+.dashboard_table{
+  .border-radius(8px);
+  width:100%;
 }
-// table <td>
-.table_dashboard_data (@border_left:8px,@background_color:black){
-  border-left: @border_left;
-  background-color: @background_color;
-  padding-left: 2em;
+
+.dashboard_table_name{
+  .border-radius(8px)
+}
+
+.dtm_left{
+  position: absolute;
+  top: 1em;
+  left: 1%;
+  width: 18%;
+
+}
+.dtm_right{
+  position: absolute;
+  top: 1em;
+  right: 1%;
+  width: 18%;
+}
+
+.panel_dashboard{
+  .border-radius(10px);
+}
+
+.panel .max_width{
+  width: 100%;
+}
+
+.panel_dashboard > .left_halt, .right_halt{
+  .border-radius(8px);
+  .inline-style(49%);
+  background: rgba(105, 105, 105, 0.3);
+}
+
+
+.right_halt > div {
+  .inline-style(49%)
+}
+
+.left_halt > div {
+  .inline-style(49%)
 }
