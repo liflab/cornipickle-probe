@@ -15,11 +15,11 @@
   ],
   "dependencies": {
     "requirejs": "~2.1.11",
-    "jquery": "~2.1.0",
-    "jquery-ui": "~1.10.4",
+    "jquery": "~3.0.0",
+    "jquery-ui": "~1.12.0",
     "jQuery-Timepicker-Addon": "~1.4.4",
     "font-awesome": "~4.3.0",
-    "bootstrap": "~3.3.5",
+    "bootstrap": "~3.3.6",
     "modernizr": "~2.8.3",
     "highlightjs": "~8.5.0"
   }
