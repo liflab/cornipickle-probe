@@ -1,13 +1,44 @@
 {% extends 'base.html' %}
 {% load i18n bootstrap %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block content %}
     <link rel="stylesheet" href="{% static "css/fiddle/fiddle.css" %}">
     <script src="{% static "js/fiddle/fiddle.js" %}"></script>
     <form method="POST" action="">
         {% csrf_token %}
-        {{ form|bootstrap }}
+        {{ form.non_field_errors }}
+        {% if form.name.errors %}
+            <div class="form-group has-error">
+        {% else %}
+            <div class="form-group">
+        {% endif %}
+            <label class="control-label" for="{{ form.name.id_for_label }}">{% trans 'Name' %}:</label>
+            <div class=" ">
+                {% render_field form.name class+="form-control" %}
+                {% for error in form.name.errors %}
+                    <p class="help-block"><strong>{{ error|escape }}</strong></p>
+                {% endfor %}
+                <p class="help-block">{{ form.name.help_text }}</p>
+            </div>
+        </div>
+        {% if form.code.errors %}
+            <div class="form-group has-error">
+        {% else %}
+            <div class="form-group">
+        {% endif %}
+            <label class="control-label" for="{{ form.code.id_for_label }}">{% trans 'Code' %}:</label>
+            <div class=" ">
+                <div class="fiddleEditor">
+                    {% render_field form.code class+="form-control" %}
+                </div>
+                {% for error in form.code.errors %}
+                    <p class="help-block"><strong>{{ error|escape }}</strong></p>
+                {% endfor %}
+                <p class="help-block">{{ form.code.help_text }}</p>
+            </div>
+        </div>
         <button class="btn btn-primary btn-block" type="submit">{% trans 'Submit' %}</button>
     </form>
 {% endblock %}

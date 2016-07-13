@@ -1,15 +1,7 @@
+{% load static %}
+
 <link rel="stylesheet" href="{% static "css/fiddle/fiddle.css" %}">
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.min.css" %}">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
-<script   src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
-<script   src="{% static "bower_components/jquery-ui/ui/minified/jquery-ui.min.js" %}"></script>
 
 <div id=editorContainer>
   <div id=editorDropupContainer>
@@ -22,7 +14,7 @@
               <span class="glyphicon glyphicon-ban-circle"></span>
             </td>
             <td>
-              <input type=text value="Description of metadata"></input>
+              <input type=text value="Description of metadata"/>
             </td>
           </tr>
           <tr>
@@ -30,7 +22,7 @@
               <span class="glyphicon glyphicon-registration-mark"></span>
             </td>
             <td>
-              <input type=text value="Category"></input>
+              <input type=text value="Category"/>
             </td>
           </tr>
         </table>
@@ -38,6 +30,6 @@
     </div>
   </div>
   <div id=editorTextArea>
-    <textarea id=editorContent class=form-control style=resize:vertical></textarea>
+    <textarea id=editorContent class=form-control></textarea>
   </div>
 </div>
