@@ -1,12 +1,23 @@
 var open = false;
-$('#editorYellowButton').click(function() {
-    $('#editorDropup').animate({
-        top:'-100px'
-    }, 500, function() {
-        open = true;
-    });
-});
 
 window.onload = function() {
     $(".fiddleEditor").load("http://localhost:8000/fiddle/fiddleeditor");
 };
+
+$('body').on('click', ".editorYellowButton", function() {
+    if(!open) {
+        $('.editorDropup').animate({
+            top: '-=' + $('.editorPropertyMetadata').height() + 'px'
+        }, 300, function() {
+            open = true;
+        });
+    }
+    else {
+        $('.editorDropup').animate({
+            top: '+=' + $('.editorPropertyMetadata').height() + 'px'
+        }, 300, function() {
+            open = false;
+        });
+    }
+});
+

@@ -2,34 +2,33 @@
 
 <link rel="stylesheet" href="{% static "css/fiddle/fiddle.css" %}">
 
-
-<div id=editorContainer>
-  <div id=editorDropupContainer>
-    <div id=editorDropup>
-      <button id=editorYellowButton class="glyphicon glyphicon-triangle-top" type=button></button>
-      <div id=editorPropertyMetadata>
-        <table>
-          <tr>
-            <td>
-              <span class="glyphicon glyphicon-ban-circle"></span>
-            </td>
-            <td>
-              <input type=text value="Description of metadata"/>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <span class="glyphicon glyphicon-registration-mark"></span>
-            </td>
-            <td>
-              <input type=text value="Category"/>
-            </td>
-          </tr>
-        </table>
-      </div>
+<div class="editorContainer">
+    <div class="editorDropupContainer">
+        <div class="editorDropup">
+            <button class="editorYellowButton glyphicon glyphicon-triangle-top" type=button></button>
+            <div class="editorPropertyMetadata">
+                <table>
+                    <tr>
+                        <td>
+                            <span class="glyphicon glyphicon-ban-circle"></span>
+                        </td>
+                        <td>
+                            <input class="form-control" type=text value="Description of metadata"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="glyphicon glyphicon-registration-mark"></span>
+                        </td>
+                        <td>
+                            <input class="form-control" type=text value="Category"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
-  <div id=editorTextArea>
-    <textarea id=editorContent class=form-control></textarea>
-  </div>
+    <div class="editorTextArea">
+        <textarea class="editorContent form-control" rows="5"></textarea>
+    </div>
 </div>

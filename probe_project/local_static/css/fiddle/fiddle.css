@@ -1,50 +1,55 @@
-#editorContent {
-  background: #fff;
-  width: 100%;
-  /* border-radius */
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  /* box-shadow */
-  -webkit-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
-  -moz-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
-  box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
-  margin: 0 auto;
-  resize: vertical
+.editorContent {
+    background: #fff;
+    width: 100%;
+    /* border-radius */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    /* box-shadow */
+    -webkit-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+    -moz-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+    box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+    margin: 0 auto;
+    resize: vertical
 }
 
-#editorTextArea {
- top: 20px;
- position: absolute;
- width: 100%;
+.editorTextArea {
+    position: relative;
+    width: 100%;
 }
 
-#editorContainer {
-  width: 100%;
-  height: auto;
-  text-align: center;
+.editorContainer {
+    width: 100%;
+    height: auto;
+    text-align: center;
 }
 
-#editorDropupContainer {
-  width: 200px;
-  display: inline-block;
-  position: absolute;
+.editorDropupContainer {
+    width: 200px;
+    display: inline-block;
+    position: absolute;
 }
 
-#editorDropup {
-  position: relative;
-  left: -50%;
+.editorDropup {
+    position: relative;
+    left: -50%;
+    top: -20px;
 }
 
-#editorPropertyMetadata {
-   position: relative;
-   display: inline-block;
+.editorPropertyMetadata {
+    position: relative;
+    display: inline-block;
 }
 
-#editorYellowButton {
-  background: yellow;
-  -webkit-border-radius: 5px;
-  width: 100px;
-  height: 20px;
-  position: relative;
+.editorYellowButton {
+    background: yellow;
+    -webkit-border-radius: 5px;
+    width: 100px;
+    height: 20px;
+    position: relative;
+    color: black;
+}
+
+.glyphicon {
+    color: black;
 }
