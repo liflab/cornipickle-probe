@@ -1,6 +1,9 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static "css/fiddle/fiddle.css" %}">
+<script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+<script src="{% static "bower_components/jquery-ui/jquery-ui.js" %}"></script>
+<script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
 
 <div class="editorContainer">
     <div class="editorDropupContainer">
@@ -29,6 +32,6 @@
         </div>
     </div>
     <div class="editorTextArea">
-        <textarea class="editorContent form-control" rows="5"></textarea>
+        <textarea id="{{ id }}" class="editorContent form-control" rows="5" name="{{ name }}">{{ text }}</textarea>
     </div>
 </div>
