@@ -14,6 +14,7 @@ urlpatterns = patterns(
     url(r'^$', probe_views.home, name="home"),
     url(r'^manager/', include('probe_project.apps.probe_dispatcher.urls')),
     url(r'^dashboards/', include('probe_project.apps.dashboards.urls')),
+    url(r'^fiddle/', include('probe_project.apps.fiddle.urls')),
 
     url(r'^image/$', 'probe_project.apps.dashboards.views.image', name="image"),
 

@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'probe_project.apps.accounts',
     'probe_project.apps.probe_dispatcher',
     'probe_project.apps.dashboards',
+    'probe_project.apps.fiddle',
     # 'probe_project.apps.orderedmodel',
 
     'django_extensions',
@@ -56,6 +57,7 @@ INSTALLED_APPS = (
     'haystack',
 
     'bootstrapform',
+    'widget_tweaks',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -158,6 +160,7 @@ LOCALE_INDEPENDENT_PATHS = (
     r'^/image/',
     r'^/favicon.ico',
     r'^/social/',
+    r'^/fiddle/',
 )
 
 LOCALE_INDEPENDENT_MEDIA_URL = True
