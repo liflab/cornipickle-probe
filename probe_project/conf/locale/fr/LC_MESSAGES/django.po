@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Probe\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-25 10:49-0400\n"
+"POT-Creation-Date: 2016-08-05 14:16-0400\n"
 "PO-Revision-Date: 2014-06-12 17:23-0500\n"
 "Last-Translator: Gabriel Le Breton <lebreton.gabriel@gmail.com>\n"
 "Language-Team: LIF <lebreton.gabriel@gmail.com>\n"
@@ -21,59 +21,76 @@ msgstr ""
 "X-Poedit-Basepath: ../../../../\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: probe_project/apps/accounts/menus.py:8
+#: probe_project/apps/accounts/menus.py:9
+#: probe_project/templates/dashboard/datums.html:5
+msgid "Dashboard"
+msgstr "Panneau de contrôle"
+
+#: probe_project/apps/accounts/menus.py:16
 #: probe_project/templates/probe_dispatcher/probes.html:5
 msgid "Probes"
 msgstr "Sondes"
 
-#: probe_project/apps/accounts/menus.py:16
+#: probe_project/apps/accounts/menus.py:24
 #: probe_project/templates/probe_dispatcher/sensors.html:5
-#| msgid "sensors"
 msgid "Sensors"
 msgstr "Capteurs"
 
-#: probe_project/apps/accounts/menus.py:24
+#: probe_project/apps/accounts/menus.py:33
 msgid "Administration"
 msgstr "Administration"
 
-#: probe_project/apps/accounts/models.py:15
+#: probe_project/apps/accounts/models.py:16
 msgid "user"
 msgstr "utilisateur"
 
-#: probe_project/apps/probe_dispatcher/models.py:22
-#: probe_project/apps/probe_dispatcher/models.py:62
-msgid "Name"
-msgstr "Nom"
-
-#: probe_project/apps/probe_dispatcher/models.py:24
-msgid "Name of the sensor"
-msgstr "Le nom du capteur"
-
-#: probe_project/apps/probe_dispatcher/models.py:28
-msgid "Code"
-msgstr "Code"
-
-#: probe_project/apps/probe_dispatcher/models.py:30
-msgid "Code in the Cornipickle language"
-msgstr "Code en langage Cornipickle"
-
-#: probe_project/apps/probe_dispatcher/models.py:35
+#: probe_project/apps/dashboards/models.py:39
+#: probe_project/apps/probe_dispatcher/models.py:36
 #: probe_project/apps/probe_dispatcher/models.py:102
-#| msgid "Username"
 msgid "User"
 msgstr "Utilisateur"
 
-#: probe_project/apps/probe_dispatcher/models.py:37
+#: probe_project/apps/dashboards/models.py:41
+#: probe_project/apps/probe_dispatcher/models.py:104
+msgid "Owner of the probe"
+msgstr ""
+
+#: probe_project/apps/dashboards/views.py:42
+msgid ""
+"Vérifier si l'interpréteur Cornipickle fonctionne sur votre site. Il ce "
+"peutqui vous ayez fait des modifications à votre sonde sans changer le "
+"script sur votrepage web."
+msgstr ""
+
+#: probe_project/apps/probe_dispatcher/models.py:23
+#: probe_project/apps/probe_dispatcher/models.py:62
+#: probe_project/templates/probe_dispatcher/sensor_form.html:17
+msgid "Name"
+msgstr "Nom"
+
+#: probe_project/apps/probe_dispatcher/models.py:25
+msgid "Name of the sensor"
+msgstr "Le nom du capteur"
+
+#: probe_project/apps/probe_dispatcher/models.py:29
+#: probe_project/templates/probe_dispatcher/sensor_form.html:31
+msgid "Code"
+msgstr "Code"
+
+#: probe_project/apps/probe_dispatcher/models.py:31
+msgid "Code in the Cornipickle language"
+msgstr "Code en langage Cornipickle"
+
+#: probe_project/apps/probe_dispatcher/models.py:38
 msgid "Owner of the sensor"
 msgstr "Propriétaire de la sonde"
 
 #: probe_project/apps/probe_dispatcher/models.py:54
 #, python-brace-format
 msgid "You cannot delete the Sensor id {0}, because is use by probe id {1}"
-msgstr ""
+msgstr "Vous ne pouvez pas supprimer l'id du Capteur {0}, parce qu'il est utilisé par la sonde {1}"
 
 #: probe_project/apps/probe_dispatcher/models.py:63
-#| msgid "Create a new probe"
 msgid "Name of the probe"
 msgstr "Le nom de la sonde"
 
@@ -86,7 +103,7 @@ msgid "Description of the probe"
 msgstr "Description de la sonde"
 
 #: probe_project/apps/probe_dispatcher/models.py:75
-#| msgid "Domain:"
+#: probe_project/templates/dashboard/detail.html:22
 msgid "Domain"
 msgstr "Domaine"
 
@@ -99,7 +116,6 @@ msgid "Hash"
 msgstr "Hacher"
 
 #: probe_project/apps/probe_dispatcher/models.py:87
-#| msgid "Enabled sensors:"
 msgid "Enabled"
 msgstr "Capteurs activés"
 
@@ -108,7 +124,6 @@ msgid "Check the box if you want the probe to be enabled"
 msgstr "Cocher la case si vous voulez activer la sonde"
 
 #: probe_project/apps/probe_dispatcher/models.py:95
-#| msgid "sensors"
 msgid "Sensor"
 msgstr "Capteurs"
 
@@ -119,23 +134,15 @@ msgstr ""
 "Les sondes qui devrait etre utilisées par le capteur (Utiliser CTRL + Clique "
 "Gauche sur la souris pour sélectionné)"
 
-#: probe_project/apps/probe_dispatcher/models.py:104
-msgid "Owner of the probe"
-msgstr ""
-
-#: probe_project/settings/base.py:144
+#: probe_project/settings/base.py:145
 msgid "English"
 msgstr "English"
 
-#: probe_project/settings/base.py:145
+#: probe_project/settings/base.py:146
 msgid "Français"
 msgstr "Français"
 
 #: probe_project/templates/base.html:14
-#| msgid ""
-#| "You are using an <strong>outdated</strong> browser. Please, <a "
-#| "target='_blank' href='http://browsehappy.com/'>update your browser</a> so "
-#| "you can enjoy the web as it is ment to be."
 msgid ""
 "You are using an <strong>outdated</strong> browser. Please, <a "
 "target='_blank' href='http://browsehappy.com/'>update your browser</a> so "
@@ -145,48 +152,111 @@ msgstr ""
 "target='_blank' href='http://browsehappy.com/?locale=fr'>mettez à jour votre "
 "navigateur</a> afin de profiter du web comme il se doit."
 
-#: probe_project/templates/base.html:82
+#: probe_project/templates/base.html:96
 msgid "Welcome to"
 msgstr "Bienvenue sur"
 
-#: probe_project/templates/base.html:83
+#: probe_project/templates/base.html:97
 msgid ", a web service for tracking client side bugs on a website."
 msgstr ", un service web pour traquer des bugs sur un site web."
 
-#: probe_project/templates/footer.html:23
+#: probe_project/templates/dashboard/datums.html:14
+msgid "User Agent"
+msgstr "Agent Utilisateur"
+
+#: probe_project/templates/dashboard/datums.html:26
+#, fuzzy
+#| msgid "You have no sensors yet, create one now!"
+msgid "You have no notification yet !"
+msgstr "Vous n'avez pas encore de sonde, créez-en une maintenant!"
+
+#: probe_project/templates/dashboard/detail.html:5
+#, fuzzy
+#| msgid "Edit details"
+msgid "Datum details"
+msgstr "Modifier les détails"
+
+#: probe_project/templates/dashboard/detail.html:9
+msgid "Web Browser"
+msgstr "Navigateur Web"
+
+#: probe_project/templates/dashboard/detail.html:12
+msgid "Browser"
+msgstr "Navigateur"
+
+#: probe_project/templates/dashboard/detail.html:16
+msgid "Operating System "
+msgstr "Système opérateur "
+
+#: probe_project/templates/dashboard/detail.html:18
+msgid "OS"
+msgstr "OS"
+
+#: probe_project/templates/dashboard/detail.html:24
+#: probe_project/templates/userena/profile_detail.html:35
+msgid "Website"
+msgstr "Site Internet"
+
+#: probe_project/templates/dashboard/detail.html:26
+msgid "Time"
+msgstr "Temps"
+
+#: probe_project/templates/dashboard/detail.html:31
+msgid "Device"
+msgstr "Dispositif"
+
+#: probe_project/templates/dashboard/detail.html:33
+msgid "Mobile"
+msgstr "Mobile"
+
+#: probe_project/templates/dashboard/detail.html:35
+#, fuzzy
+#| msgid "Enabled"
+msgid "Tablet"
+msgstr "Capteurs activés"
+
+#: probe_project/templates/dashboard/detail.html:37
+msgid "Touch"
+msgstr "Tactile"
+
+#: probe_project/templates/dashboard/index.html:22
+#, python-format
+msgid "Updated %(timestamp)s ago."
+msgstr "Dernière modification il y a %(timestamp)s."
+
+#: probe_project/templates/footer.html:24
 msgid "Currently in beta"
 msgstr "Présentement en beta"
 
-#: probe_project/templates/footer.html:26
-msgid "Formal Informatics Laboratory"
-msgstr "Laboratoire d'Informatique Formelle"
+#: probe_project/templates/footer.html:27
+msgid "Laboratoire d'Informatique Formelle"
+msgstr "Laboratoire d'informatique Formelle"
 
-#: probe_project/templates/probe_dispatcher/dashboard_nav.html:26
+#: probe_project/templates/probe_dispatcher/dashboard_nav.html:27
 #: probe_project/templates/userena/profile_detail.html:18
 msgid "Your mugshot"
 msgstr "Vos Photos"
 
-#: probe_project/templates/probe_dispatcher/dashboard_nav.html:29
+#: probe_project/templates/probe_dispatcher/dashboard_nav.html:30
 msgid "View profile"
 msgstr "Voir votre profil"
 
-#: probe_project/templates/probe_dispatcher/dashboard_nav.html:31
+#: probe_project/templates/probe_dispatcher/dashboard_nav.html:32
 msgid "Edit details"
 msgstr "Modifier les détails"
 
-#: probe_project/templates/probe_dispatcher/dashboard_nav.html:34
+#: probe_project/templates/probe_dispatcher/dashboard_nav.html:35
 #: probe_project/templates/userena/password_form.html:5
 #: probe_project/templates/userena/password_form.html:16
-#| msgid "Repeat password"
 msgid "Change password"
 msgstr "Changer votre mot de passe nouveau"
 
-#: probe_project/templates/probe_dispatcher/dashboard_nav.html:36
+#: probe_project/templates/probe_dispatcher/dashboard_nav.html:37
 #: probe_project/templates/userena/email_form.html:14
 msgid "Change email"
 msgstr "Changer votre email"
 
-#: probe_project/templates/probe_dispatcher/dashboard_nav.html:39
+#: probe_project/templates/probe_dispatcher/dashboard_nav.html:40
 msgid "Logout"
 msgstr "Déconnexion"
 
@@ -199,46 +269,36 @@ msgid "Tools"
 msgstr "Outils"
 
 #: probe_project/templates/probe_dispatcher/include/probe.html:4
-msgid "Add"
-msgstr "Ajouter"
-
-#: probe_project/templates/probe_dispatcher/include/probe.html:5
 #: probe_project/templates/probe_dispatcher/include/sensor.html:4
 msgid "Edit"
 msgstr "Modifier"
 
-#: probe_project/templates/probe_dispatcher/include/probe.html:6
+#: probe_project/templates/probe_dispatcher/include/probe.html:5
 #: probe_project/templates/probe_dispatcher/include/sensor.html:5
 msgid "Delete"
 msgstr "Supprimer"
 
-#: probe_project/templates/probe_dispatcher/include/probe.html:12
-#| msgid "Domain:"
+#: probe_project/templates/probe_dispatcher/include/probe.html:11
 msgid "Domain: "
 msgstr "Domaine: "
 
-#: probe_project/templates/probe_dispatcher/include/probe.html:14
+#: probe_project/templates/probe_dispatcher/include/probe.html:13
 msgid "Enabled sensors:"
 msgstr "Capteurs activés:"
 
-#: probe_project/templates/probe_dispatcher/include/probe.html:27
+#: probe_project/templates/probe_dispatcher/include/probe.html:26
 msgid "This probe is enabled"
 msgstr "Cette sonde est activé"
 
-#: probe_project/templates/probe_dispatcher/include/probe.html:29
+#: probe_project/templates/probe_dispatcher/include/probe.html:28
 msgid "This probe is disabled"
 msgstr "Ce capteur est désactivé"
 
-#: probe_project/templates/probe_dispatcher/include/probe.html:31
-#| msgid "Rendered javascript:"
+#: probe_project/templates/probe_dispatcher/include/probe.html:30
 msgid "Rendered javascript"
 msgstr "Javascript généré:"
 
-#: probe_project/templates/probe_dispatcher/include/probe.html:32
-msgid "Live example"
-msgstr "Exemple en temps réel"
-
-#: probe_project/templates/probe_dispatcher/include/probe.html:33
+#: probe_project/templates/probe_dispatcher/include/probe.html:31
 msgid "Embeded code"
 msgstr "Code intégré"
 
@@ -247,7 +307,7 @@ msgid "Code:"
 msgstr "Code:"
 
 #: probe_project/templates/probe_dispatcher/probe_form.html:8
-#: probe_project/templates/probe_dispatcher/sensor_form.html:8
+#: probe_project/templates/probe_dispatcher/sensor_form.html:42
 msgid "Submit"
 msgstr "Soumettre"
 
@@ -260,12 +320,10 @@ msgid "Create a new probe"
 msgstr "Créer une nouvelle sonde"
 
 #: probe_project/templates/probe_dispatcher/sensors.html:11
-#| msgid "You have no probes yet, create one now!"
 msgid "You have no sensors yet, create one now!"
 msgstr "Vous n'avez pas encore de sonde, créez-en une maintenant!"
 
 #: probe_project/templates/probe_dispatcher/sensors.html:13
-#| msgid "Create a new probe"
 msgid "Create a new sensor"
 msgstr "Créer une nouvelle sonde"
 
@@ -291,11 +349,14 @@ msgstr ""
 msgid ""
 "Please try signing up again or contact us if you think something went wrong."
 msgstr ""
-"Réessayez de vous enregistrer ou contactez-nous si vous avez rencontré des problèmes"
+"Réessayez de vous enregistrer ou contactez-nous si vous avez rencontré des "
+"problèmes"
 
 #: probe_project/templates/userena/activate_retry.html:10
 msgid "Your account could not be activated because activation link is expired."
-msgstr "Votre compte ne peut pas être activé puisque votre lien de validation est expiré."
+msgstr ""
+"Votre compte ne peut pas être activé puisque votre lien de validation est "
+"expiré."
 
 #: probe_project/templates/userena/activate_retry.html:11
 msgid "Request a new activation link."
@@ -317,7 +378,8 @@ msgstr "Vous avez demandé une nouvelle activation pour votre compte.."
 msgid ""
 "You have been sent an e-mail with an activation link to the supplied email."
 msgstr ""
-"Nous avons envoyé un courriel avec un code d'activation a l'adresse courriel du demandeur."
+"Nous avons envoyé un courriel avec un code d'activation a l'adresse courriel "
+"du demandeur."
 
 #: probe_project/templates/userena/activate_retry_success.html:12
 #, python-format
@@ -325,8 +387,8 @@ msgid ""
 "We will store your signup information for %(userena_activation_days)s days "
 "on our server. "
 msgstr ""
-"Nous allons enregistrer vos information d'inscription pour %(userena_activation_days)s jours "
-"sur notre serveur. "
+"Nous allons enregistrer vos information d'inscription pour "
+"%(userena_activation_days)s jours sur notre serveur. "
 
 #: probe_project/templates/userena/disabled.html:4
 msgid "Disabled account"
@@ -345,8 +407,8 @@ msgid ""
 "If you feel that injustice has been done to you, feel free to contact the "
 "administrators to find out why"
 msgstr ""
-"Si vous percevez de l'injustice a votre égart, vous pouvez communiquer avec l'administrateur"
-"pour en savoir plus"
+"Si vous percevez de l'injustice a votre égart, vous pouvez communiquer avec "
+"l'administrateurpour en savoir plus"
 
 #: probe_project/templates/userena/email_change_complete.html:4
 msgid "Email verification"
@@ -367,8 +429,8 @@ msgid ""
 "To associate this email address with your account (%(username)s) click on "
 "the link provided in this email."
 msgstr ""
-"Pour lier votre adresse courriel avec votre compte (%(username)s), veuillez cliquer"
-"sur le lien d'activation qui vous a été transmis par courriel."
+"Pour lier votre adresse courriel avec votre compte (%(username)s), veuillez "
+"cliquersur le lien d'activation qui vous a été transmis par courriel."
 
 #: probe_project/templates/userena/email_confirm_complete.html:4
 msgid "Email changed!"
@@ -384,8 +446,8 @@ msgid ""
 "Your new email address is saved. You can continue using %(site)s with this "
 "email."
 msgstr ""
-"Votre nouvelle adresse courriel a été sauvegardée. Vous pouvez continué d'utiliser %(site)s cette"
-"cette adresse courrriel."
+"Votre nouvelle adresse courriel a été sauvegardée. Vous pouvez continué "
+"d'utiliser %(site)s cettecette adresse courrriel."
 
 #: probe_project/templates/userena/email_confirm_fail.html:4
 msgid "Email verification failed."
@@ -408,7 +470,6 @@ msgid "Account &raquo; %(username)s"
 msgstr "Compte &raquo; %(username)s"
 
 #: probe_project/templates/userena/email_form.html:11
-#| msgid "Enter a valid email address."
 msgid "Change email address"
 msgstr "Saisissez une adresse courriel valide."
 
@@ -448,7 +509,9 @@ msgstr "Vous avez demandé un changement d'adresse courriel pour %(site)s."
 
 #: probe_project/templates/userena/emails/confirmation_email_message_new.html:9
 msgid "Please confirm this email address by clicking on the link below:"
-msgstr "S.V.P veuillez confirmer votre adresse courriel en cliquant sur le lien ci-dessous:"
+msgstr ""
+"S.V.P veuillez confirmer votre adresse courriel en cliquant sur le lien ci-"
+"dessous:"
 
 #: probe_project/templates/userena/emails/confirmation_email_message_old.html:4
 #, python-format
@@ -458,7 +521,8 @@ msgstr "Chere %(username)s,"
 #: probe_project/templates/userena/emails/confirmation_email_message_old.html:6
 #, python-format
 msgid "There was a request to change your email address at %(site)s."
-msgstr "Il y a eu une demande pour changer votre adresse courriel pour %(site)s."
+msgstr ""
+"Il y a eu une demande pour changer votre adresse courriel pour %(site)s."
 
 #: probe_project/templates/userena/emails/confirmation_email_message_old.html:10
 #, python-format
@@ -466,8 +530,9 @@ msgid ""
 "An email has been send to %(new_email)s which contains a verification link. "
 "Click on the link in this email to activate it."
 msgstr ""
-"Un courriel a été envoyé a %(new_email)s qui contient un lien de vérification. "
-"Veuillez cliquer sur le lien dans le courriel pour activer pour adresse courriel."
+"Un courriel a été envoyé a %(new_email)s qui contient un lien de "
+"vérification. Veuillez cliquer sur le lien dans le courriel pour activer "
+"pour adresse courriel."
 
 #: probe_project/templates/userena/emails/confirmation_email_subject_new.html:4
 #, python-format
@@ -485,7 +550,9 @@ msgstr ""
 
 #: probe_project/templates/userena/emails/password_reset_message.html:9
 msgid "Please go to the following page and choose a new password:"
-msgstr "S.V.P veuillez aller à la page suivante et choisissez un nouveau mot de passe "
+msgstr ""
+"S.V.P veuillez aller à la page suivante et choisissez un nouveau mot de "
+"passe "
 
 #: probe_project/templates/userena/emails/password_reset_message.html:15
 #, python-format
@@ -506,7 +573,6 @@ msgid "or"
 msgstr "ou"
 
 #: probe_project/templates/userena/include/signin_form.html:25
-#| msgid "Forgot password?"
 msgid "Forgot your password?"
 msgstr "Oublié votre mot de passe?"
 
@@ -527,7 +593,6 @@ msgid "Register"
 msgstr "S'enregistrer"
 
 #: probe_project/templates/userena/password_complete.html:4
-#| msgid "Password"
 msgid "Password changed"
 msgstr "Mot de passe"
 
@@ -537,15 +602,14 @@ msgstr "Votre mot de passe a été changé"
 
 #: probe_project/templates/userena/password_complete.html:8
 msgid "From now on you can use your new password to signin"
-msgstr "Maintenant vous pouvez utilisé votre nouveau mot de passe pour vous connectez"
+msgstr ""
+"Maintenant vous pouvez utilisé votre nouveau mot de passe pour vous connectez"
 
 #: probe_project/templates/userena/password_form.html:12
-#| msgid "Password"
 msgid "Change Password"
 msgstr "Mot de passe"
 
 #: probe_project/templates/userena/password_reset_complete.html:5
-#| msgid "Password"
 msgid "Password reset"
 msgstr "Mot de passe"
 
@@ -558,18 +622,17 @@ msgstr "Votre mot de passe a été réinitialiser"
 msgid ""
 "You can now <a href=\"%(signin_url)s\">signin</a> with your new password."
 msgstr ""
-"Vous pouvez maintenant vous  <a href=\"%(signin_url)s\">Connectez</a> avec votre nouveau mot de passe."
+"Vous pouvez maintenant vous  <a href=\"%(signin_url)s\">Connectez</a> avec "
+"votre nouveau mot de passe."
 
 #: probe_project/templates/userena/password_reset_confirm_form.html:4
 #: probe_project/templates/userena/password_reset_confirm_form.html:13
 #: probe_project/templates/userena/password_reset_form.html:4
-#| msgid "Repeat password"
 msgid "Reset password"
 msgstr "Réinitialisation du mot de passe"
 
 #: probe_project/templates/userena/password_reset_confirm_form.html:9
 #: probe_project/templates/userena/password_reset_form.html:9
-#| msgid "Repeat password"
 msgid "Reset Password"
 msgstr "Réinitialisation du mot de passe"
 
@@ -582,10 +645,10 @@ msgstr "Mot de passe réinitialisé un courriel a été envoyé "
 msgid ""
 "An e-mail has been sent to you which explains how to reset your password."
 msgstr ""
-"Un courriel a été envoyé pour vous expliquez comment réinitialiser votre mot de passe."
+"Un courriel a été envoyé pour vous expliquez comment réinitialiser votre mot "
+"de passe."
 
 #: probe_project/templates/userena/password_reset_form.html:13
-#| msgid "Repeat password"
 msgid "Send password"
 msgstr "Envoie du mot de passe"
 
@@ -601,10 +664,6 @@ msgstr "Courriel"
 #: probe_project/templates/userena/profile_detail.html:31
 msgid "Age"
 msgstr "Age"
-
-#: probe_project/templates/userena/profile_detail.html:35
-msgid "Website"
-msgstr "Site Internet"
 
 #: probe_project/templates/userena/profile_detail.html:39
 msgid "Location"
@@ -650,7 +709,6 @@ msgid "next"
 msgstr "Suivant"
 
 #: probe_project/templates/userena/signin_form.html:4
-#| msgid "Sign Up"
 msgid "Signin"
 msgstr "Enregistrez-vous"
 
@@ -672,7 +730,6 @@ msgstr "L'enregistrement est presque terminé "
 
 #: probe_project/templates/userena/signup_complete.html:6
 #: probe_project/templates/userena/signup_form.html:4
-#| msgid "Sign Up"
 msgid "Signup"
 msgstr "Enregistrement"
 
@@ -681,9 +738,6 @@ msgid "Thank you for signing up with us!"
 msgstr "Merci, de participer à notre projet !"
 
 #: probe_project/templates/userena/signup_complete.html:13
-#| msgid ""
-#| "You have been sent an e-mail with an activation link</b> to the supplied\n"
-#| "email."
 msgid ""
 "You have been sent an e-mail with an activation link</b> to the supplied\n"
 "                email."
@@ -702,6 +756,15 @@ msgstr ""
 #: probe_project/templates/userena/signup_complete.html:17
 msgid "You can now use the supplied credentials to signin."
 msgstr "Vous pouvez maintenant vous connecter avec votre identifiant"
+
+#~ msgid "Formal Informatics Laboratory"
+#~ msgstr "Laboratoire d'Informatique Formelle"
+
+#~ msgid "Add"
+#~ msgstr "Ajouter"
+
+#~ msgid "Live example"
+#~ msgstr "Exemple en temps réel"
 
 #~ msgid "^register/$"
 #~ msgstr "^enregistrer/$"
@@ -750,6 +813,3 @@ msgstr "Vous pouvez maintenant vous connecter avec votre identifiant"
 
 #~ msgid "en"
 #~ msgstr "en"
-
-#~ msgid "Dashboard"
-#~ msgstr "Panneau de contrôle"
