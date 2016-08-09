@@ -2,22 +2,24 @@
 {% now "Y" as current_year %}
 <footer class="container">
     <div class="row links">
-    <!-- L'utilsateur peut changer ca langue dans les réglages du compte-->
-        {% if not user.is_authenticated %}
-            <form id="locale_switcher" method="POST" action="{% url 'localeurl_change_locale' %} ">
-                {% csrf_token %}
-                <label>
+        <div class="styled-select" style="color: #555;">
+            <!-- L'utilsateur peut changer ca langue dans les réglages du compte-->
+            {% if not user.is_authenticated %}
+                <form id="locale_switcher" method="POST" action="{% url 'localeurl_change_locale' %} ">
+                    {% csrf_token %}
+
                     <select name="locale" onchange="$('#locale_switcher').submit()">
                         {% for lang in LANGUAGES %}
                             <option value="{{ lang.0 }}" {% ifequal lang.0 LANGUAGE_CODE %}selected="selected"{% endifequal %}>{{ lang.1 }}</option>
                         {% endfor %}
                     </select>
-                </label>
-                <noscript>
-                    <input type="submit" value="Set"/>
-                </noscript>
-            </form>
-        {% endif %}
+
+                    <noscript>
+                        <input type="submit" value="Set"/>
+                    </noscript>
+                </form>
+                </div>
+            {% endif %}
         <ul>
             <li class="current-version">
                 {# todo: read current commit sha + package.json version here #}
