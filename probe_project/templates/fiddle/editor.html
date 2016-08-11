@@ -3,12 +3,27 @@
 <link rel="stylesheet" href="{% static "css/fiddle/fiddle.css" %}">
 <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
 <script src="{% static "bower_components/jquery-ui/jquery-ui.js" %}"></script>
-<script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+<script language="JavaScript">
+    (function () {
+        if (typeof $.fn.popover === 'undefined' && typeof bootstrap_loaded === 'undefined'){
+            // Script du javascript pour le Bootstrap
+            var bootstrapJS = document.createElement("script");
+            // Ajout des composantes pour le JS du Bootstrap
+            bootstrapJS.src = "{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}";
+            //bootstrapJS.integrity = 'sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa'
+            //bootstrapJS.crossOrigin = 'anonymous'
+            document.head.appendChild(bootstrapJS);
+            bootstrap_loaded = true
+        }
 
+    })();
+</script>
 <div class="editorContainer">
     <div class="editorDropupContainer">
         <div class="editorDropup">
-            <button class="editorYellowButton glyphicon glyphicon-triangle-top" type=button></button>
+            <button class="editorYellowButton" type=button>
+                <span class="glyphicon glyphicon-chevron-down"></span>
+            </button>
             <div class="editorPropertyMetadata">
                 <table>
                     <tr>
@@ -16,7 +31,7 @@
                             <span class="glyphicon glyphicon-ban-circle"></span>
                         </td>
                         <td>
-                            <input class="form-control" type=text value="Description of metadata"/>
+                            <input class="form-control" type=text placeholder="Description of metadata"/>
                         </td>
                     </tr>
                     <tr>
@@ -24,7 +39,7 @@
                             <span class="glyphicon glyphicon-registration-mark"></span>
                         </td>
                         <td>
-                            <input class="form-control" type=text value="Category"/>
+                            <input class="form-control" type=text placeholder="Category"/>
                         </td>
                     </tr>
                 </table>

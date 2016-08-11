@@ -42,13 +42,17 @@
     {% endblock %}
 
     {% block head_stylesheets %}
-        {# twitter bootstrap #}
-        <link href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
 
+        {# twitter #}
+        <link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}">
         {# Font-awesome #}
         <link rel="stylesheet" href="{% static "bower_components/font-awesome/css/font-awesome.min.css" %}">
 
         {# Main application theme #}
+        <!--
+        This theme override the Bootstrap Theme
+        */
+        -->
         <link rel="stylesheet" type="text/css" href="{% static "css/theme.css" %}"/>
 
         <link rel="stylesheet" href="{% static 'bower_components/highlightjs/styles/default.css' %}">
@@ -61,21 +65,22 @@
         {# Modernizr #}
         <script type="application/javascript" src="{% static "bower_components/modernizr/modernizr.js" %}"></script>
         <script   src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
-        <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
-        <!--
         <script language="JavaScript">
             (function () {
-                if (typeof $.fn.popover === 'undefined' && bootstrap_loaded === 'undefined'){
-                    var elementQueries = document.createElement('script')
-                    elementQueries.src = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
-                    elementQueries.integrity = 'sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa'
-                    elementQueries.crossOrigin = 'anonymous'
-                    document.body.appendChild(elementQueries)
-                    bootstrap_loaded == true
+                if (typeof $.fn.popover === 'undefined' && typeof bootstrap_loaded === 'undefined'){
+                    // Script du javascript pour le Bootstrap
+                    var bootstrapJS = document.createElement("script");
+                    // Le lien Css pour le bootstrap
+                    // Ajout des composantes pour le JS du Bootstrap
+                    bootstrapJS.src = "{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}";
+                    //bootstrapJS.integrity = 'sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa'
+                    //bootstrapJS.crossOrigin = 'anonymous'
+                    document.head.appendChild(bootstrapJS);
+                    bootstrap_loaded = true
                 }
+
             })();
         </script>
-        -->
     {% endblock %}
 </head>
 
