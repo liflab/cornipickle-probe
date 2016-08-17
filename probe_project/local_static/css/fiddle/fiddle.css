@@ -24,6 +24,17 @@
     text-align: center;
 }
 
+.editorContainer > button {
+    position: relative;
+    display: inline-block;
+}
+
+
+.fiddleEditor{
+    z-index: 10;
+    position: relative;
+}
+
 .editorDropupContainer {
     width: 200px;
     display: inline-block;
@@ -34,6 +45,7 @@
     position: relative;
     left: -50%;
     top: -20px;
+    z-index: -1;
 }
 
 .editorPropertyMetadata {

@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <link rel="stylesheet" href="{% static "css/fiddle/fiddle.css" %}">
 <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
 <script src="{% static "bower_components/jquery-ui/jquery-ui.js" %}"></script>
@@ -28,7 +29,7 @@
                 <table>
                     <tr>
                         <td>
-                            <span class="glyphicon glyphicon-ban-circle"></span>
+                            <span class="glyphicon glyphicon-ban-circle" style="color: red"></span>
                         </td>
                         <td>
                             <input class="form-control" type=text placeholder="Description of metadata"/>
@@ -36,10 +37,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="glyphicon glyphicon-registration-mark"></span>
+                            <span class="glyphicon glyphicon-registration-mark" style="color: green"></span>
                         </td>
                         <td>
-                            <input class="form-control" type=text placeholder="Category"/>
+                            <input class="form-control" type=text placeholder="Category" title="Category"/>
                         </td>
                     </tr>
                 </table>
@@ -47,6 +48,6 @@
         </div>
     </div>
     <div class="editorTextArea">
-        <textarea id="{{ id }}" class="editorContent form-control" rows="5" name="{{ name }}">{{ text }}</textarea>
+        <textarea id="{{ id }}" class="editorContent form-control" rows="10" name="{{ name }}">{{ text }}</textarea>
     </div>
 </div>
