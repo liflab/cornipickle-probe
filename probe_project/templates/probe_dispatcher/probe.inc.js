@@ -16,7 +16,6 @@
  */
 function loadScript(url, callback)
 {
-    console.log("loadScript");
     // Adding the script tag to the head as suggested before
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
