@@ -3,6 +3,12 @@
 {% load static %}
 {% load widget_tweaks %}
 
+{% block head_stylesheets %}
+
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/fiddle/fiddle.css" %}">
+
+{% endblock %}
 
 {% block content %}
     <form method="POST" action="">
@@ -44,5 +50,7 @@
 
 {% block footer_scripts %}
     {{ block.super }}
+    <script src="{% static "js/fiddle/button.js" %}"></script>
     <script src="{% static "js/fiddle/fiddle.js" %}"></script>
+    <
 {% endblock %}
