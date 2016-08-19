@@ -57,6 +57,19 @@ var Button = function (elementNaming) {
 
 };
 
+var editor;
+
+var CMInsertion = function(element) {
+    editor = CodeMirror.fromTextArea(element,{
+        lineNumbers:true,
+        mode: "javascript",
+        lineWrapping:true,
+        theme: "hopscotch"
+        // Nous devons Creer le highlight de Cornipickle et le mettre ici
+        // Nous devons télécharger notre propre codemirroir
+    });
+};
+
 
 $('body').on('click', ".editorYellowButton", function() {
     if(!open) {
@@ -80,15 +93,25 @@ $('body').on('click', ".editorYellowButton", function() {
 
 window.onload = function() {
     $(".fiddleEditor").each( function () {
-        var text = $(this)[0].firstElementChild.value;
-        var id = $(this)[0].firstElementChild.id;
-        var name = $(this)[0].firstElementChild.getAttribute("name");
-        $(".fiddleEditor").load("http://localhost:8000/fiddle/fiddleeditor",{"text":text, "id":id, "name":name});
+        var t = $(this)[0];
+        var text = t.firstElementChild.value;
+        var id = t.firstElementChild.id;
+        var name = t.firstElementChild.getAttribute("name");
 
-        var button = Button.Button("editorContainer");
+        $.ajax({
+            url: "http://localhost:8000/fiddle/fiddleeditor",
+            type: "POST",
+            data: {"text":text, "id":id, "name":name},
+            success: function(html) {
+                var h = document.createElement("div");
+                h.innerHTML = html;
+                t.firstElementChild.parentNode.replaceChild(h,t.firstElementChild);
+                var selector = "#" + id;
+                CMInsertion($(selector)[0]);
+            }
+        });
+        //var button = Button.Button("editorContainer");
     });
-
-
     
 };
 
