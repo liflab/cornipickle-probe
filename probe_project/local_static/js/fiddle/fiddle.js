@@ -37,19 +37,28 @@ var open = false;
  };
  */
 
-var editor;
+var ListOfEditors = [];
 
-var CMInsertion = function(element) {
-    editor = CodeMirror.fromTextArea(element,{
+var CodeMirrorEditor = function() {
+    this.m_editor = null;
+
+    this.insertion = function(element) {
+        this.m_editor = CodeMirror.fromTextArea(element,{
         lineNumbers:true,
         mode: "javascript",
         lineWrapping:true,
         theme: "hopscotch"
         // Nous devons Creer le highlight de Cornipickle et le mettre ici
         // Nous devons télécharger notre propre codemirroir
-    });
-};
+        });
 
+        this.m_editor.on("change", this.onChange);
+    }
+
+    this.onChange = function(codemirror, obj) {
+        console.log("EVENT");
+    };
+};
 
 $('body').on('click', ".editorYellowButton", function() {
     if(!open) {
@@ -69,6 +78,8 @@ $('body').on('click', ".editorYellowButton", function() {
         });
     }
 });
+
+
 
 
 window.onload = function() {
@@ -92,7 +103,9 @@ window.onload = function() {
                 h.innerHTML = html;
                 t.firstElementChild.parentNode.replaceChild(h,t.firstElementChild);
                 var selector = "#" + id;
-                CMInsertion($(selector)[0]);
+                var newEditor = new CodeMirrorEditor();
+                newEditor.insertion($(selector)[0]);
+                ListOfEditors.push(newEditor);
             }
         });
         //var button = Button.Button("editorContainer");
