@@ -4,6 +4,23 @@ var Button = function (elementNaming) {
 
     this.naming =  "";
 
+    this.textArea = "";
+
+
+    /*
+
+    State : 1
+        Un Editeur de texte qui n'est pas Codemirror
+
+    State : 2
+        Un Editeur de texte qui est Codemirror
+     */
+    this.state = 1;
+    
+    /*
+    Regarde si l'element est une Class ou un ID
+     */
+
     this.detectNaming = function(name) {
         if(typeof document.getElementsByClassName(name)[0] !== "undefined" ){
             this.naming = document.getElementsByClassName(name)[0];
@@ -16,9 +33,35 @@ var Button = function (elementNaming) {
         }
     };
 
+    /*
+    Ajoute le button à la page HTML
+     */
+
     this.addButton = function() {
         this.button.type = "button";
         this.naming.appendChild(this.button);
+    };
+
+    /*
+        Sauvegarde le text de l'ancien Editor a mettre dans l'instance de mirror
+     */
+    this.saveText = function(element){
+
+        var textAreaInstance = document.getElementsByTagName("textarea");
+
+        if (textAreaInstance.length === 1)
+            this.textArea = document.getElementsByTagName("textarea")[0];
+        else
+            this.textArea = document.getElementById(element);
+
+        // Ici l'editeur de text Change pour un CodeMirror
+    };
+
+    /*
+    Return le statut de l'object Buttons
+     */
+    this.getStatue = function() {
+        return this.state
     };
 
     /*
@@ -33,30 +76,31 @@ var Button = function (elementNaming) {
         console.log("Naming: "+this.naming +"\n button : "+ this.button + "\n");
     };
 
-    this.addFunctionOnClick = function(func) {
-        this.button.onclick = function () {
-            console.log("Button is Working !");
-            var editor = CodeMirror.fromTextArea(document.getElementById("id_code"), {
+    this.addFunctionOnClick = function(statut) {
+        this.button.onclick = function (statut) {
+
+            if (statut === 1 ){
+                /*
+                Ici l'interpreteur n'est pas encore  modifier (CodeMirror)
+                 */
+                var editor = CodeMirror.fromTextArea(document.getElementById("id_code"), {
                 lineNumbers: true,
-                mode: "javascript",
+                mode: "xml",
                 lineWrapping: true,
                 theme: "hopscotch"
                 // Nous devons Creer le highlight de Cornipickle et le mettre ici
                 // Nous devons télécharger notre propre codemirroir
-            });
-        };
-    }
+            }).setValue(this.naming);
 
-    this.changeMode = function(){
-        console.log("Button is Working !");
-        var editor = CodeMirror.fromTextArea(document.getElementById("id_code"),{
-            lineNumbers:true,
-            mode: "javascript",
-            lineWrapping:true,
-            theme: "hopscotch"
-            // Nous devons Creer le highlight de Cornipickle et le mettre ici
-            // Nous devons télécharger notre propre codemirroir
-        });
+                this.state = 2;
+            }
+
+            else if (this.state === 2){
+                console.log("do Nothing !")
+
+            }
+
+        };
     };
 
     this.detectNaming(elementNaming);

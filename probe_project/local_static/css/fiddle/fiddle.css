@@ -10,12 +10,13 @@
     -moz-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
     box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
     margin: 0 auto;
-    resize: vertical
+    resize: vertical;
 }
 
 .editorTextArea {
     position: relative;
     width: 100%;
+    text-align: left;
 }
 
 .editorContainer {
