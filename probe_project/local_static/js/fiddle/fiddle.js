@@ -64,7 +64,8 @@ window.onload = function() {
     button.addId("changeMode");
     button.addFunctionOnClick();
     button.addButton();
-/*
+    button.getInfo();
+    /*
     $(".fiddleEditor").each( function () {
         var text = $(this)[0].firstElementChild.value;
         var id = $(this)[0].firstElementChild.id;
