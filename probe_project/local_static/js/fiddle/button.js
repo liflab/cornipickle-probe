@@ -79,6 +79,9 @@ var Button = function (elementNaming) {
     this.addFunctionOnClick = function(statut) {
         this.button.onclick = function (statut) {
 
+            console.log("Patate");
+            console.log("Patate");
+
             if (statut === 1 ){
                 /*
                 Ici l'interpreteur n'est pas encore  modifier (CodeMirror)

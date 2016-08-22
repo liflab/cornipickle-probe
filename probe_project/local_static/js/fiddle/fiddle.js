@@ -45,7 +45,7 @@ var CodeMirrorEditor = function() {
     this.insertion = function(element) {
         this.m_editor = CodeMirror.fromTextArea(element,{
         lineNumbers:true,
-        mode: "javascript",
+        mode: "xml",
         lineWrapping:true,
         theme: "hopscotch"
         // Nous devons Creer le highlight de Cornipickle et le mettre ici
@@ -83,12 +83,6 @@ $('body').on('click', ".editorYellowButton", function() {
 
 
 window.onload = function() {
-    var button = new Button("fiddleEditor");
-
-    button.addId("changeMode");
-    button.addFunctionOnClick();
-    button.addButton();
-    button.getInfo();
     $(".fiddleEditor").each( function () {
         var t = $(this)[0];
         var text = t.firstElementChild.value;
@@ -106,6 +100,11 @@ window.onload = function() {
                 var selector = "#" + id;
                 var newEditor = new CodeMirrorEditor();
                 newEditor.insertion($(selector)[0]);
+
+                var button = new Button($(selector)[0].id);
+                button.addId("changeMode");
+                button.addFunctionOnClick();
+                button.addButton();
                 ListOfEditors.push(newEditor);
             }
         });
