@@ -25,24 +25,15 @@
     text-align: center;
 }
 
-div.fiddleEditor #changeMode {
-    position: absolute;
-    height: 25px;
-    width: 25px;
-    top: -10%;
+div.editorContainer div.btn-group.pull-right{
+    position:absolute;
+    top: -13%;
     right: 0;
-    background: red;
 }
 
-div #changeMode {
-    position: absolute;
-    height: 1000px;
-    width: 1000px;
-    top: -10%;
-    right: 0;
-    background: red;
+div.btn-group.pull-right button {
+    color: black;
 }
-
 
 .fiddleEditor{
     z-index: 10;
