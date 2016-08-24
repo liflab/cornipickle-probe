@@ -39,8 +39,10 @@ var open = false;
 
 var ListOfEditors = [];
 
-var CodeMirrorEditor = function() {
+var CodeMirrorEditor = function(id) {
     this.m_editor = null;
+
+    this.id = id;
 
     this.insertion = function(element) {
         this.m_editor = CodeMirror.fromTextArea(element,{
@@ -52,12 +54,29 @@ var CodeMirrorEditor = function() {
         // Nous devons télécharger notre propre codemirroir
         });
 
+        if(this.m_editor.getDoc().getValue() === "") {
+            var scroller = this.m_editor.getScrollerElement();
+            var elem = document.createElement("a");
+            this.m_editor.getDoc().replaceRange("<S>\n.",{line:0,ch:0},{line:0,ch:0});
+            var pos = this.m_editor.charCoords({line: 0, ch: 0}, "local");
+            var endPos = this.m_editor.charCoords({line:0,ch:3},"local");
+            elem.setAttribute("class", "startingrule rulebutton");
+            elem.setAttribute("style", "top:" + pos.top + "px;left:" + pos.left + "px;width:" + (endPos.left-pos.left) +
+                "px;height:20px;");
+            elem.setAttribute("token","<S>");
+            elem.setAttribute("editorid",this.id);
+            $(scroller).find(".CodeMirror-sizer").append(elem);
+        }
         this.m_editor.on("change", this.onChange);
     }
 
     this.onChange = function(codemirror, obj) {
         console.log("EVENT");
     };
+
+    this.ruleClicked = function(button) {
+        console.log("Rule " + button.attr("token") + " of editor " + button.attr("editorid") +  " was clicked!");
+    }
 };
 
 $('body').on('click', ".editorYellowButton", function() {
@@ -79,8 +98,10 @@ $('body').on('click', ".editorYellowButton", function() {
     }
 });
 
-
-
+$("body").on("click", ".rulebutton", function() {
+    var ed = ListOfEditors[$(this).attr("editorid")];
+    ed.ruleClicked($(this));
+});
 
 window.onload = function() {
     var button = new Button("fiddleEditor");
@@ -103,7 +124,7 @@ window.onload = function() {
                 h.innerHTML = html;
                 t.firstElementChild.parentNode.replaceChild(h,t.firstElementChild);
                 var selector = "#" + id;
-                var newEditor = new CodeMirrorEditor();
+                var newEditor = new CodeMirrorEditor(ListOfEditors.length);
                 newEditor.insertion($(selector)[0]);
                 ListOfEditors.push(newEditor);
             }
