@@ -132,4 +132,6 @@ Pour faire fonctionner Probe correctement il vous faudrait avoir un cornipickle 
 
 - [ ] Ajouter les couleurs au code de cornipickle
 - [ ] Fiddle
+- [ ] Traduire le Fichier cornipickle.bnf en Regex
+- [ ] Écrire le Fichier cornipickle.js pour pouvoir utilisé la syntaxe Cornipickle dans codemirror
 
