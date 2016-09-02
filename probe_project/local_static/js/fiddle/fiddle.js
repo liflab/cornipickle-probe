@@ -8,9 +8,8 @@ var CodeMirrorEditor = function() {
     this.insertion = function(element) {
         this.m_editor = CodeMirror.fromTextArea(element,{
             lineNumbers:true,
-            mode: "cornipickle",
-            lineWrapping:true,
-            theme: "rubyblue"
+            mode: "cornipickleSimple",
+            lineWrapping:true
             // Nous devons Creer le highlight de Cornipickle et le mettre ici
             // Nous devons télécharger notre propre codemirroir
         });
