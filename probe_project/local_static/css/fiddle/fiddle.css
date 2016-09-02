@@ -70,3 +70,18 @@ div.btn-group.pull-right button {
 .glyphicon {
     color: black;
 }
+
+a.startingrule {
+    background-color: rgb(255,150,150);
+    position: absolute;
+    color: blue;
+    border-style: dotted;
+    border-color: red;
+    z-index:2;
+    display: block;
+}
+
+a.rulebutton {
+    cursor: pointer;
+    cursor: hand;
+}

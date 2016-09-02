@@ -2,8 +2,10 @@ var open = false;
 
 var ListOfEditors = [];
 
-var CodeMirrorEditor = function() {
+var CodeMirrorEditor = function(id) {
     this.m_editor = null;
+
+    this.m_id = id;
 
     this.insertion = function(element) {
         this.m_editor = CodeMirror.fromTextArea(element,{
@@ -14,6 +16,25 @@ var CodeMirrorEditor = function() {
             // Nous devons télécharger notre propre codemirroir
         });
 
+        if(this.m_editor.getDoc().getValue() === "") {
+            this.m_editor.setOption("theme","rubyblue");
+            $("#codeMirrorInstance"+this.m_id).find(".cornipicklebutton").addClass("active");
+            var scroller = this.m_editor.getScrollerElement();
+            var elem = document.createElement("a");
+            this.m_editor.getDoc().replaceRange("<S>\n.",{line:0,ch:0},{line:0,ch:0});
+            var pos = this.m_editor.charCoords({line: 0, ch: 0}, "local");
+            var endPos = this.m_editor.charCoords({line:0,ch:3},"local");
+            elem.setAttribute("class", "startingrule rulebutton");
+            elem.setAttribute("style", "top:" + pos.top + "px;left:" + pos.left + "px;width:" + (endPos.left-pos.left) +
+                "px;height:20px;");
+            elem.setAttribute("token","<S>");
+            elem.setAttribute("editorid",this.m_id);
+            $(scroller).find(".CodeMirror-sizer").append(elem);
+        }
+        else {
+            this.m_editor.setOption("theme","hopscotch");
+            $("#codeMirrorInstance"+this.m_id).find(".rawbutton").addClass("active");
+        }
         this.m_editor.on("change", this.onChange);
     };
 
@@ -21,9 +42,8 @@ var CodeMirrorEditor = function() {
         console.log("EVENT");
     };
 
-    this.restore = function() {
-        var restore = this.m_editor.getTextArea();
-        this.insertion(restore);
+    this.ruleClicked = function(button) {
+        console.log("Rule " + button.attr("token") + " of editor " + button.attr("editorid") +  " was clicked!");
     }
 };
 
@@ -46,8 +66,10 @@ $('body').on('click', ".editorYellowButton", function() {
     }
 });
 
-
-
+$("body").on("click", ".rulebutton", function() {
+    var ed = ListOfEditors[$(this).attr("editorid")];
+    ed.ruleClicked($(this));
+});
 
 window.onload = function() {
     $(".fiddleEditor").each( function () {
@@ -67,19 +89,19 @@ window.onload = function() {
                 h.innerHTML = html;
                 t.firstElementChild.parentNode.replaceChild(h,t.firstElementChild);
                 var selector = "#" + id;
-                var newEditor = new CodeMirrorEditor();
+                var newEditor = new CodeMirrorEditor(count);
                 newEditor.insertion($(selector)[0]);
 
                 $(".rawbutton").click(function () {
                     newEditor.m_editor.setOption("theme","hopscotch");
-                    $(this).prop('disabled',true);
-                    $(".cornipickleButton").prop('disabled',false)
+                    $(this).addClass("active");
+                    $(this).parent().children(".cornipicklebutton").removeClass("active");
                 });
 
-                $(".cornipickleButton").click(function () {
+                $(".cornipicklebutton").click(function () {
                     newEditor.m_editor.setOption("theme","rubyblue");
-                    $(".rawbutton").prop('disabled',false);
-                    $(this).prop('disabled',true);
+                    $(this).addClass("active");
+                    $(this).parent().children(".rawbutton").removeClass("active");
 
                 });
                 ListOfEditors.push(newEditor);
