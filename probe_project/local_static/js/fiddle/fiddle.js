@@ -12,12 +12,9 @@ var CodeMirrorEditor = function(id) {
             lineNumbers:true,
             mode: "cornipickleSimple",
             lineWrapping:true
-            // Nous devons Creer le highlight de Cornipickle et le mettre ici
-            // Nous devons télécharger notre propre codemirroir
         });
 
         if(this.m_editor.getDoc().getValue() === "") {
-            this.m_editor.setOption("theme","rubyblue");
             $("#codeMirrorInstance"+this.m_id).find(".cornipicklebutton").addClass("active");
             var scroller = this.m_editor.getScrollerElement();
             var elem = document.createElement("a");
