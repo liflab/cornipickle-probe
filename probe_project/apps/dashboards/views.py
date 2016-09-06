@@ -15,7 +15,7 @@ from probe_project.apps.dashboards.signals import cornipickle_verdict_false
 from user_agents import parse
 
 
-from django.http.response import Http404, JsonResponse
+from django.http.response import Http404
 import requests
 
 @csrf_exempt
