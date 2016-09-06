@@ -1,6 +1,8 @@
 var open = false;
 
-var ListOfEditors = [];
+var ListOfEditors = {};
+
+var Grammar = {};
 
 var CodeMirrorEditor = function(id) {
     this.m_editor = null;
@@ -39,13 +41,21 @@ var CodeMirrorEditor = function(id) {
         this.m_editor.on("change", this.onChange);
     };
 
+    this.displayRuleToolbar = function(button) {
+        var editorelem = $("codeMirrorInstance"+this.m_id).find(".ruletoolbar")[0];
+
+
+
+        editorelem.style.display = "inline-block";
+    };
+
     this.onChange = function(codemirror, obj) {
         console.log("EVENT");
     };
 
     this.ruleClicked = function(button) {
-        console.log("Rule " + button.attr("token") + " of editor " + button.attr("editorid") +  " was clicked!");
-    }
+        this.displayRuleToolbar(button);
+    };
 };
 
 $('body').on('click', ".editorYellowButton", function() {
@@ -69,7 +79,7 @@ $('body').on('click', ".editorYellowButton", function() {
 
 $("body").on("click", ".rulebutton", function() {
     var ed = ListOfEditors[$(this).attr("editorid")];
-    ed.ruleClicked($(this));
+    ed.ruleClicked($(this)[0]);
 });
 
 window.onload = function() {
@@ -105,10 +115,18 @@ window.onload = function() {
                     $(this).parent().children(".rawbutton").removeClass("active");
 
                 });
-                ListOfEditors.push(newEditor);
+                ListOfEditors[count] = newEditor;
             }
         });
         count++;
+    });
+
+    $.ajax({
+        url: "http://localhost:8000/fiddle/getgrammar",
+        type: "GET",
+        success: function(response) {
+            Grammar = response;
+        }
     });
 };
 
