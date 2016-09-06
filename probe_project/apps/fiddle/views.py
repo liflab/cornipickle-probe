@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
 import requests
+import json
 
 # Create your views here.
 
@@ -12,6 +13,7 @@ def fiddle_editor(request):
 
 @csrf_exempt
 def get_grammar(request):
-    r = requests.post(url="http://localhost:11019/image/", data=request.POST.copy());
+    data = json.dumps(request.POST.copy())
+    r = requests.post(url="http://localhost:11019/fiddle/", data=data)
     response = HttpResponse(r.content, content_type="application/json")
     return response
