@@ -116,7 +116,8 @@ window.onload = function() {
 
     $.ajax({
         url: "http://localhost:8000/fiddle/getgrammar",
-        type: "GET",
+        type: "POST",
+        data: {"action":"getgrammar"},
         success: function(response) {
             Grammar = response;
         }
