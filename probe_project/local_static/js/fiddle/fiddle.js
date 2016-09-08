@@ -38,11 +38,8 @@ var CodeMirrorEditor = function(id) {
     };
 
     this.displayRuleToolbar = function(button) {
-        var editorelem = $("codeMirrorInstance"+this.m_id).find(".ruletoolbar")[0];
-
-
-
-        editorelem.style.display = "inline-block";
+        var editorelem = $("#codeMirrorInstance"+this.m_id).find(".ruletoolbar")[0];
+        editorelem.style.display = "block";
     };
 
     this.onChange = function(codemirror, obj) {
