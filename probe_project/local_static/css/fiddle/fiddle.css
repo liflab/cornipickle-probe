@@ -102,11 +102,10 @@ a.rulebutton {
     cursor: pointer;
     cursor: hand;
 }
-
 .ruletoolbar {
     width: 100%;
     position: relative;
-    display: None;
+    display: none;
     margin: 0;
     background-color: #1F4661;
     border-color: #1F4661;
@@ -114,11 +113,11 @@ a.rulebutton {
 }
 
 .terminal {
-    display: None;
+    display: none;
 }
 
 .nonterminal {
-    display: None;
+    display: none;
 }
 
 .options {

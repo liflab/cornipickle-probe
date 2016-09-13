@@ -14,11 +14,8 @@ var CodeMirrorEditor = function(id) {
     this.insertion = function(element) {
         this.m_editor = CodeMirror.fromTextArea(element,{
             lineNumbers:true,
-            mode: "cornipickle",
-            lineWrapping:true,
-            theme: "none"
-            // Nous devons Creer le highlight de Cornipickle et le mettre ici
-            // Nous devons télécharger notre propre codemirroir
+            mode: "cornipickleSimple",
+            lineWrapping:true
         });
 
         if(this.m_editor.getDoc().getValue() === "") {
