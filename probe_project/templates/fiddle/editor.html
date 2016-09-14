@@ -52,10 +52,18 @@
             </div>
         </div>
     </div>
-    <div class="ruletoolbar">
-        <select class="form-control">
-        </select>
-    </div>
+    <nav class="ruletoolbar navbar navbar-default">
+        <div class="nonterminal navbar-form">
+            <select class="form-control options">
+            </select>
+            <button type="button" class="btn btn-default submitnonterminalbutton">Add</button>
+        </div>
+        <div class="terminal navbar-form">
+            <label class="labelterminal" for="stringinput">Regex: </label>
+            <input type="text" class="form-control terminaltextarea">
+            <button type="button" class="btn btn-default submitterminalbutton">Add</button>
+        </div>
+    </nav>
     <div class="editorTextArea">
         <textarea id="{{ id }}" class="editorContent form-control" rows="10" name="{{ name }}">{{ text }}</textarea>
     </div>
