@@ -1,26 +1,20 @@
 /*
-*   J'ai désidé de faire un module CornipickleSimple pour l'éditeur
-*
-*   Pourquoi je n'ai pas modifier le Bower_component ?
-*
-*       Les gens n'avait pas acces a mon bower_component local. J'aurais pu faire un fork du Projet codemirror et enregistrer
-*       un nouveau module bower. Il aurait fallu que quelqu'un gère le projet. Cette option serait p-t fiable plus tard
-* */
+ *   J'ai désidé de faire un module CornipickleSimple pour l'éditeur
+ *
+ *   Pourquoi je n'ai pas modifier le Bower_component ?
+ *
+ *       Les gens n'avait pas acces a mon bower_component local. J'aurais pu faire un fork du Projet codemirror et enregistrer
+ *       un nouveau module bower. Il aurait fallu que quelqu'un gère le projet. Cette option serait p-t fiable plus tard
+ * */
 
 
 /**
  * Created by daehli on 24/08/16.
  */
 
-(function(mod) {
-    if (typeof exports == "object" && typeof module == "object") // CommonJS
-        mod(require("../../../../bower_components/codemirror/lib/codemirror"));
-    else if (typeof define == "function" && define.amd) // AMD
-        define(["../../../../bower_components/codemirror/lib/codemirror"], mod);
-    else // Plain browser env
-        mod(CodeMirror);
-})(function(CodeMirror) {
-    "use strict";
+require(["../../../../../local_static/bower_components/codemirror/lib/codemirror",
+    "../../../../../local_static/bower_components/codemirror/addon/mode/simple"],function(CodeMirror){
+
 
     CodeMirror.defineSimpleMode("cornipickleSimple", {
         // The start state contains the rules that are initially used
@@ -51,8 +45,9 @@
             {regex:/^\$[\w\d]+/,token:"variable-cornipickle"}, // Notre variable
             {regex: /[-+\/*=<>!]+/, token: "operator"},
             // indent and dedent properties guide autoindentation
-            {regex: /[\(]/, indent: true},
-            {regex: /[\)]/, dedent: true},
+            {regex: /[\(]/,token: "braket-cornipickle"},
+            {regex: /[\)]/,token: "braket-cornipickle"},
+            {regex: /[\a]/,token:"a"},
             {regex: /[a-z$][\w$]*/, token: "variable"},
             // You can embed other modes with the mode property. This rule
             // causes all code between << and >> to be highlighted with the XML
@@ -91,6 +86,8 @@
             lineComment: "//"
         }
     });
-})
+
+});
+
 
 // https://regex101.com/r/mW1bF2/1 (comment)
