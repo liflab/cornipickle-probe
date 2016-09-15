@@ -71,36 +71,18 @@ div.btn-group.pull-right button {
     color: black;
 }
 
-a.startingrule {
-    background-color: rgb(255,150,150);
+a.rulebutton {
+    cursor: pointer;
+    cursor: hand;
+    background-color: rgb(255, 96, 114);
     position: absolute;
     border-style: dotted;
     border-color: red;
     z-index:2;
     display: block;
-}
-
-a.pred_pattern {
-    background-color: rgb(93, 99, 255);
-    position: absolute;
-    border-style: dotted;
-    border-color: blue;
-    z-index:2;
-    display: block;
-}
-
-a.statement {
-    background-color: rgb(109, 255, 112);
-    position: absolute;
-    border-style: dotted;
-    border-color: green;
-    z-index:2;
-    display: block;
-}
-
-a.rulebutton {
-    cursor: pointer;
-    cursor: hand;
+    text-align: center;
+    color: white;
+    text-decoration: none;
 }
 .ruletoolbar {
     width: 100%;
