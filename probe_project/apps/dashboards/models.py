@@ -24,7 +24,7 @@ class Datum(models.Model):
     probeId = models.ForeignKey(Probe)
     httpReferer = models.CharField(max_length=255)
     """
-        Comment est former le User-Agents
+        Comment est former de User-Agents
 
         Mozilla/[version] ([system and browser information]) [platform] ([platform details]) [extensions]
     """
