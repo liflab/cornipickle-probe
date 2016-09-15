@@ -114,7 +114,7 @@ var CodeMirrorEditor = function(id) {
             var openparindex = rule[0].indexOf("(");
             if(openparindex !== -1) {
                 var endparindex = rule[0].indexOf(")");
-                rule[0] = rule[0].slice(0,openparindex+1) + "\n\t" + rule[0].slice(openparindex+2,endparindex-1) + "\n" +
+                rule[0] = rule[0].slice(0,openparindex+1) + "\n" + rule[0].slice(openparindex+2,endparindex-1) + "\n" +
                         rule[0].slice(endparindex,endparindex+1);
             }
             var startIndex = parseInt(this.m_editor.getDoc().indexFromPos({line:parseInt(this.m_ruletoolbar.attr("linecoord")),
