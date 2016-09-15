@@ -21,21 +21,9 @@ var CodeMirrorEditor = function(id) {
         if(this.m_editor.getDoc().getValue() === "") {
             this.m_editor.setOption("theme","rubyblue");
             $("#codeMirrorInstance"+this.m_id).find(".cornipicklebutton").addClass("active");
-            var scroller = this.m_editor.getScrollerElement();
-            var elem = document.createElement("a");
             this.m_editor.getDoc().replaceRange("<S>\n.",{line:0,ch:0},{line:0,ch:0});
-            var pos = this.m_editor.charCoords({line: 0, ch: 0}, "local");
-            var endPos = this.m_editor.charCoords({line:0,ch:2},"local");
-            elem.setAttribute("class", "startingrule rulebutton");
-            elem.setAttribute("style", "top:" + pos.top + "px;left:" + pos.left + "px;width:" + (endPos.right-pos.left) +
-                "px;height:20px;");
-            elem.setAttribute("token","<S>");
-            elem.setAttribute("editorid",this.m_id);
-            elem.setAttribute("linecoord",0);
-            elem.setAttribute("chcoord",0);
-            elem.setAttribute("linecoordend",0);
-            elem.setAttribute("chcoordend",2);
-            $(scroller).find(".CodeMirror-sizer").append(elem);
+            this.createRuleButton($(this.m_editor.getScrollerElement()).find(".CodeMirror-sizer"),"S",{line:0,ch:0},
+                {line:0,ch:2});
         }
         else {
             this.m_editor.setOption("theme","hopscotch");
@@ -47,7 +35,9 @@ var CodeMirrorEditor = function(id) {
     };
 
     this.displayRuleToolbar = function(button) {
-        this.m_ruletoolbar.attr("token",button.attr("token"));
+        var token = button.attr("token");
+        this.m_ruletoolbar.attr("token",token);
+        this.m_ruletoolbar.find(".toolbarlabel").html(token.substring(1,token.length-1));
         if(button.attr("token") === "<var_name>" ||
             button.attr("token") === "<css_sel_part>" ||
             button.attr("token") === "<number>" ||
@@ -61,7 +51,7 @@ var CodeMirrorEditor = function(id) {
         else {
             var righthand = Grammar[button.attr("token")];
             for(i = 0; i < righthand.length; i++) {
-                var righthandstring = righthand[i].substring(1,righthand[i].length-1);
+                var righthandstring = righthand[i].replace(new RegExp("<", "g"),"&lt;").replace(new RegExp(">", "g"),'&gt;');
                 this.m_ruletoolbar.find(".options").append("<option value=\""+righthandstring+"\">"+righthandstring+"</option>");
             }
             this.m_ruletoolbar.find(".terminal").css("display","none");
@@ -83,7 +73,7 @@ var CodeMirrorEditor = function(id) {
     };
 
     this.onChange = function(codemirror, obj) {
-        console.log("EVENT");
+
     };
 
     this.ruleClicked = function(button) {
@@ -102,7 +92,6 @@ var CodeMirrorEditor = function(id) {
 
     this.nonTerminalButtonClicked = function(button) {
         var rulename = this.m_ruletoolbar.find(".options").val();
-        rulename = "<" + rulename + ">";
         var rule = Grammar[rulename];
         if(rule.length > 1) {
             this.m_editor.getDoc().replaceRange(rulename,{line:parseInt(this.m_ruletoolbar.attr("linecoord")),
@@ -112,7 +101,8 @@ var CodeMirrorEditor = function(id) {
         else {
             var content = this.m_editor.getDoc().getValue();
             var openparindex = rule[0].indexOf("(");
-            if(openparindex !== -1) {
+            if(openparindex !== -1 && rulename !== "<css_selector>" && rulename !== "<add>" && rulename !== "<sub>" &&
+                rulename !== "<mult>" && rulename !== "<div>") {
                 var endparindex = rule[0].indexOf(")");
                 rule[0] = rule[0].slice(0,openparindex+1) + "\n" + rule[0].slice(openparindex+2,endparindex-1) + "\n" +
                         rule[0].slice(endparindex,endparindex+1);
@@ -148,15 +138,16 @@ var CodeMirrorEditor = function(id) {
         var endCoords = this.m_editor.charCoords(posEnd,"local");
 
         var elem = document.createElement("a");
-        elem.setAttribute("class",  token + " rulebutton");
+        elem.setAttribute("class", "rulebutton");
         elem.setAttribute("style", "top:" + startCoords.top + "px;left:" + startCoords.left + "px;width:" +
-            (endCoords.right-startCoords.left) + "px;height:20px;");
+            (endCoords.right-startCoords.left) + "px;height:25px;");
         elem.setAttribute("token", "<"+token+">");
         elem.setAttribute("editorid",this.m_id);
         elem.setAttribute("linecoord",posStart.line);
         elem.setAttribute("chcoord",posStart.ch);
         elem.setAttribute("linecoordend",posEnd.line);
         elem.setAttribute("chcoordend",posEnd.ch);
+        elem.innerHTML = token;
         sizer.append(elem);
     };
 };
