@@ -5,7 +5,7 @@
 
 {% block head_stylesheets %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static "modules/codemirror/lib/codemirror.css" %}">
+    <link rel="stylesheet" href="{% static "bower_components/codemirror/lib/codemirror.css" %}">
     <link rel="stylesheet" href="{% static "bower_components/codemirror/theme/hopscotch.css" %}">
     <link rel="stylesheet" href="{% static "bower_components/codemirror/theme/rubyblue.css" %}">
 {% endblock %}
@@ -52,7 +52,6 @@
     {{ block.super }}
     <script src="{% static "bower_components/codemirror/lib/codemirror.js" %}"></script>
     <script src="{% static "bower_components/codemirror/addon/mode/simple.js" %}"></script>
-    <script src="{% static "bower_components/codemirror/mode/cornipickle/cornipickleSimple.js" %}"></script>
     <script src="{% static "modules/codemirror/mode/cornipickle/cornipickleSimple.js"%}"></script>
     <script src="{% static "js/fiddle/fiddle.js" %}"></script>
 {% endblock %}
