@@ -21,6 +21,7 @@ static
 
 bin/
 lib/
+!local_static/modules/codemirror/lib/
 tests/
 doc/
 tests/
