@@ -1,8 +1,6 @@
-@import "../../../bower_components/codemirror/lib/codemirror.css";
-
-.cm-s-default .cm-braket-cornipickle {color: red;}
-.cm-s-default .cm-css-selector {color: #e09;}
-.cm-s-default .cm-variable-cornipickle {color: green;}
-.cm-s-default .cm-jQuery {color: #886622;}
-.cm-s-default .cm-keyword-cornipickle {color: #44f;}
-.cm-s-default .cm-a {color: yellow;}
+.cm-s-default .cm-braket-cornipickle {color: red !important;}
+.cm-s-default .cm-css-selector {color: #e09 !important;}
+.cm-s-default .cm-variable-cornipickle {color: green !important;}
+.cm-s-default .cm-jQuery {color: #886622 !important;}
+.cm-s-default .cm-keyword-cornipickle {color: #44f !important;}
+.cm-s-default .cm-a {color: yellow !important;}

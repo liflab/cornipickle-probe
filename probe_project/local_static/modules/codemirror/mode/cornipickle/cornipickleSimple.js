@@ -12,11 +12,19 @@
  * Created by daehli on 24/08/16.
  */
 
-require(["../../../../../local_static/bower_components/codemirror/lib/codemirror",
-    "../../../../../local_static/bower_components/codemirror/addon/mode/simple"],function(CodeMirror){
+require.config({
+    packages: [{
+        name: "codemirror",
+        location: "/static/bower_components/codemirror",
+        main: "lib/codemirror"
+    }]
+});
 
+require(["codemirror",
+    "codemirror/addon/mode/simple"],function (CodeMirror) {
 
     CodeMirror.defineSimpleMode("cornipickleSimple", {
+        // The start state contains the rules that are initially used
         // The start state contains the rules that are initially used
         start: [
             // The regex matches the token, the token property contains the type
@@ -38,17 +46,16 @@ require(["../../../../../local_static/bower_components/codemirror/lib/codemirror
             {regex: /"{3}/, token: "comment", next: "comment"},
             {regex: /(?:we say that|We say that)\b/, token: "keyword", next:"variable"},
             {regex: /(?:such that)\b/, token: "keyword"},
-            {regex: /(?:For each|for each|there exists|There exists|When|when|let|Let)\b/, token: "keyword", next:"statement"},
+            {regex:/ in /,token:"keyword",next:"setname"},
+            {regex: /(?:For each|for each|there exists|There exists|When|when|let|Let|The media query|applies|is now|be)\b/, token: "keyword"},
             {regex: /(?:And|If|Or|Then|Always|Not|Never|Next|Eventually|Eventually within|seconds|The next time|equals)\b/, token: "keyword"},
             {regex: /(?:is|greater than|less than|matches)\b/, token: "keyword-cornipickle"},
             {regex: /(\'s)\s(?:nodeValue|value|height|width|top|left|right|bottom|color|id|text|background|border|event|cornipickleid|display|size|accesskey|checked|disabled|min)\b/, token: "css-selector"},
             {regex:/^\$[\w\d]+/,token:"variable-cornipickle"}, // Notre variable
             {regex: /[-+\/*=<>!]+/, token: "operator"},
             // indent and dedent properties guide autoindentation
-            {regex: /[\(]/,token: "braket-cornipickle"},
-            {regex: /[\)]/,token: "braket-cornipickle"},
-            {regex: /[\a]/,token:"a"},
-            {regex: /[a-z$][\w$]*/, token: "variable"},
+            {regex: /[\(]/, indent: true},
+            {regex: /[\)]/, dedent: true},
             // You can embed other modes with the mode property. This rule
             // causes all code between << and >> to be highlighted with the XML
             // mode.
@@ -68,13 +75,7 @@ require(["../../../../../local_static/bower_components/codemirror/lib/codemirror
             {regex:/^\$[\w\d]+/,token:"variable-cornipickle"},
             {regex:/when/,token:"keyword",next:"start"}
         ],
-        statement: [
-            // <foreach>
-            {regex:/^\$[\w\d]+/,token:"variable-cornipickle"},
-            {regex:/in/,token:"keyword",next:"setname"},
-            {regex:/is now/,token:"keyword",next:"start"},
-            {regex:/be/,token:"keyword",next:"start"}
-        ],
+
         setname: [
             // <set_name> css Selector
             {regex:/\$\(([^\)]*)\)/,token:"jQuery",next:"start"},
@@ -86,8 +87,6 @@ require(["../../../../../local_static/bower_components/codemirror/lib/codemirror
             lineComment: "//"
         }
     });
-
-});
-
+})
 
 // https://regex101.com/r/mW1bF2/1 (comment)
