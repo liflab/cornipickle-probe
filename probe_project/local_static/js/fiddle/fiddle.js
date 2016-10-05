@@ -31,6 +31,7 @@ require(["codemirror"],function (CodeMirror) {
 
             if (this.m_editor.getDoc().getValue() === "") {
                 this.m_editor.setOption("theme", "rubyblue default");
+                this.m_editor.doc.cantEdit = true;
                 $("#codeMirrorInstance" + this.m_id).find(".cornipicklebutton").addClass("active");
                 this.m_editor.getDoc().replaceRange("<S>\n.", {line: 0, ch: 0}, {line: 0, ch: 0});
                 this.createRuleButton($(this.m_editor.getScrollerElement()).find(".CodeMirror-sizer"), "S", {
@@ -40,7 +41,8 @@ require(["codemirror"],function (CodeMirror) {
                     {line: 0, ch: 2});
             }
             else {
-                this.m_editor.setOption("theme", "hopscotch default");
+                this.m_editor.setOption("theme", "default");
+                this.m_editor.doc.cantEdit = false;
                 $("#codeMirrorInstance" + this.m_id).find(".rawbutton").addClass("active");
             }
             this.m_editor.on("change", this.onChange);
@@ -234,12 +236,16 @@ require(["codemirror"],function (CodeMirror) {
                         newEditor.insertion($(selector)[0]);
 
                         $(".rawbutton").click(function () {
-                            newEditor.m_editor.setOption("theme", "hopscotch default");
+                            $(".rulebutton").css("visibility","hidden");
+                            newEditor.m_editor.doc.cantEdit = false;
+                            newEditor.m_editor.setOption("theme", "default");
                             $(this).addClass("active");
                             $(this).parent().children(".cornipicklebutton").removeClass("active");
                         });
 
                         $(".cornipicklebutton").click(function () {
+                            $(".rulebutton").css("visibility","visible");
+                            newEditor.m_editor.doc.cantEdit = true;
                             newEditor.m_editor.setOption("theme", "rubyblue default");
                             $(this).addClass("active");
                             $(this).parent().children(".rawbutton").removeClass("active");
