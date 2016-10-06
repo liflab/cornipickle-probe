@@ -6,6 +6,67 @@ require.config({
     }]
 });
 
+var waitForCodeMirrorCss = function(){
+    var cssCodeMirrorMap = {};
+    cssCodeMirrorMap["codeMirrorBase"] = false;
+    cssCodeMirrorMap["corniColors"] = false;
+    cssCodeMirrorMap["fiddle"] = false;
+    cssCodeMirrorMap["theme"] = false;
+
+    var stylesheets = [];
+    var begin = 0;
+    var rules = [];
+    var initialTime = new Date().getTime();
+    do {
+        stylesheets = document.styleSheets;
+        for(var i = begin; i < stylesheets.length; i++) {
+            if (stylesheets.cssRules) {                    // Browser uses cssRules?
+                rules = stylesheets[i].cssRules;         // Yes --Mozilla Style
+            } else {                                      // Browser usses rules?
+                rules = stylesheets[i].rules;            // Yes IE style.
+            }
+
+            var found = "";
+
+            for(var j = 0; j < rules.length; j++) {
+                if(!cssCodeMirrorMap["codeMirrorBase"]) {
+                    if(rules[j].selectorText && rules[j].selectorText === ".CodeMirror") {
+                        found = "codeMirrorBase";
+                        break;
+                    }
+                }
+                if(!cssCodeMirrorMap["corniColors"]) {
+                    if(rules[j].selectorText && rules[j].selectorText === ".cm-s-default .cm-braket-cornipickle") {
+                        found = "corniColors";
+                        break;
+                    }
+                }
+                if(!cssCodeMirrorMap["fiddle"]) {
+                    if(rules[j].selectorText && rules[j].selectorText === ".editorContent") {
+                        found = "fiddle";
+                        break;
+                    }
+                }
+                if(!cssCodeMirrorMap["theme"]) {
+                    if(rules[j].selectorText && rules[j].selectorText === ".cm-s-rubyblue.CodeMirror") {
+                        found = "theme";
+                        break;
+                    }
+                }
+            }
+
+            if(found !== "") {
+                cssCodeMirrorMap[found] = true;
+            }
+            begin++;
+        }
+        //if(new Date().getTime() - initialTime > 5000) {
+        //    console.log("Couldn't load every css files for codemirror");
+        //    break;
+        //}
+    }while(!(cssCodeMirrorMap["codeMirrorBase"] && cssCodeMirrorMap["corniColors"] && cssCodeMirrorMap["fiddle"] && cssCodeMirrorMap["theme"]));
+};
+
 //Require JS
 require(["codemirror"],function (CodeMirror) {
     var open = false;
@@ -229,32 +290,31 @@ require(["codemirror"],function (CodeMirror) {
                 success: function (html) {
                     var h = document.createElement("div");
                     h.id = "codeMirrorInstance" + count; // Je donne ici un Id a un nouvelle élément
-                    $(h).html(html).promise().done(function(){
-                        t.firstElementChild.parentNode.replaceChild(h, t.firstElementChild);
-                        var selector = "#" + id;
-                        var newEditor = new CodeMirrorEditor(count);
-                        newEditor.insertion($(selector)[0]);
+                    h.innerHTML = html;
+                    $(t).children().first().replaceWith($(h));
+                    waitForCodeMirrorCss();
+                    var selector = "#" + id;
+                    var newEditor = new CodeMirrorEditor(count);
+                    newEditor.insertion($(selector)[0]);
 
-                        $(".rawbutton").click(function () {
-                            $(".rulebutton").css("visibility","hidden");
-                            newEditor.m_editor.doc.cantEdit = false;
-                            newEditor.m_editor.setOption("theme", "default");
-                            $(this).addClass("active");
-                            $(this).parent().children(".cornipicklebutton").removeClass("active");
-                        });
-
-                        $(".cornipicklebutton").click(function () {
-                            $(".rulebutton").css("visibility","visible");
-                            newEditor.m_editor.doc.cantEdit = true;
-                            newEditor.m_editor.setOption("theme", "rubyblue default");
-                            $(this).addClass("active");
-                            $(this).parent().children(".rawbutton").removeClass("active");
-
-                        });
-                        ListOfEditors[count] = newEditor;
-                        count++;
+                    $(".rawbutton").click(function () {
+                        $(".rulebutton").css("visibility","hidden");
+                        newEditor.m_editor.doc.cantEdit = false;
+                        newEditor.m_editor.setOption("theme", "default");
+                        $(this).addClass("active");
+                        $(this).parent().children(".cornipicklebutton").removeClass("active");
                     });
 
+                    $(".cornipicklebutton").click(function () {
+                        $(".rulebutton").css("visibility","visible");
+                        newEditor.m_editor.doc.cantEdit = true;
+                        newEditor.m_editor.setOption("theme", "rubyblue default");
+                        $(this).addClass("active");
+                        $(this).parent().children(".rawbutton").removeClass("active");
+
+                    });
+                    ListOfEditors[count] = newEditor;
+                    count++;
                 }
             });
         });
