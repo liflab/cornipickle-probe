@@ -134,4 +134,6 @@ Pour faire fonctionner Probe correctement il vous faudrait avoir un cornipickle 
 - [ ] Fiddle
 - [X] Traduire le Fichier cornipickle.bnf en Regex
 - [X] Écrire le Fichier cornipickle.js pour pouvoir utilisé la syntaxe Cornipickle dans codemirror
+- [ ] Autocomplète pour notre éditeur de texte
+- [ ] S'assurer que l'éditeur de texte détecte les éléments BNF de Cornipickle (e.g <S>,<var_name>)
 
