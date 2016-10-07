@@ -1,5 +1,9 @@
 {% load i18n %}
-<div class="panel">
+{% if sensor.is_valid %}
+    <div class="panel parseValid">
+{% else %}
+    <div class="panel parseInvalid">
+{% endif %}
     <div class="pull-right">
         <a href="{% url 'sensor_edit' sensor_id=sensor.id %}" class="btn btn-default "><i class="fa fa-pencil"></i> {% trans 'Edit' %}</a>
         <a href="{% url 'sensor_delete' sensor_id=sensor.id %}" class="btn btn-default "><i class="fa fa-trash"></i> {% trans 'Delete' %}</a>

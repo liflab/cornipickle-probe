@@ -1,5 +1,9 @@
 {% load i18n %}
-<div class="panel">
+{% if probe.checkValidity %}
+    <div class="panel parseValid">
+{% else %}
+    <div class="panel parseInvalid">
+{% endif %}
     <div class="pull-right">
         <a href="{% url 'probe_edit' probe_id=probe.id %}" class="btn btn-default "><i class="fa fa-pencil"></i> {% trans 'Edit' %}</a>
         <a href="{% url 'probe_delete' probe_id=probe.id %}" class="btn btn-default "><i class="fa fa-trash"></i> {% trans 'Delete' %}</a>

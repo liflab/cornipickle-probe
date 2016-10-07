@@ -328,7 +328,13 @@ footer {
   margin-bottom: 1rem;
 }
 
+.parseValid {
+  background: rgba(0, 255, 0, 0.11);
+}
 
+.parseInvalid {
+  background: rgba(255, 0, 0, 0.11);
+}
 /**/
 
 /*# sourceMappingURL=theme.css.map */

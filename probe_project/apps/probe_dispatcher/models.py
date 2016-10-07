@@ -7,14 +7,10 @@ from django.utils.translation import ugettext as _
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
-import subprocess
 import requests
 import urllib
 import jsonfield
-import time
 import json
 
 
@@ -29,6 +25,13 @@ class Sensor(models.Model):
         verbose_name=_("Code"),
         default="",
         help_text=_("Code in the Cornipickle language"),
+    )
+
+    is_valid = models.BooleanField(
+        verbose_name=_("Code validity"),
+        default=False,
+        help_text=_("Code validity"),
+        editable=False
     )
 
     user = models.ForeignKey(
@@ -55,6 +58,16 @@ class Sensor(models.Model):
             raise ValueError(output)
 
         self.delete()
+
+    def check_syntax(self):
+        data = json.dumps({"action":"parse","code":self.code})
+        r = requests.post(url="http://localhost:11019/fiddle/", data=urllib.quote_plus(data))
+        r = r.json()
+        return r["isValid"]
+
+    def save(self,*args,**kwargs):
+        self.is_valid = self.check_syntax() == "true"
+        super(Sensor, self).save(*args, **kwargs)
 
 
 class Probe(models.Model):
@@ -140,7 +153,19 @@ class Probe(models.Model):
             text = text + sensor.code + "\n\n"
         text = urllib.quote_plus(text)
         r = requests.post(url, data=text)
-        self.tags_attributes_interpreter = r.json()
+        if r.status_code == 200:
+            self.tags_attributes_interpreter = r.json()
+        else:
+            self.tags_attributes_interpreter = {'tagnames': '', 'attributes': '', 'interpreter': ''}
+            self.is_enabled = False
+
+    def checkValidity(self):
+        valid = True
+        for sensor in self.sensors.all():
+            if not sensor.is_valid:
+                valid = False
+                break
+        return valid
 
     # makes the url clickable in the admin table
     def clickable_probe_url(self):
