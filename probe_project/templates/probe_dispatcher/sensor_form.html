@@ -44,5 +44,5 @@
 {% block footer_scripts %}
     {{ block.super }}
     <script src="{% static "modules/codemirror/mode/cornipickle/cornipickleSimple.js" %}"></script>
-    <script src="{% static "js/fiddle/fiddle.js" %}"></script>
+    <script src="{% url 'fiddle_js' %}"></script>
 {% endblock %}

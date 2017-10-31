@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 require.config({
     packages: [{
         name: "codemirror",
@@ -10,7 +12,7 @@ require.config({
 require(["codemirror"],function (CodeMirror) {
     var open = false;
 
-    var ListOfEditors = {};
+    var ListOfEditors = [];
 
     var Grammar = {};
 
@@ -207,21 +209,22 @@ require(["codemirror"],function (CodeMirror) {
     });
 
     $("body").on("click", ".rulebutton", function () {
-        var ed = ListOfEditors[$(this).attr("editorid")];
+        var ed = ListOfEditors[parseInt($(this).attr("editorid"))];
         ed.ruleClicked($(this));
     });
 
     $("body").on("click", ".submitterminalbutton", function () {
-        var ed = ListOfEditors[$(this).closest(".ruletoolbar").attr("editorid")];
+        var ed = ListOfEditors[parseInt($(this).closest(".ruletoolbar").attr("editorid"))];
         ed.terminalButtonClicked($(this));
     });
 
     $("body").on("click", ".submitnonterminalbutton", function () {
-        var ed = ListOfEditors[$(this).closest(".ruletoolbar").attr("editorid")];
+        var ed = ListOfEditors[parseInt($(this).closest(".ruletoolbar").attr("editorid"))];
         ed.nonTerminalButtonClicked($(this));
     });
 
     var codeMirrorBaseCSSLoaded = function() {
+        console.log("codemirrorbasecssloaded");
         Stylesheets["codeMirrorBase"] = true;
         if(Stylesheets["codeMirrorBase"] && Stylesheets["theme"] && Stylesheets["corniColors"] && Stylesheets["fiddle"]) {
             for(var i = 0; i < ListOfEditors.length; i++) {
@@ -231,6 +234,7 @@ require(["codemirror"],function (CodeMirror) {
     };
 
     var fiddleCSSLoaded = function() {
+        console.log("fiddleloaded");
         Stylesheets["fiddle"] = true;
         if(Stylesheets["codeMirrorBase"] && Stylesheets["theme"] && Stylesheets["corniColors"] && Stylesheets["fiddle"]) {
             for(var i = 0; i < ListOfEditors.length; i++) {
@@ -240,6 +244,7 @@ require(["codemirror"],function (CodeMirror) {
     };
 
     var themeCSSLoaded = function() {
+        console.log("themeloaded");
         Stylesheets["theme"] = true;
         if(Stylesheets["codeMirrorBase"] && Stylesheets["theme"] && Stylesheets["corniColors"] && Stylesheets["fiddle"]) {
             for(var i = 0; i < ListOfEditors.length; i++) {
@@ -249,6 +254,7 @@ require(["codemirror"],function (CodeMirror) {
     };
 
     var corniColorsCSSLoaded = function() {
+        console.log("cornicolorsloaded");
         Stylesheets["corniColors"] = true;
         if(Stylesheets["codeMirrorBase"] && Stylesheets["theme"] && Stylesheets["corniColors"] && Stylesheets["fiddle"]) {
             for(var i = 0; i < ListOfEditors.length; i++) {
@@ -258,6 +264,7 @@ require(["codemirror"],function (CodeMirror) {
     };
 
     var allCSSLoaded = function(editor) {
+        console.log("allcssloaded");
         var selector = "#" + editor.m_selectorid;
         editor.insertion($(selector)[0]);
 
@@ -278,17 +285,47 @@ require(["codemirror"],function (CodeMirror) {
         });
     };
 
-    var insertStylesheets() = function() {
-        var link = document.createElement('link');
-        link.setAttribute("rel", "stylesheet");
-        link.setAttribute("type", "text/css");
-        link.onload = function(){ CSSDone(); }
-        link.setAttribute("href", 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
-        document.getElementsByTagName("head")[0].appendChild(link);
+    var insertStylesheets = function() {
+        var link1 = document.createElement('link');
+        link1.setAttribute("rel", "stylesheet");
+        link1.setAttribute("type", "text/css");
+        link1.onload = function(){ codeMirrorBaseCSSLoaded(); }
+        link1.setAttribute("href", "{% static "bower_components/codemirror/lib/codemirror.css" %}");
+        document.getElementsByTagName("head")[0].appendChild(link1);
+
+        var link2 = document.createElement('link');
+        link2.setAttribute("rel", "stylesheet");
+        link2.setAttribute("type", "text/css");
+        link2.onload = function(){ fiddleCSSLoaded(); }
+        link2.setAttribute("href", "{% static "css/fiddle/fiddle.css" %}");
+        document.getElementsByTagName("head")[0].appendChild(link2);
+
+        var link3 = document.createElement('link');
+        link3.setAttribute("rel", "stylesheet");
+        link3.setAttribute("type", "text/css");
+        link3.onload = function(){ themeCSSLoaded(); }
+        link3.setAttribute("href", "{% static "bower_components/codemirror/theme/rubyblue.css" %}");
+        document.getElementsByTagName("head")[0].appendChild(link3);
+
+        var link4 = document.createElement('link');
+        link4.setAttribute("rel", "stylesheet");
+        link4.setAttribute("type", "text/css");
+        link4.onload = function(){ corniColorsCSSLoaded(); }
+        link4.setAttribute("href", "{% static "modules/codemirror/lib/codemirror.css" %}");
+        document.getElementsByTagName("head")[0].appendChild(link4);
+    };
+
+    var checkStylesheetsLoaded = function(newEditor) {
+        console.log("check");
+        if(Stylesheets["codeMirrorBase"] && Stylesheets["theme"] && Stylesheets["corniColors"] && Stylesheets["fiddle"]) {
+            allCSSLoaded(newEditor);
+        }
+        else{
+            setTimeout(checkStylesheetsLoaded(newEditor),1000);
+        }
     };
 
     window.onload = function () {
-        insertStylesheets();
         $(".fiddleEditor").each(function () {
             var count = 0;
             var t = $(this)[0];
@@ -297,26 +334,24 @@ require(["codemirror"],function (CodeMirror) {
             var name = t.firstElementChild.getAttribute("name");
 
             $.ajax({
-                url: "http://localhost:8000/fiddle/fiddleeditor",
+                url: "{% url 'fiddle_editor' %}",
                 type: "POST",
                 data: {"text": text, "id": id, "name": name},
                 success: function (html) {
+                    insertStylesheets();
                     var h = document.createElement("div");
                     h.id = "codeMirrorInstance" + count; // Je donne ici un Id a un nouvelle élément
                     h.innerHTML = html;
                     $(t).children().first().replaceWith($(h));
                     var newEditor = new CodeMirrorEditor(count,id);
                     ListOfEditors[count] = newEditor;
-                    if(Stylesheets["codeMirrorBase"] && Stylesheets["theme"] && Stylesheets["corniColors"] && Stylesheets["fiddle"]) {
-                        allCSSLoaded(newEditor);
-                    }
                     count++;
                 }
             });
         });
 
         $.ajax({
-            url: "http://localhost:8000/fiddle/getgrammar",
+            url: "{% url 'get_grammar' %}",
             type: "POST",
             data: {"action": "getgrammar"},
             success: function (response) {

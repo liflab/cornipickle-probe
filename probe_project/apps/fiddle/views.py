@@ -17,3 +17,7 @@ def get_grammar(request):
     r = requests.post(url="http://localhost:11019/fiddle/", data=data)
     response = HttpResponse(r.content, content_type="application/json")
     return response
+
+@csrf_exempt
+def fiddle_js(request):
+    return render_to_response("fiddle/fiddle.js", RequestContext(request))

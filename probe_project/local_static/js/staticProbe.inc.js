@@ -331,8 +331,12 @@ Cornipickle.CornipickleProbe = function()
 		// Un-highlight previously highlighted elements
 		Cornipickle.CornipickleProbe.unHighlightElements();
 		// Serialize page contents
+        var begin = Date.now();
 		var json = cp_probe.serializePageContents(document.body, [], event);
 		json = cp_probe.serializeWindow(json);
+        var mil_elapsed = Date.now() - begin;
+        var min_elapsed = mil_elapsed / 1000 / 60;
+        console.log(min_elapsed);
 		var url = "http://" + this.server_name + "/image/";
 		xhttp = new XMLHttpRequest();
 		xhttp.open("POST", url, true);
