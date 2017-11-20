@@ -48,6 +48,8 @@ var dynamicProbe = function()
         cp_probe.setProbeId( "{{ id }}" );
         cp_probe.setProbeHash( "{{ hash }}" );
         document.getElementById("cp-witness").innerHTML = "{% include 'probe_dispatcher/witness.inc.html' %}";
+
+        cp_probe.preEvaluate();
     }, 500);
 };
 

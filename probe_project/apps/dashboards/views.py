@@ -39,7 +39,7 @@ def image(request):
         probeId = postDict["id"]
         current_probe = get_object_or_404(Probe, pk=probeId)
         if current_probe.hash != postDict["hash"] or current_probe.tags_attributes_interpreter["interpreter"] == '':
-            messages.error(request,_("Vérifier si l'interpréteur Cornipickle fonctionne sur votre site. Il ce peut"
+            messages.error(request,_("Vérifier si l'interpréteur Cornipickle fonctionne sur votre site. Il se peut"
                                      "qui vous ayez fait des modifications à votre sonde sans changer le script sur votre"
                                      "page web."))
             raise Http404(messages)
@@ -47,6 +47,27 @@ def image(request):
         r = requests.post(url="http://localhost:11019/image/", data=postDict)
         response = HttpResponse(r.content, content_type="application/json")
         # Signal ici
+        return response
+
+@csrf_exempt
+def preevaluate(request):
+    postDict = request.POST.copy()
+    if "interpreter" in postDict:
+        r = requests.post(url="http://localhost:11019/preevaluate/", data=postDict)
+        if r.status_code == 200:
+            response = HttpResponse(r.content, content_type="application/json")
+            return response
+    else:
+        probeId = postDict["id"]
+        current_probe = get_object_or_404(Probe, pk=probeId)
+        if current_probe.hash != postDict["hash"] or current_probe.tags_attributes_interpreter["interpreter"] == '':
+            messages.error(request,_("Vérifier si l'interpréteur Cornipickle fonctionne sur votre site. Il se peut"
+                                     "qui vous ayez fait des modifications à votre sonde sans changer le script sur votre"
+                                     "page web."))
+            raise Http404(messages)
+        postDict["interpreter"] = current_probe.tags_attributes_interpreter["interpreter"]
+        r = requests.post(url="http://localhost:11019/preevaluate/", data=postDict)
+        response = HttpResponse(r.content, content_type="application/json")
         return response
 
 

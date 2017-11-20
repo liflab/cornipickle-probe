@@ -16,7 +16,9 @@ urlpatterns = patterns(
     url(r'^dashboards/', include('probe_project.apps.dashboards.urls')),
     url(r'^fiddle/', include('probe_project.apps.fiddle.urls')),
 
-    url(r'^image/$', 'probe_project.apps.dashboards.views.image', name="image"),
+    url(r'^image/$', 'probe_project.apps.dashboards.views.image', name='image'),
+
+    url(r'^preevaluate/$', 'probe_project.apps.dashboards.views.image', name='preevaluate'),
 
     # probe file url
     url(r'^p/(?P<probe_id>\d+)_(?P<probe_hash>[0-9a-fA-F]{40}).js$',

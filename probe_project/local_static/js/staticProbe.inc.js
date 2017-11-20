@@ -35,6 +35,11 @@ Cornipickle.CornipickleProbe = function()
 	 */
 	this.probe_hash = "";
 
+	/*
+	 * The last page that was serialized (without a click yet)
+	 */
+	this.m_lastPage = {};
+
 
 	/**
 	 * Sets the attributes to include in the JSON
@@ -119,7 +124,7 @@ Cornipickle.CornipickleProbe = function()
 		var current_path = path;
 		current_path.push(n.tagName);
 		var out = {};
-		if (this.includeInResult(n, path) === Cornipickle.CornipickleProbe.INCLUDE || n === event.target)
+		if (this.includeInResult(n, path) === Cornipickle.CornipickleProbe.INCLUDE || (event !== null && n === event))
 		{
 			if (n.tagName)
 			{
@@ -146,7 +151,7 @@ Cornipickle.CornipickleProbe = function()
 				out = this.addIfDefined(out, "disabled", Cornipickle.CornipickleProbe.formatBool(n.disabled));
 				out = this.addIfDefined(out, "accesskey", n.accessKey);
 				out = this.addIfDefined(out, "min", n.min);
-				if (n === event.target)
+				if (event !== null && n === event.target)
 				{
 					out.event = this.serializeEvent(event);
 				}
@@ -175,8 +180,10 @@ Cornipickle.CornipickleProbe = function()
 			}
 			else
 			{
+				this.registerNewElement(n.parentElement);
 				out.tagname = "CDATA";
 				out.text = n.nodeValue;
+				out.cornipickleid = n.parentElement.cornipickleid;
 				return out;
 			}
 		}
@@ -226,7 +233,7 @@ Cornipickle.CornipickleProbe = function()
 		}
 		if (!n.tagName) // This is a text node
 		{
-			if (n.nodeValue.trim() === "")
+			if (n.nodeValue.trim() === "" || n.nodeType == 8) //8 is a comment tag
 			{
 				// Don't include nodes containing only whitespace
 				return Cornipickle.CornipickleProbe.DONT_INCLUDE_RECURSIVE;
@@ -236,10 +243,34 @@ Cornipickle.CornipickleProbe = function()
 				return Cornipickle.CornipickleProbe.INCLUDE;
 			}
 		}
+		if(n.tagName.toLowerCase() === "svg" || n.tagName.toLowerCase() === "script")
+		{
+			return DONT_INCLUDE_RECURSIVE;
+		}
 		for (var i = 0; i < this.m_tagsToInclude.length; i++)
 		{
 			var part = this.m_tagsToInclude[i];
 			if (this.matchesSelector(part, n))
+			{
+				return Cornipickle.CornipickleProbe.INCLUDE;
+			}
+			else if(this.m_tagsToInclude[i] == "CDATA")
+			{
+				return this.checkIfDirectChildIsTextNode(n);
+			}
+			else if(this.m_tagsToInclude[i] == "*")
+			{
+				return Cornipickle.CornipickleProbe.INCLUDE;
+			}
+		}
+		return Cornipickle.CornipickleProbe.DONT_INCLUDE;
+	};
+
+	this.checkIfDirectChildIsTextNode = function(n)
+	{
+		for(var i = 0; i < n.childNodes.length; i++)
+		{
+			if(!n.childNodes[i].tagName)
 			{
 				return Cornipickle.CornipickleProbe.INCLUDE;
 			}
@@ -253,7 +284,7 @@ Cornipickle.CornipickleProbe = function()
 	 */
 	this.matchesSelector = function(selector, n)
 	{
-		var pat = new RegExp("([\\w\\d]+){0,1}(\\.([\\w\\d]+)){0,1}(#([\\w\\d]+)){0,1}");
+		var pat = new RegExp("([\\w\\d]+){0,1}(\\.([\\w\\d-]+)){0,1}(#([\\w\\d-]+)){0,1}");
 		var mat = pat.exec(selector);
 		var tag_name = mat[1];
 		var class_name = mat[3];
@@ -291,13 +322,46 @@ Cornipickle.CornipickleProbe = function()
 	{
 		return {
 			"tagname" : "window",
-			"width" : window.innerWidth,
-			"height" : window.innerHeight,
+			"URL" : window.location.host + window.location.pathname,
+			"aspect-ratio" : window.document.documentElement.clientWidth / window.document.documentElement.clientHeight,
+			"orientation" : Cornipickle.get_orientation(),
+			"width" : window.document.documentElement.clientWidth,
+			"height" : window.document.documentElement.clientHeight,
+			"scroll-width" : window.document.documentElement.scrollWidth,
+			"scroll-height" : window.document.documentElement.scrollHeight,
 			"device-width" : window.screen.availWidth,
 			"device-height" : window.screen.availHeight,
+			"device-aspect-ratio" : window.screen.availWidth / window.screen.availHeight,
+			"mediaqueries" : cp_probe.serializeMediaQueries(),
 			"children" : [ page_contents ]
 		};
 	};
+
+	this.serializeMediaQueries = function()
+	{
+		var out = {};
+		for (var i = 0; i < this.m_attributesToInclude.length; i++)
+		{
+			var att = this.m_attributesToInclude[i];
+			var indexOfUnderscore = att.indexOf("_");
+			var query = "";
+			var id = -1;
+			if(indexOfUnderscore != -1)
+			{
+				id = att.substring(0,indexOfUnderscore);
+				query = att.substring(indexOfUnderscore + 1, att.length);
+				if(window.matchMedia(query).matches)
+				{
+					out[id] = "true";
+				}
+				else
+				{
+					out[id] = "false";
+				}
+			}
+		}
+		return out;
+	}
 
 	this.serializeEvent = function(event)
 	{
@@ -324,6 +388,47 @@ Cornipickle.CornipickleProbe = function()
 		return event.type;
 	};
 
+	this.preEvaluate = function()
+	{
+		console.log("preEvaluation");
+		Cornipickle.CornipickleProbe.updateTransmitIcon(true);
+		// Un-highlight previously highlighted elements
+		Cornipickle.CornipickleProbe.unHighlightElements();
+		// Serialize page contents
+		var json = cp_probe.serializeWindow(cp_probe.serializePageContents(document.body, [], null));
+
+		var url = "http://" + this.server_name + "/preevaluate/";
+		xhttp = new XMLHttpRequest();
+		xhttp.open("POST", url, true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.onreadystatechange = function () {
+		    var DONE = this.DONE || 4;
+		    if (this.readyState === DONE){
+		    	Cornipickle.CornipickleProbe.handleResponse(this.responseText);
+		    }
+		};
+		toSend = "contents=" + encodeURIComponent(JSON.stringify(json, Cornipickle.escape_json_string));
+
+		var cpProbeProbeHash = sessionStorage.getItem(cp_probe.probe_hash);
+
+		if( cpProbeProbeHash != null )
+		{
+			toSend += "&interpreter=" + encodeURIComponent(cpProbeProbeHash);
+		}
+
+		if(this.probe_id != "")
+		{
+			toSend += "&id=" + this.probe_id;
+		}
+
+		if(this.probe_hash != "")
+		{
+			toSend += "&hash=" + this.probe_hash;
+		}
+		xhttp.send(toSend);
+
+	};
+
 	this.handleEvent = function(event)
 	{
 		console.log("Click");
@@ -331,12 +436,8 @@ Cornipickle.CornipickleProbe = function()
 		// Un-highlight previously highlighted elements
 		Cornipickle.CornipickleProbe.unHighlightElements();
 		// Serialize page contents
-        var begin = Date.now();
-		var json = cp_probe.serializePageContents(document.body, [], event);
-		json = cp_probe.serializeWindow(json);
-        var mil_elapsed = Date.now() - begin;
-        var min_elapsed = mil_elapsed / 1000 / 60;
-        console.log(min_elapsed);
+		var json = cp_probe.serializeWindow(cp_probe.serializePageContents(document.body, [], event));
+
 		var url = "http://" + this.server_name + "/image/";
 		xhttp = new XMLHttpRequest();
 		xhttp.open("POST", url, true);
@@ -353,7 +454,7 @@ Cornipickle.CornipickleProbe = function()
 
 		if( cpProbeProbeHash != null )
 		{
-			toSend += "&interpreter=" + encodeURIComponent(sessionStorage.getItem(cp_probe.probe_hash));
+			toSend += "&interpreter=" + encodeURIComponent(cpProbeProbeHash);
 		}
 
 		if(this.probe_id != "")
@@ -375,12 +476,18 @@ Cornipickle.CornipickleProbe = function()
 		{
 			return;
 		}
-		n.cornipickleid = Cornipickle.CornipickleProbe.elementCounter;
-		this.m_idMap[Cornipickle.CornipickleProbe.elementCounter] = {
+		var currentId = parseInt(sessionStorage.getItem(this.probe_hash+"ElementCounter"));
+		if(!currentId)
+		{
+			sessionStorage.setItem(this.probe_hash+"ElementCounter", 0);
+			currentId = 0;
+		}
+		n.cornipickleid = currentId;
+		this.m_idMap[currentId] = {
 			"element" : n,
 			"style" : {}
 		};
-		Cornipickle.CornipickleProbe.elementCounter++;
+		sessionStorage.setItem(this.probe_hash+"ElementCounter", currentId + 1);
 	};
 };
 
@@ -453,7 +560,12 @@ Cornipickle.CornipickleProbe.handleResponse = function(response)
 	// eval is evil, but we can't assume JSON.parse is available
 	eval("var response = " + decodeURI(response)); // jshint ignore:line
 
-	sessionStorage.setItem(cp_probe.probe_hash,response.interpreter);
+	if(!(response.interpreter === ""))
+	{
+		sessionStorage.setItem(cp_probe.probe_hash,response.interpreter);
+		console.log("interpreter wasn't empty");
+	}
+
 	document.getElementById("cp-image").src = response["image"];
 	if (response["global-verdict"] === "TRUE")
 	{
@@ -488,12 +600,16 @@ Cornipickle.CornipickleProbe.handleResponse = function(response)
 		in_html += "\">" + response["highlight-ids"][i].caption + "</div>";
 		document.getElementById("bp_witness_explanation").innerHTML = in_html;
 	}
+
 	Cornipickle.CornipickleProbe.updateTransmitIcon(false);
 };
 
 Cornipickle.CornipickleProbe.unHighlightElements = function()
 {
-	document.getElementById("cp-highlight").innerHTML = "";
+	if(document.getElementById("cp-highlight"))
+	{
+		document.getElementById("cp-highlight").innerHTML = "";
+	}
 };
 
 /**
@@ -503,6 +619,10 @@ Cornipickle.CornipickleProbe.highlightElement = function(id, tuple_id)
 {
 	console.log("Highlight");
 	var el = cp_probe.m_idMap[id].element;
+	if(!el.tagName)
+	{
+		el = el.parentElement;
+	}
 	var offset = Cornipickle.cumulativeOffset(el);
 	var in_html = document.getElementById("cp-highlight").innerHTML;
 	in_html += "<div class=\"cp-highlight-zone\" ";
@@ -514,6 +634,7 @@ Cornipickle.CornipickleProbe.highlightElement = function(id, tuple_id)
 	in_html += "</div>";
 	document.getElementById("cp-highlight").innerHTML = in_html;
 };
+
 
 /**
  * Creates a style string for an element's border.
@@ -562,12 +683,6 @@ Cornipickle.CornipickleProbe.setValue = function(elem)
  * processes the cookie before the server has had the time to update it
  */
 Cornipickle.CornipickleProbe.refreshDelay = 500;
-
-/**
- * A global counter to give a unique ID to every element
- * encountered and reported back to the server
- */
-Cornipickle.CornipickleProbe.elementCounter = 0;
 
 /**
  * Whether highlighted elements are let mouse events through
@@ -753,6 +868,19 @@ Cornipickle.remove_units = function(s)
 
 };
 
+// http://stackoverflow.com/a/9824480
+Cornipickle.get_orientation = function()
+{
+	switch(window.orientation)
+    {
+      case -90:
+      case 90:
+        return "landscape";
+      default:
+        return "portrait";
+    }
+}
+
 /*
  * Replaces the window.onload() function
  * it allows us not to change the webpage's html code
@@ -778,14 +906,11 @@ function loadFunction() {
             // If we clicked on the probe status panel, do nothing
             return;
         }
-        // Wait .25 sec, so that the browser has time to process the click
+        cp_probe.handleEvent(event);
         window.setTimeout(function() {
-            cp_probe.handleEvent(event);
-        }, 0.25);
+        	cp_probe.preEvaluate();
+        }, 500);
     };
-
-	// Call the probe a first time at startup
-	//window.setTimeout(cp_probe.handleEvent(event), 0.25);
 }
 
 var addFunctionOnWindowLoad = function(callback){
