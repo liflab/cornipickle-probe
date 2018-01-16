@@ -325,7 +325,7 @@ msgstr "Vous n'avez pas encore de sonde, créez-en une maintenant!"
 
 #: probe_project/templates/probe_dispatcher/sensors.html:13
 msgid "Create a new sensor"
-msgstr "Créer un nouveau capteur"
+msgstr "Créer un nouveau capteurs"
 
 #: probe_project/templates/userena/activate_fail.html:4
 #: probe_project/templates/userena/activate_retry.html:6
