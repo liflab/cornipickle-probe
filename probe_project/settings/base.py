@@ -20,7 +20,7 @@ TEMPLATE_DEBUG = DEBUG
 
 SECRET_KEY = 'f&amp;qqn^!buj-m7*g0g1za8-+g3u+le9hpmktng(yp*1^-z+'
 
-# in database, 1 points to localhost:8000, 2 points to webprobe.io
+# in database, 1 points to 127.0.0.1:8000, 2 points to probe.cornipickle.org
 # redefined in production.py
 SITE_ID = 1
 

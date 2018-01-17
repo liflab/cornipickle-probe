@@ -107,7 +107,7 @@ def sensor_form(request, sensor_id=None):
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
-            return HttpResponseRedirect(reverse(sensor_detail, args=(instance.id,)))
+            return HttpResponseRedirect(reverse(sensor_detail, args=(instance.user.id,)))
         else:
             return render_to_response("probe_dispatcher/sensor_form.html", RequestContext(request, {'form': form, }))
     else:

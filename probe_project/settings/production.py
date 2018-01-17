@@ -6,7 +6,7 @@ from probe_project.settings.base import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 
-SITE_ID = 2  # webprobe.io
+SITE_ID = 2  # probe.cornipickle.org
 
 VAR_ROOT = '/home/django/www/probe_project'
 MEDIA_ROOT = os.path.join(VAR_ROOT, 'uploads')
